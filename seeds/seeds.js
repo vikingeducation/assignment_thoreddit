@@ -1,7 +1,6 @@
 var faker = require('faker');
 var voca = require('voca');
 
-
 const MULTIPLIER = 1;
 
 function randomTitle(type) {
@@ -19,8 +18,6 @@ function randomTitle(type) {
 
 module.exports = () => {
 
-
-
     // ----------------------------------------
     // Create Users
     // ----------------------------------------
@@ -36,6 +33,9 @@ module.exports = () => {
         users.push(user);
     }
 
+    // ----------------------------------------
+    // Create Posts
+    // ----------------------------------------
     console.log('Creating Posts');
     var posts = [];
     for (let i = 1; i < MULTIPLIER * 50; i++) {
@@ -48,7 +48,9 @@ module.exports = () => {
         posts.push(post);
     }
 
-
+    // ----------------------------------------
+    // Create Comments
+    // ----------------------------------------
     console.log('Creating Comments');
     var comments = [];
     for (let i = 1; i < MULTIPLIER * 50; i++) {
@@ -58,30 +60,22 @@ module.exports = () => {
             title: randomTitle('books'),
             body: randomTitle('books'),
             author: author._id,
-            parent: post._id,
+            parent: post._id
         });
-        Commentable.findByIdAndUpdate(
-            post.id, {
-                $push: {
-                    comments: comment._id
-                }
-            }).then(comments.push(comment));
-
+        post.comments.push(comment);
+        comments.push(comment);
     }
-
 
     // ----------------------------------------
     // Finish
     // ----------------------------------------
     console.log('Saving...');
 
-
     var promises = [];
     [
         users,
         posts,
         comments
-        // Other models...
     ].forEach((collection) => {
         collection.forEach((model) => {
             promises.push(model.save());

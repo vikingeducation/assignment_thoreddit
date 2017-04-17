@@ -10,8 +10,10 @@ var UserSchema = new Schema({
     timestamps: true
 });
 
-// Create the model with a defined schema
 
+
+
+// Create the model with a defined schema
 let User = mongoose.model('User', UserSchema);
 
 module.exports = User;
