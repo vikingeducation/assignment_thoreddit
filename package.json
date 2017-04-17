@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "seed": "node seeds/index.js"
+    "seed": "node seeds/index.js",
+    "c": "node repl.js"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
