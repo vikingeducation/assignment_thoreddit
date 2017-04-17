@@ -7,16 +7,6 @@ var mongoose = require("mongoose");
 
 //var app = express();
 
-router.get("/", function(req, res) {
-  // invoked when localhost:3000 is visited
-  if (req.session.currentUser) {
-    // to send user to logged page if already signed in on different browser tab, per the specification
-    res.send("Hello Theoreddit!");
-  } else {
-    res.redirect("/login");
-  }
-});
-
 router.get("/login", (req, res) => {
   if (req.session.currentUser) {
     // to prevent unauthorized direct access to the 'logged' private page
