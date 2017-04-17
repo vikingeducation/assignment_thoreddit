@@ -30,8 +30,12 @@
             <h3>{{ comment.name }}</h3>
             <h4>Score: {{ comment.score }}</h4>
             <p>{{comment.body}}</p>
+            <p><a href="comment/{{comment.id}}">comment</a></p>
           </div>
         </li>
+        {{#each comments.arr as |other|}}
+          <p>{{other.body}}</p>
+        {{/each}}
       {{/each}}
     </ol>
   </div>
