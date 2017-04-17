@@ -81,19 +81,19 @@ app.use((req, res, next) => {
 // ----------------------------------------
 // Mongoose
 // ----------------------------------------
-var mongoose = require("mongoose");
-app.use((req, res, next) => {
-  if (mongoose.connection.readyState) {
-    next();
-  } else {
-    require("./mongo")(req).then(() => next());
-  }
-});
+// var mongoose = require("mongoose");
+// app.use((req, res, next) => {
+//   if (mongoose.connection.readyState) {
+//     next();
+//   } else {
+//     require("./mongo")(req).then(() => next());
+//   }
+// });
 
 // ----------------------------------------
 // Routes
 // ----------------------------------------
-var sessionsRouter = require("./routers/sessions")(app);
+var sessionsRouter = require("./routers/sessions");
 app.use("/", sessionsRouter);
 
 // var usersRouter = require('./routers/users');
