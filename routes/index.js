@@ -7,20 +7,18 @@ var router = express.Router();
 
 
 router.get('/', function(req, res, next) {
-
+  res.render('index', {title: 'Thoreddit'})
 });
 
 router.get('/login', function(req, res, next) {
-
-    res.render('login', {
-        title: 'Express'
-    });
+  res.render('login', {
+      title: 'Express'
+  });
 });
 router.post('/login', function(req, res, next) {
-
-    res.render('login', {
-        title: 'Express'
-    });
+  res.render('login', {
+      title: 'Express'
+  });
 });
 
 // router.get('/logout', function(req, res, next) {
