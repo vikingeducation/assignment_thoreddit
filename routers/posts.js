@@ -39,13 +39,13 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  Post.findOne({ id: req.params.id })
+  Post.findOne({ _id: req.params.id })
     .populate({
-      path: "comments author score",
+      path: "comments author",
       populate: {
-        path: "comments author score",
+        path: "comments author",
         populate: {
-          path: "author score"
+          path: "author"
         }
       }
     })

@@ -1,18 +1,18 @@
 <header class="page-header">
   <h1>{{ post.title }} </h1>
-  <h3>{{ post.author }}</h3>
+  <h3>{{ post.author.username }}</h3>
   <p>{{ post.body }}</p>
   <a href="#"> Comment</a>
   <hr>
 </header>
 <div>
   {{#each post.comments as |comment| }}
-    {{comment.author}} &nbsp said:
+    {{comment.author.username}} said:
     <br>
     {{comment.body}}
     <a href="#"> Comment</a>
     {{#each comment.comments as |nestedComment| }}
-      {{nestedComment.author}} &nbsp said:
+      {{nestedComment.author}} said:
       <br>
       {{nestedComment.body}}
       <a href="#"> Comment</a>

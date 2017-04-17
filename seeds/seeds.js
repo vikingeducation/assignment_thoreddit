@@ -46,9 +46,9 @@ module.exports = () => {
   function randomUserIndex() {
     return Math.floor(Math.random() * users.length);
   }
-  function randomCommentIndex() {
-    return Math.floor(Math.random() * comments.length) + 2;
-  }
+  // function randomCommentIndex() {
+  //   return Math.floor(Math.random() * comments.length) + 2;
+  // }
 
   // --------------------------------------------
   // Comments
@@ -76,7 +76,7 @@ module.exports = () => {
       body: randomText(),
       score: randomRating(),
       author: users[randomUserIndex()],
-      comments: [comments[randomCommentIndex()], comments[randomCommentIndex()]]
+      comments: [comments[2], comments[3]]
     });
     posts.push(post);
   }
