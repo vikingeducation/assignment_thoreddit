@@ -112,8 +112,11 @@ app.use((req, res, next) => {
 //  Include routes
 var index = require('./routes/index');
 var sessions = require('./routes/sessions');
+var posts = require('./routes/posts');
+app.use('/posts', posts);
 app.use('/', index);
 app.use('/', sessions);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
