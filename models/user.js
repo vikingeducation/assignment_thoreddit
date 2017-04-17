@@ -2,11 +2,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
-  firstName: String,
-  lastName: String,
-  email: String,
+    firstName: String,
+    lastName: String,
+    username: String,
+    email: String,
 }, {
-  timestamps: true
+    timestamps: true
 });
 
 // Create the model with a defined schema

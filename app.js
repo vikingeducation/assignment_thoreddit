@@ -34,9 +34,9 @@ var sess = {
     cookie: {},
     resave: false,
     saveUninitialized: true
-}
+};
 
-app.use(session(sess))
+app.use(session(sess));
 app.use(function(req, res, next) {
     var reqUrl = url.parse(req.url);
     if (!req.session.currentUser &&
@@ -49,6 +49,57 @@ app.use(function(req, res, next) {
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+// Set up logging with Morgan
+var morgan = require('morgan');
+app.use(morgan('tiny'));
+app.use((req, res, next) => {
+    ['query', 'params', 'body'].forEach((key) => {
+        if (req[key]) {
+            var capKey = key[0].toUpperCase() + key.substr(1);
+            var value = JSON.stringify(req[key], null, 2);
+            console.log(`${ capKey }: ${ value }`);
+        }
+    });
+    next();
+});
+
+// Mongoose middleware
+var mongoose = require('mongoose');
+app.use((req, res, next) => {
+    if (mongoose.connection.readyState) {
+        next();
+    }
+    else {
+        require('./mongo')(req).then(() => next());
+    }
+});
+
+// HTTP method overriding
+app.use((req, res, next) => {
+    var method;
+    // Allow method overriding in
+    // the query string and POST data
+    // and remove the key after found
+    if (req.query._method) {
+        method = req.query._method;
+        delete req.query._method;
+    }
+    else if (typeof req.body === 'object' && req.body._method) {
+        method = req.body._method;
+        delete req.body._method;
+    }
+    // Upcase the method name
+    // and set the request method
+    // to override it from GET to
+    // the desired method
+    if (method) {
+        method = method.toUpperCase();
+        req.method = method;
+    }
+    next();
+});
 
 
 
@@ -65,56 +116,13 @@ app.use(function(req, res, next) {
     next(err);
 });
 
-// Mongoose middleware
-var mongoose = require('mongoose');
-app.use((req, res, next) => {
-    if (mongoose.connection.readyState) {
-        next();
-    }
-    else {
-        require('./mongo')(req).then(() => next());
-    }
-});
 
 
-// HTTP method overriding
-app.use((req, res, next) => {
-  var method;
-  // Allow method overriding in
-  // the query string and POST data
-  // and remove the key after found
-  if (req.query._method) {
-    method = req.query._method;
-    delete req.query._method;
-  } else if (typeof req.body === 'object' && req.body._method) {
-    method = req.body._method;
-    delete req.body._method;
-  }
-  // Upcase the method name
-  // and set the request method
-  // to override it from GET to
-  // the desired method
-  if (method) {
-    method = method.toUpperCase();
-    req.method = method;
-  }
-  next();
-});
 
 
-// Set up logging with Morgan
-var morgan = require('morgan');
-app.use(morgan('tiny'));
-app.use((req, res, next) => {
-  ['query', 'params', 'body'].forEach((key) => {
-    if (req[key]) {
-      var capKey = key[0].toUpperCase() + key.substr(1);
-      var value = JSON.stringify(req[key], null, 2);
-      console.log(`${ capKey }: ${ value }`);
-    }
-  });
-  next();
-});
+
+
+
 
 
 // error handler
