@@ -8,12 +8,12 @@ var User = models.User;
 
 
 router.get('/', function(req, res, next) {
-  User.find().then((users) => {
-    res.render('users/index', {
-      title: 'Thoreddit',
-      users
-    });
-  })
+    User.find().then((users) => {
+        res.render('users/index', {
+            title: 'Thoreddit',
+            users
+        });
+    })
 });
 
 router.get('/login', function(req, res, next) {

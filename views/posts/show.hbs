@@ -1,0 +1,10 @@
+
+<div class="row">
+    <h1>{{post.title}}</h1>
+    <p>{{post.author.username}}</p>
+    <p>{{post.body}}</p>
+    {{#each post.comments as |comment|}}
+        <h4>{{comment.author}}</h4>
+        <p>{{comment.body}}</p>
+    {{/each}}
+</div>

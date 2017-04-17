@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    <header class="page-header">
+      <h1>Posts</h1>
+      <a href="/posts/new" class="btn btn-primary">+ New post</a>
+    </header>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Body</th>
+          <th>Username</th>
+          <th>Posted At</th>
+          <th>-</th>
+          <th>-</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each posts as |post|}}
+          <tr>
+            <td><a href="/posts/{{ post.id }}">{{this.title}}</a></td>
+            <td><a href="/posts/{{ post.id }}">{{this.body}}</a></td>
+            <td><a href="/posts/{{ post.id }}">{{this.author.username}}</a></td>
+            <td><a href="/posts/{{ post.id }}">{{this.createdAt}}</a></td>
+            <td><a href="/posts/{{ post.id }}/edit" class="btn btn-primary">Edit</a></td>
+            <td><a href="/posts/{{ post.id }}?_method=delete" class="btn btn-danger">Delete</a></td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
