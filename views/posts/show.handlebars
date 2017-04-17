@@ -1,0 +1,21 @@
+<header class="page-header">
+  <h1>{{ post.title }} </h1>
+  <h3>{{ post.author }}</h3>
+  <p>{{ post.body }}</p>
+  <a href="#"> Comment</a>
+  <hr>
+</header>
+<div>
+  {{#each post.comments as |comment| }}
+    {{comment.author}} &nbsp said:
+    <br>
+    {{comment.body}}
+    <a href="#"> Comment</a>
+    {{#each comment.comments as |nestedComment| }}
+      {{nestedComment.author}} &nbsp said:
+      <br>
+      {{nestedComment.body}}
+      <a href="#"> Comment</a>
+    {{/each}}
+  {{/each }}
+</div>

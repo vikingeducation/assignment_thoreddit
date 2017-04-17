@@ -38,4 +38,22 @@ router.get("/", (req, res) => {
   }
 });
 
+router.get("/:id", (req, res) => {
+  Post.findOne({ id: req.params.id })
+    .populate({
+      path: "comments author score",
+      populate: {
+        path: "comments author score",
+        populate: {
+          path: "author score"
+        }
+      }
+    })
+    .then(post => {
+      console.log("inside router.get ", post);
+      res.render("posts/show", { post });
+    })
+    .catch(e => res.status(500).send(e.stack));
+});
+
 module.exports = router;
