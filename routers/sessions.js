@@ -7,10 +7,19 @@ var mongoose = require("mongoose");
 
 //var app = express();
 
+router.get("/", (req, res) => {
+  if (req.session.currentUser) {
+    // to prevent unauthorized direct access to the 'logged' private page
+    res.redirect("/users");
+  } else {
+    res.redirect("/login");
+  }
+});
+
 router.get("/login", (req, res) => {
   if (req.session.currentUser) {
     // to prevent unauthorized direct access to the 'logged' private page
-    res.redirect("/");
+    res.redirect("/users");
   } else {
     res.render("sessions/login");
   }
@@ -28,5 +37,13 @@ router.post("/logout", (req, res) => {
   req.session.destroy(); // to prevent unauthorized direct access to the 'logged' private page
   res.redirect("/");
 });
+
+// Destroy
+var onDestroy = (req, res) => {
+  req.session.currentUser = null;
+  res.redirect("/login");
+};
+router.get("/logout", onDestroy);
+router.delete("/logout", onDestroy);
 
 module.exports = router;

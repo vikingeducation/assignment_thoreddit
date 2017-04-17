@@ -1,4 +1,4 @@
-// var faker = require('faker');
+var faker = require("faker");
 // var voca = require('voca');
 
 // const MULTIPLIER = 1;
@@ -19,6 +19,10 @@
 //   var index = Math.floor(Math.random() * names.length);
 //   return names[index];
 // }
+
+function randomText() {
+  return faker.lorem.sentence();
+}
 
 module.exports = () => {
   // ----------------------------------------

@@ -21,8 +21,6 @@ var userCallBack = (req, res) => {
 // ----------------------------------------
 router.get("/", userCallBack);
 
-router.get("/users", userCallBack);
-
 // ----------------------------------------
 // New
 // ----------------------------------------
@@ -41,16 +39,16 @@ router.get("/users", userCallBack);
 //     .catch(e => res.status(500).send(e.stack));
 // });
 
-// ----------------------------------------
-// Show
-// ----------------------------------------
-// router.get("/:id", (req, res) => {
-//   User.findById(req.params.id)
-//     .then(user => {
-//       res.render("users/show", { user });
-//     })
-//     .catch(e => res.status(500).send(e.stack));
-// });
+//----------------------------------------
+//Show
+//----------------------------------------
+router.get("/:id", (req, res) => {
+  User.findById(req.params.id)
+    .then(user => {
+      res.render("users/show", { user });
+    })
+    .catch(e => res.status(500).send(e.stack));
+});
 
 // ----------------------------------------
 // Create
