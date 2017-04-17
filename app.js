@@ -39,7 +39,9 @@ var sess = {
 
 app.use(session(sess))
 app.use(function(req, res, next) {
-    if (!req.session.currentUser) {
+    var reqUrl = url.parse(req.url);
+    if (!req.session.currentUser &&
+        !['/login', '/sessions'].includes(reqUrl.pathname)) {
         res.redirect('/login');
     }
     else {
