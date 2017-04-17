@@ -7,6 +7,7 @@ var CommentableSchema = new Schema({
         ref: "Comment"
     }],
     body: String,
+    score: Number,
     author: {
         type: Schema.Types.ObjectId,
         ref: "User"

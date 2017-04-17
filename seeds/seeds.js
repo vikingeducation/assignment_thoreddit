@@ -44,6 +44,7 @@ module.exports = () => {
             title: randomTitle('books'),
             body: randomTitle('books'),
             author: author._id,
+            score: Math.floor(Math.random()*100)
         });
         posts.push(post);
     }
@@ -60,7 +61,8 @@ module.exports = () => {
             title: randomTitle('books'),
             body: randomTitle('books'),
             author: author._id,
-            parent: post._id
+            parent: post._id,
+            score: Math.floor(Math.random()*100)
         });
         post.comments.push(comment);
         comments.push(comment);

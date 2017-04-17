@@ -7,7 +7,7 @@ let Post = models.Post;
 
 
 
-router.get('/', function(req, res, next) {
+router.get('/posts', function(req, res, next) {
     //Query database for posts and send to template
     Post.find({}).populate('author').then(function(posts) {
         res.render('posts/index', {
@@ -16,20 +16,22 @@ router.get('/', function(req, res, next) {
     });
 });
 
-router.get('/:id', function(req, res, next) {
-    //Query database for posts and send to template
+
+
+router.get('/posts/:id', function(req, res, next) {
     let id = req.params.id;
-    console.log("\n\nID: ", id)
-    Post.findById(id).populate('comments').then((post) => {
-        if (post) {
-            res.render('posts/show', {
-                title: 'Thoreddit',
-                post
-            });
-        }
-        else {
-            res.redirect('/post');
-        }
+    Post.findById(id)
+        .populate('author')
+        .populate('comments').then((post) => {
+            if (post) {
+                res.render('posts/show', {
+                    title: 'Thoreddit',
+                    post
+                });
+            }
+            else {
+                res.redirect('/post');
+            }
     })
 });
 

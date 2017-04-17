@@ -15,7 +15,6 @@ router.get('/users', function(req, res, next) {
 
 router.get('/users/:id', function(req, res, next) {
     let id = req.params.id;
-    console.log("\n\nID: ", id)
     User.findById(id).then((user) => {
         if (user) {
             res.render('users/show', {

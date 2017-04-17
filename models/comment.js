@@ -7,7 +7,6 @@ var CommentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Commentable"
   },
-  score: Number,
 }, {
   timestamps: true
 });

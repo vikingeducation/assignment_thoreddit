@@ -114,7 +114,7 @@ var index = require('./routes/index');
 var sessions = require('./routes/sessions');
 var posts = require('./routes/posts');
 var users = require('./routes/users');
-app.use('/posts', posts);
+app.use('/', posts);
 app.use('/', index);
 app.use('/', sessions);
 app.use('/', users);
