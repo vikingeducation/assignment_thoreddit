@@ -48,6 +48,12 @@ app.use(function(req, res, next) {
     }
 });
 
+app.use((req, res, next) => {
+    res.locals.session = req.session;
+    res.locals.currentUser = req.session.currentUser;
+    next();
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 

@@ -16,7 +16,7 @@ router.post('/sessions', function(req, res, next) {
             req.session.currentUser = {
                 username: user.username,
                 email: user.email,
-                id: user.id
+                id: user._id
             };
             res.redirect('/');
         }
@@ -31,7 +31,7 @@ router.post('/sessions', function(req, res, next) {
                     req.session.currentUser = {
                         username: username,
                         email: email,
-                        id: user.id
+                        id: data._id
                     };
                     res.redirect('/');
                 });
