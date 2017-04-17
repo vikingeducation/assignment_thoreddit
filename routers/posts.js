@@ -23,7 +23,9 @@ router.get("/", (req, res) => {
       .then(users => {
         posts.forEach(post => {
           users.forEach(user => {
-            if (post.author == user._id) {
+            //console.log("user " + user + "\n" + "post " + post);
+            if (post.author == user.id) {
+              console.log("inside if statement .......");
               post.user = user;
             }
           });
