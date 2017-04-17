@@ -99,6 +99,9 @@ app.use("/", sessionsRouter);
 var usersRouter = require("./routers/users");
 app.use("/users", usersRouter);
 
+var postsRouter = require("./routers/posts");
+app.use("/posts", postsRouter);
+
 // var ratablesRouter = require('./routers/ratables');
 // app.use('/ratables', ratablesRouter);
 

@@ -3,9 +3,9 @@ var faker = require("faker");
 
 // const MULTIPLIER = 1;
 
-// function randomRating() {
-//   return Math.floor(Math.random() * 6);
-// }
+function randomRating() {
+  return Math.floor(Math.random() * 6);
+}
 
 // function randomLodgingName(type) {
 //   type = voca.titleCase(type);
@@ -22,6 +22,9 @@ var faker = require("faker");
 
 function randomText() {
   return faker.lorem.sentence();
+}
+function randomWord() {
+  return faker.random.word();
 }
 
 module.exports = () => {
@@ -40,6 +43,10 @@ module.exports = () => {
     users.push(user);
   }
 
+  function randomUserIndex() {
+    return Math.floor(Math.random() * users.length);
+  }
+
   // ----------------------------------------
   // Posts
   // ----------------------------------------
@@ -47,7 +54,11 @@ module.exports = () => {
   var posts = [];
   for (let i = 0; i < 20; i++) {
     var post = new Post({
-      text: randomText()
+      title: randomWord(),
+      body: randomText(),
+      score: randomRating(),
+      author: users[randomUserIndex()],
+      comments: []
     });
     posts.push(post);
   }
@@ -95,7 +106,8 @@ module.exports = () => {
   console.log("Saving...");
   var promises = [];
   [
-    users
+    users,
+    posts
     // hotels,
     // motels,
     // ratings
