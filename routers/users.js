@@ -4,7 +4,10 @@ var mongoose = require("mongoose");
 var models = require("./../models");
 var User = mongoose.model("User");
 
-var userCallBack = (req, res) => {
+// ----------------------------------------
+// Index
+// ----------------------------------------
+router.get("/", (req, res) => {
   if (req.session.currentUser) {
     User.find({}) // 'User' is the collection in database, find() is mongoose method
       .then(users => {
@@ -14,12 +17,7 @@ var userCallBack = (req, res) => {
   } else {
     res.redirect("/login");
   }
-};
-
-// ----------------------------------------
-// Index
-// ----------------------------------------
-router.get("/", userCallBack);
+});
 
 // ----------------------------------------
 // New

@@ -46,6 +46,24 @@ module.exports = () => {
   function randomUserIndex() {
     return Math.floor(Math.random() * users.length);
   }
+  function randomCommentIndex() {
+    return Math.floor(Math.random() * comments.length) + 2;
+  }
+
+  // --------------------------------------------
+  // Comments
+  // --------------------------------------------
+  console.log("Creating Comments");
+  var comments = [];
+  for (let i = 0; i < 100; i++) {
+    var comment = new Comment({
+      body: randomText(),
+      score: randomRating(),
+      author: users[randomUserIndex()],
+      comments: i === 0 || i === 1 ? [] : [comments[0], comments[1]]
+    });
+    comments.push(comment);
+  }
 
   // ----------------------------------------
   // Posts
@@ -58,7 +76,7 @@ module.exports = () => {
       body: randomText(),
       score: randomRating(),
       author: users[randomUserIndex()],
-      comments: []
+      comments: [comments[randomCommentIndex()], comments[randomCommentIndex()]]
     });
     posts.push(post);
   }
@@ -107,7 +125,8 @@ module.exports = () => {
   var promises = [];
   [
     users,
-    posts
+    posts,
+    comments
     // hotels,
     // motels,
     // ratings
