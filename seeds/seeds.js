@@ -40,17 +40,17 @@ module.exports = () => {
     users.push(user);
   }
 
-  //   // ----------------------------------------
-  //   // Hotels
-  //   // ----------------------------------------
-  //   console.log('Creating Hotels');
-  //   var hotels = [];
-  //   for (let i = 0; i < MULTIPLIER * 100; i++) {
-  //     var hotel = new Hotel({
-  //       name: randomLodgingName('hotel')
-  //     });
-  //     hotels.push(hotel);
-  //   }
+  // ----------------------------------------
+  // Posts
+  // ----------------------------------------
+  console.log("Creating Posts");
+  var posts = [];
+  for (let i = 0; i < 20; i++) {
+    var post = new Post({
+      text: randomText()
+    });
+    posts.push(post);
+  }
 
   //   // ----------------------------------------
   //   // Motels
