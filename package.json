@@ -1,0 +1,32 @@
+{
+  "name": "assignment_thorredit",
+  "version": "1.0.0",
+  "description": "A social news web application for Viking thunder Gods",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "c": "node repl.js",
+    "seed": "node seeds",
+    "seeds": "node seeds"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eglital/assignment_thorredit.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eglital/assignment_thorredit/issues"
+  },
+  "homepage": "https://github.com/eglital/assignment_thorredit#readme",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.1",
+    "cookie-session": "^2.0.0-beta.1",
+    "express": "^4.15.2",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^4.9.5",
+    "morgan": "^1.8.1"
+  }
+}
