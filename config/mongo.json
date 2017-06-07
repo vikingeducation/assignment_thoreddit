@@ -1,0 +1,28 @@
+{
+  "development": {
+    "database": "assignment_thorredit_development",
+    "host": "localhost"
+  },
+  "test": {
+    "database": "assignment_thorredit_test",
+    "host": "localhost"
+  },
+  "production": {
+    "use_env_variable": "MONGODB_URI"
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
