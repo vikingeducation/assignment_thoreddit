@@ -1,3 +1,37 @@
 .navbar {
   border-radius: 0px;
 }
+
+.score {
+  display: block;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+a.upvote,
+a.downvote {
+  color: white;
+}
+
+a.upvote:hover,
+a.downvote:hover {
+  text-decoration: none;
+}
+
+a:hover {
+  transition: color .5s ease, background-color .5s ease;
+}
+
+.btn:hover {
+  transition: background-color .5s ease;
+}
+div.comment {
+  position: relative;
+  left: 20px;
+  border: solid 2px #777;
+  border-radius: 5px;
+  padding: 12px;
+  width: 90%;
+  padding-right: 0%;
+  margin-top: 20px;
+}

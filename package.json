@@ -29,5 +29,11 @@
     "express-handlebars": "^3.0.0",
     "mongoose": "^4.10.5",
     "morgan": "^1.8.2"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.12",
+    "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.2.1",
+    "lorem-ipsum": "^1.0.4"
   }
 }

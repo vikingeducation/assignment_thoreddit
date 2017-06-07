@@ -8,9 +8,9 @@ mongoose.Promise = bluebird;
 const models = {};
 
 
-// Load models and attach to models here
+// Load models and attach to models object here
 models.User = require('./user'); 
-
+models.Post = require('./post');
 
 
 
