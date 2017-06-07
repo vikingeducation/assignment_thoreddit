@@ -94,12 +94,10 @@ app.use((req, res, next) => {
 // ----------------------------------------
 // Routes
 // ----------------------------------------
-// const users = require('./routers/users');
-
-app.use('/', (req, res) => { res.render('users/index'); });
-// app.use('/users', users);
-
-
+const users = require('./routers/users');
+const sessions = require('./routers/sessions')(app);
+app.use('/', sessions);
+app.use('/users', users);
 
 // ----------------------------------------
 // Template Engine
