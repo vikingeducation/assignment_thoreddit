@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const models = require('./../models');
 const Post = mongoose.model('Post');
 const Comment = mongoose.model('Comment');
+const Vote = mongoose.model('Vote');
 const { trimPostInfo } = require('../services/post-helpers');
 
 // ----------------------------------------

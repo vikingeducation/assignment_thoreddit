@@ -41,7 +41,8 @@ module.exports = () => {
               count: 3,
               units: 'sentences' 
             }),
-      user: user
+      user: user,
+      score: 0
     });
     posts.push(post);
   }
@@ -61,6 +62,7 @@ module.exports = () => {
             }),
       user: user,
       post: post,
+      score: 0
     });
     parentComments.push(comment);
   }
@@ -81,6 +83,7 @@ module.exports = () => {
       user: user,
       post: parent.post,
       parent: parent,
+      score: 0
     });
     parent.children.push(comment);
     childrenComments.push(comment);
@@ -102,6 +105,7 @@ module.exports = () => {
       user: user,
       post: parent.post,
       parent: parent,
+      score: 0
     });
     parent.children.push(comment);
     subChildrenComments.push(comment);
