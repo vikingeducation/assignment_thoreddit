@@ -1,0 +1,110 @@
+<header class="page-header">
+  <h1>{{ post.title}}</h1>
+</header>
+
+<section>
+  <h3>Posted On: {{ post.createdAt}}</h3>
+  <h3>Username: {{ post.user.username}}</h3>
+  <p class="main-post">{{ post.body }}</p>
+  <span class="score">Score: {{ post.score }} </span>
+  <a href="/posts/{{ post.id }}/upvote" class="upvote"><button class="btn btn-success">Upvote</button></a>
+  <a href="/posts/{{ post.id }}/downvote" class="downvote"><button class="btn btn-danger">Downvote</button></a>
+  <a href="/comments/{{ post.id }}/new" class="reply"><button class="btn btn-primary">Comment</button></a>
+  <hr>
+</section>
+
+<section class="comments-section">
+<h3>Comments</h3>
+{{#if comments.length}}
+  {{#each comments as |comment| }}
+
+  {{#unless comment.parent }}
+  <div class="comment">
+    <h4>Username: {{ comment.user.username }}</h4>
+    <h4>Posted At: {{ comment.createdAt }}</h4>
+    <p>{{ comment.body }}</p>
+    <span class="score">Score: {{ comment.score }} </span>
+    <a href="/comments/{{ comment.id }}/upvote" class="upvote"><button class="btn btn-success">Upvote</button></a>
+    <a href="/comments/{{ comment.id }}/downvote" class="downvote"><button class="btn btn-danger">Downvote</button></a>
+    <a href="/comments/{{ comment.id }}/new" class="reply"><button class="btn btn-primary">Comment</button></a>
+
+    {{#each comment.children as |subcomment| }}
+      <div class="comment">
+        <h4>Username: {{ subcomment.user.username }}</h4>
+        <h4>Posted At: {{ subcomment.createdAt }}</h4>
+        <p>{{ subcomment.body }}</p>
+      <span class="score">Score: {{ subcomment.score }} </span>
+      <a href="/comments/{{ subcomment.id }}/upvote" class="upvote"><button class="btn btn-success">Upvote</button></a>
+      <a href="/comments/{{ subcomment.id }}/downvote" class="downvote"><button class="btn btn-danger">Downvote</button></a>
+      <a href="/comments/{{ subcomment.id }}/new" class="reply"><button class="btn btn-primary">Comment</button></a>
+
+      {{#each subcomment.children as |subsubcomment| }}
+        <div class="comment">
+          <h4>Username: {{ subsubcomment.user.username }}</h4>
+          <h4>Posted At: {{ subsubcomment.createdAt }}</h4>
+          <p>{{ subsubcomment.body }}</p>
+        <span class="score">Score: {{ subsubcomment.score }} </span>
+        <a href="/comments/{{ subsubcomment.id }}/upvote" class="upvote"><button class="btn btn-success">Upvote</button></a>
+        <a href="/comments/{{ subsubcomment.id }}/downvote" class="downvote"><button class="btn btn-danger">Downvote</button></a>
+
+        </div>
+      {{/each}}
+
+      </div>
+    {{/each}}
+  </div>
+  {{/unless }}
+  {{/each }}
+{{/if}}
+{{!--<div class="comment">
+  <h4>Username: Foobar</h4>
+  <h4>Posted At: 01/01/01</h4>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus vero explicabo beatae dolorum ipsam, harum, non laudantium voluptate nesciunt fugit necessitatibus nulla recusandae incidunt molestiae et quasi. Reiciendis, eum, odit?</p>
+  <span class="score">Score: {{ comment.score }} </span>
+  <button class="btn btn-success"><a href="/comments/{{ comment.id }}/upvote" class="upvote">Upvote</a></button>
+  <button class="btn btn-danger"><a href="/comments/{{ comment.id }}/downvote" class="downvote">Downvote</a></button>
+
+  <div class="comment">
+    <h4>Username: Foobar</h4>
+    <h4>Posted At: 01/01/01</h4>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus vero explicabo beatae dolorum ipsam, harum, non laudantium voluptate nesciunt fugit necessitatibus nulla recusandae incidunt molestiae et quasi. Reiciendis, eum, odit?</p>
+  <span class="score">Score: {{ comment.score }} </span>
+  <button class="btn btn-success"><a href="/comments/{{ comment.id }}/upvote" class="upvote">Upvote</a></button>
+  <button class="btn btn-danger"><a href="/comments/{{ comment.id }}/downvote" class="downvote">Downvote</a></button>
+    <div class="comment">
+      <h4>Username: Foobar</h4>
+      <h4>Posted At: 01/01/01</h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus vero explicabo beatae dolorum ipsam, harum, non laudantium voluptate nesciunt fugit necessitatibus nulla recusandae incidunt molestiae et quasi. Reiciendis, eum, odit?</p>
+  <span class="score">Score: {{ comment.score }} </span>
+  <button class="btn btn-success"><a href="/comments/{{ comment.id }}/upvote" class="upvote">Upvote</a></button>
+  <button class="btn btn-danger"><a href="/comments/{{ comment.id }}/downvote" class="downvote">Downvote</a></button>
+
+    </div>
+  </div>
+</div>
+<div class="comment">
+  <h4>Username: Foobar</h4>
+  <h4>Posted At: 01/01/01</h4>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus vero explicabo beatae dolorum ipsam, harum, non laudantium voluptate nesciunt fugit necessitatibus nulla recusandae incidunt molestiae et quasi. Reiciendis, eum, odit?</p>
+  <span class="score">Score: {{ comment.score }} </span>
+  <button class="btn btn-success"><a href="/comments/{{ comment.id }}/upvote" class="upvote">Upvote</a></button>
+  <button class="btn btn-danger"><a href="/comments/{{ comment.id }}/downvote" class="downvote">Downvote</a></button>
+
+  <div class="comment">
+    <h4>Username: Foobar</h4>
+    <h4>Posted At: 01/01/01</h4>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus vero explicabo beatae dolorum ipsam, harum, non laudantium voluptate nesciunt fugit necessitatibus nulla recusandae incidunt molestiae et quasi. Reiciendis, eum, odit?</p>
+  <span class="score">Score: {{ comment.score }} </span>
+  <button class="btn btn-success"><a href="/comments/{{ comment.id }}/upvote" class="upvote">Upvote</a></button>
+  <button class="btn btn-danger"><a href="/comments/{{ comment.id }}/downvote" class="downvote">Downvote</a></button>
+    <div class="comment">
+      <h4>Username: Foobar</h4>
+      <h4>Posted At: 01/01/01</h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus vero explicabo beatae dolorum ipsam, harum, non laudantium voluptate nesciunt fugit necessitatibus nulla recusandae incidunt molestiae et quasi. Reiciendis, eum, odit?</p>
+  <span class="score">Score: {{ comment.score }} </span>
+  <button class="btn btn-success"><a href="/comments/{{ comment.id }}/upvote" class="upvote">Upvote</a></button>
+  <button class="btn btn-danger"><a href="/comments/{{ comment.id }}/downvote" class="downvote">Downvote</a></button>
+
+    </div>
+  </div>
+</div>--}}

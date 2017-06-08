@@ -1,0 +1,22 @@
+<h1>New Comment Reply</h1>
+
+<br>
+<h2>Original Message</h2>
+<p>{{ comment.body }}</p>
+<p>Posted by <strong>{{ comment.user.username }}</strong></p>
+<br>
+
+<form action="/comments" method="post">
+  <div class="form-group">
+    <label for="comment_body">Reply</label>
+    <textarea type="text" id="comment_body" name="comment[body]" class="form-control" rows="5"></textarea>
+  </div>
+  
+  <input type="hidden" name="comment[user]" value="{{ userid }}">
+  <input type="hidden" name="comment[parent]" value="{{ comment.id }}">
+  <input type="hidden" name="comment[post]" value="{{ comment.post }}">
+
+  <div class="form-group">
+    <input type="submit" class="btn btn-primary">
+  </div>
+</form>
