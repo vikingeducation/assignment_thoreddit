@@ -20,7 +20,9 @@ app.use(cookieSession({
 app.use((req, res, next) => {
   res.locals.session = req.session;
   res.locals.currentUser = req.session.currentUser;
-  res.locals.userid = req.session.currentUser.id;
+  if (req.session.currentUser) {
+    res.locals.userid = req.session.currentUser.id;
+  }
   next();
 });
 

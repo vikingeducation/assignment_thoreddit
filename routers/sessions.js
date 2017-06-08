@@ -23,7 +23,7 @@ module.exports = (app) => {
   // New
   const onNew = (req, res) => {
     if (req.session.currentUser) {
-      res.redirect('/users');
+      res.redirect('/posts');
     } else {
       res.render('sessions/new');
     }
@@ -48,7 +48,7 @@ module.exports = (app) => {
             id: user.id,
             _id: user._id
           };
-          res.redirect('/users');
+          res.redirect('/posts');
         } else {
         // else sends them back to login
           res.redirect('/login');
