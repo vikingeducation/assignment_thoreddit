@@ -20,6 +20,7 @@ app.use(cookieSession({
 app.use((req, res, next) => {
   res.locals.session = req.session;
   res.locals.currentUser = req.session.currentUser;
+  res.locals.userid = req.session.currentUser.id;
   next();
 });
 
@@ -97,9 +98,11 @@ app.use((req, res, next) => {
 const sessions = require('./routers/sessions')(app);
 const users = require('./routers/users');
 const posts = require('./routers/posts');
+const comments = require('./routers/comments');
 app.use('/', sessions);
 app.use('/users', users);
 app.use('/posts', posts);
+app.use('/comments', comments);
 
 // ----------------------------------------
 // Template Engine

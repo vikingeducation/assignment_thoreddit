@@ -14,7 +14,8 @@ a.downvote {
 }
 
 a.upvote:hover,
-a.downvote:hover {
+a.downvote:hover,
+a.reply:hover {
   text-decoration: none;
 }
 
@@ -34,4 +35,16 @@ div.comment {
   width: 90%;
   padding-right: 0%;
   margin-top: 20px;
+}
+.btn-primary a {
+  color: white
+}
+
+.main-post {
+  font-size: 1.2em;
+  margin: 30px 0px;
+}
+
+.comments-section {
+  margin-bottom: 4em;
 }

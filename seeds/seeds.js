@@ -10,7 +10,7 @@ module.exports = () => {
   // ----------------------------------------
   // Create Users
   // ----------------------------------------
-  console.log('Creating Users');
+  console.log('Creating Users...');
   let users = [];
   for (let i = 0; i < MULTIPLIER * 10; i++) {
     let fname = lorem({count: 1, units: 'words'});
@@ -28,7 +28,7 @@ module.exports = () => {
   // ----------------------------------------
   // Create Posts
   // ----------------------------------------
-  console.log('Creating Posts');
+  console.log('Creating Posts...');
   let posts = [];
   for (let i = 0; i < MULTIPLIER * 10; i++) {
     let user = users[i % users.length];
@@ -45,7 +45,68 @@ module.exports = () => {
     });
     posts.push(post);
   }
+  
+  // ----------------------------------------
+  // Create Parent Comments
+  // ----------------------------------------
+  console.log('Creating Parent Comments...');
+  let parentComments = [];
+  for (let i = 0; i < MULTIPLIER * 5; i++) {
+    let user = users[i % users.length];
+    let post = posts[i % posts.length];
+    let comment = new Comment({
+      body: lorem({
+              count: 5,
+              units: 'sentences' 
+            }),
+      user: user,
+      post: post,
+    });
+    parentComments.push(comment);
+  }
 
+  // ----------------------------------------
+  // Create Children Comments
+  // ----------------------------------------
+  console.log('Creating Children Comments...');
+  let childrenComments = [];
+  for (let i = 0; i < MULTIPLIER * 25; i++) {
+    let user = users[i % users.length];
+    let parent = parentComments[i % parentComments.length];
+    let comment = new Comment({
+      body: lorem({
+              count: 5,
+              units: 'sentences' 
+            }),
+      user: user,
+      post: parent.post,
+      parent: parent,
+    });
+    parent.children.push(comment);
+    childrenComments.push(comment);
+  }
+
+  // ----------------------------------------
+  // Create SubChildren Comments
+  // ----------------------------------------
+  console.log('Creating SubChildren Comments...');
+  let subChildrenComments = [];
+  for (let i = 0; i < MULTIPLIER * 50; i++) {
+    let user = users[i % users.length];
+    let parent = childrenComments[i % childrenComments.length];
+    let comment = new Comment({
+      body: lorem({
+              count: 5,
+              units: 'sentences' 
+            }),
+      user: user,
+      post: parent.post,
+      parent: parent,
+    });
+    parent.children.push(comment);
+    subChildrenComments.push(comment);
+  }
+  
   // ----------------------------------------
   // Finish
   // ----------------------------------------
@@ -53,7 +114,10 @@ module.exports = () => {
   let promises = [];
   [
     users,
-    posts
+    posts,
+    parentComments,
+    childrenComments,
+    subChildrenComments
   ].forEach((collection) => {
     collection.forEach((model) => {
       promises.push(model.save());

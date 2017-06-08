@@ -11,6 +11,7 @@ const models = {};
 // Load models and attach to models object here
 models.User = require('./user'); 
 models.Post = require('./post');
+models.Comment = require('./comment');
 
 
 
