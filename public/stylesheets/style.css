@@ -10,3 +10,7 @@ a {
 .navbar-padding {
   padding-right: 40px;
 }
+
+.vertical-spacer {
+  padding-top: 100px;
+}

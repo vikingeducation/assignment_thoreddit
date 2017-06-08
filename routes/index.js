@@ -3,12 +3,44 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  var sess = req.session;
-  sess.views = (sess.views || 0) + 1;
-  res.render('index', {
-    title: 'Thorredit',
-    views: sess.views
-  });
+
+  if (req.session.username && req.session.email) {
+    res.render('index', {
+      title: 'Thorredit',
+      user: req.session.username,
+      email: req.session.email
+    });
+  } else {
+    res.redirect('/login');
+  }
+
 });
+
+router.get('/login', function(req, res, next) {
+  if (req.session.username && req.session.email) {
+    res.redirect('/');
+  } else {
+    res.render('login', {
+      title: 'Thorredit Login',
+    });
+  }
+});
+
+router.post('/login', function(req, res, next) {
+  if (req.body.username && req.body.email) {
+    req.session.username = req.body.username;
+    req.session.email = req.body.email;
+  } else {
+    res.redirect('/login');
+  }
+  res.redirect('/');
+});
+
+router.get('/logout', function(req, res, next) {
+  req.session.username = null;
+  req.session.email = null;
+  res.redirect('/login');
+});
+
 
 module.exports = router;
