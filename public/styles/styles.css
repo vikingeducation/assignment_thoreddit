@@ -1,3 +1,4 @@
+
 .navbar {
   border-radius: 0px;
 }
@@ -47,4 +48,7 @@ div.comment {
 
 .comments-section {
   margin-bottom: 4em;
+}
+.navbar * {
+  color: white;
 }
