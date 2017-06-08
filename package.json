@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "seed": "node seeds",
+    "seeds": "node seeds"
   },
   "dependencies": {
     "bluebird": "^3.5.0",

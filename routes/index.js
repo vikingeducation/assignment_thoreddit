@@ -3,8 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-
-  if (req.session.username && req.session.email) {
+  if (req.session.username) {
     res.render('index', {
       title: 'Thorredit',
       user: req.session.username,
@@ -17,7 +16,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next) {
-  if (req.session.username && req.session.email) {
+  if (req.session.username) {
     res.redirect('/');
   } else {
     res.render('login', {
