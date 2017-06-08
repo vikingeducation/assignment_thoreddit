@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var mongoose = require('mongoose');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -18,9 +20,32 @@ app.set('view engine', 'hbs');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use((req, res, next) => {
+  if (mongoose.connection.readyState) {
+    next();
+  } else {
+    require('./mongo')(req)
+      .then(() => next());
+  }
+});
+app.use(session({
+  secret: 'ajfbsd-fdsaf-44asd47-fdadfs',
+  cookie: {
+    maxAge: 2628000000
+  },
+  resave: false,
+  saveUninitialized: true,
+  store: new(require('express-sessions'))({
+    storage: 'mongodb',
+    collection: 'sessions', // optional
+    expire: 86400 // optional
+  })
+}));
 
 app.use('/', index);
 app.use('/users', users);

@@ -11,9 +11,12 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",
+    "express-session": "^1.15.3",
+    "express-sessions": "^1.0.6",
     "hbs": "~4.0.1",
     "mongoose": "^4.10.5",
     "morgan": "~1.8.1",
+    "redis": "^2.7.1",
     "serve-favicon": "~2.4.2"
   }
 }
