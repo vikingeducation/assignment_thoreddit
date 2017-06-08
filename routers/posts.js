@@ -79,6 +79,138 @@ router.post('/', (req, res) => {
     .catch((e) => res.status(500).send(e.stack));
 });
 
+// ----------------------------------------
+// Upvote
+// ----------------------------------------
+router.get('/:id/upvote', (req, res, next) => {
 
+  Vote.findOne({
+    postId: req.params.id,
+    userId: req.session.currentUser.id
+    })
+    // first tries to match a pre-existing vote
+    .then(vote => {
+      if (vote) {
+        let amount = vote.amount;
+        if (amount === 1) {
+          next();
+        } else if (amount === 0) {
+          // if 0, update to 1, then find related comment and increase score by 1
+          Vote.findOneAndUpdate({
+            postId: req.params.id,
+            userId: req.session.currentUser.id,
+            amount: 1
+          })
+          .then(() => {
+            return Post.findByIdAndUpdate(req.params.id, {
+              $inc: { score: 1}
+            });
+          })
+          .then(() => {
+            next();
+          });
+        } else if (amount === -1) {
+          // if -1, update to 1, then find related comment and increase score by 2
+          Vote.findOneAndUpdate({
+            postId: req.params.id,
+            userId: req.session.currentUser.id,
+            amount: 1
+          })
+          .then(() => {
+            return Post.findByIdAndUpdate(req.params.id, {
+              $inc: { score: 2}
+            });
+          })
+          .then(() => {
+            next();
+          });
+        }
+      } else {
+        // if no match, create new vote
+        let vote = new Vote({
+                postId: req.params.id,
+                userId: req.session.currentUser.id,
+                amount: 1
+        }).save()
+          .then(() => {});
+            return Post.findByIdAndUpdate(req.params.id, {
+              $inc: { score: 1}
+          });
+      }
+    })
+    .then(() => {
+      next();
+    });
+    
+}, (req, res) => {
+  res.redirect("back");
+});
+
+// ----------------------------------------
+// Downvote
+// ----------------------------------------
+router.get('/:id/downvote', (req, res, next) => {
+
+  Vote.findOne({
+    postId: req.params.id,
+    userId: req.session.currentUser.id
+    })
+    // first tries to match a pre-existing vote
+    .then(vote => {
+      if (vote) {
+        let amount = vote.amount;
+        if (amount === -1) {
+          next();
+        } else if (amount === 0) {
+          // if 0, update to 1, then find related comment and increase score by 1
+          Vote.findOneAndUpdate({
+            postId: req.params.id,
+            userId: req.session.currentUser.id,
+            amount: -1
+          })
+          .then(() => {
+            return Post.findByIdAndUpdate(req.params.id, {
+              $inc: { score: -1}
+            });
+          })
+          .then(() => {
+            next();
+          });
+        } else if (amount === 1) {
+          // if -1, update to 1, then find related comment and increase score by 2
+          Vote.findOneAndUpdate({
+            postId: req.params.id,
+            userId: req.session.currentUser.id,
+            amount: -1
+          })
+          .then(() => {
+            return Post.findByIdAndUpdate(req.params.id, {
+              $inc: { score: -2}
+            });
+          })
+          .then(() => {
+            next();
+          });
+        }
+      } else {
+        // if no match, create new vote
+        let vote = new Vote({
+                postId: req.params.id,
+                userId: req.session.currentUser.id,
+                amount: -1
+        }).save()
+          .then(() => {});
+            return Post.findByIdAndUpdate(req.params.id, {
+              $inc: { score: -1}
+          });
+      }
+    })
+    .then(() => {
+      next();
+    });
+    
+}, (req, res) => {
+  res.redirect("back");
+});
 
 module.exports = router;

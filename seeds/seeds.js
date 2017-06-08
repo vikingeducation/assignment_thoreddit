@@ -52,7 +52,7 @@ module.exports = () => {
   // ----------------------------------------
   console.log('Creating Parent Comments...');
   let parentComments = [];
-  for (let i = 0; i < MULTIPLIER * 5; i++) {
+  for (let i = 0; i < MULTIPLIER * 30; i++) {
     let user = users[i % users.length];
     let post = posts[i % posts.length];
     let comment = new Comment({
@@ -72,7 +72,7 @@ module.exports = () => {
   // ----------------------------------------
   console.log('Creating Children Comments...');
   let childrenComments = [];
-  for (let i = 0; i < MULTIPLIER * 25; i++) {
+  for (let i = 0; i < MULTIPLIER * 90; i++) {
     let user = users[i % users.length];
     let parent = parentComments[i % parentComments.length];
     let comment = new Comment({
@@ -94,7 +94,7 @@ module.exports = () => {
   // ----------------------------------------
   console.log('Creating SubChildren Comments...');
   let subChildrenComments = [];
-  for (let i = 0; i < MULTIPLIER * 50; i++) {
+  for (let i = 0; i < MULTIPLIER * 120; i++) {
     let user = users[i % users.length];
     let parent = childrenComments[i % childrenComments.length];
     let comment = new Comment({
