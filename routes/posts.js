@@ -127,8 +127,20 @@ router.put('/:id', (req, res) => {
   } else {
     res.redirect('/login');
   }
+});
 
-
+router.delete('/:id', (req, res) => {
+  if (req.session.username) {
+    Post.findByIdAndRemove(req.params.id)
+      .then(() => {
+        req.method = 'GET';
+        res.redirect('/posts');
+      })
+      .catch((e) => res.status(500)
+        .send(e.stack));
+  } else {
+    res.redirect('/login');
+  }
 });
 
 module.exports = router;

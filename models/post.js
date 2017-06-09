@@ -35,7 +35,8 @@ PostSchema.virtual('downvote')
 
 PostSchema.virtual('preview')
   .get(function() {
-    return this.body.substring(0, 100);
+    return this.body.substring(0, 200) + (this.body.length < 200 ? "" :
+      "...(more)");
   });
 
 PostSchema.methods.voteUp = function(username) {
