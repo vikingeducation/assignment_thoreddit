@@ -33,6 +33,11 @@ PostSchema.virtual('downvote')
     return this.vote.down.length;
   });
 
+PostSchema.virtual('preview')
+  .get(function() {
+    return this.body.substring(0, 100);
+  });
+
 PostSchema.methods.voteUp = function(username) {
   // see if already in array
   var i = this.vote.up.indexOf(username);

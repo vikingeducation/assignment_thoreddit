@@ -10,7 +10,7 @@
       <tr>
         <th>Post Date</th>
         <th>Title</th>
-        <th>Body</th>
+        <th>Text Preview</th>
         <th>Author</th>
         <th></th>
         <th></th>
@@ -26,7 +26,7 @@
           <a href="/posts/{{ post._id }}">{{ post.title }}</a>
         </td>
         <td>
-          {{ post.body }}
+          {{ post.preview }}
         </td>
         <td>
           <a href="/users/{{ post._author._id }}">{{ post._author.username }}</a>
