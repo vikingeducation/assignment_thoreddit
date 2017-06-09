@@ -42,14 +42,16 @@ router.get('/comment', (req, res) => {
   }
 });
 
-// this is the correct path to add a comment to a post
-router.get('/comment/:post_id', (req, res) => {
+// this is the path to add a comment to a comment
+// keep before adding to post due to routes
+router.get('/comment/add/:post_id/:comment_id', (req, res) => {
   if (req.session.username) {
     Post.findById(req.params.post_id)
       .populate('_author')
       .then((post) => {
         res.render('posts/comment', {
-          post
+          post: post,
+          target: `/posts/comment/add/${req.params.post_id}/${req.params.comment_id}`
         });
       })
       .catch((e) => res.status(500)
@@ -59,6 +61,49 @@ router.get('/comment/:post_id', (req, res) => {
   }
 });
 
+// this is the correct path to add a comment to a post
+router.get('/comment/:post_id', (req, res) => {
+  if (req.session.username) {
+    Post.findById(req.params.post_id)
+      .populate('_author')
+      .then((post) => {
+        res.render('posts/comment', {
+          post: post,
+          target: `/posts/comment/add/${req.params.post_id}/${req.params.comment_id}`
+        });
+      })
+      .catch((e) => res.status(500)
+        .send(e.stack));
+  } else {
+    res.redirect('/login');
+  }
+});
+
+// comment on a comment
+// keep before comment on post due to routes
+router.post('/comment/add/:post_id/:comment_id', (req, res) => {
+  if (req.session.username) {
+    var comment = new Comment({
+      body: req.body.comment_text,
+      post: req.params.post_id
+    });
+    comment.save()
+      .then((comment) => {
+        Comment.findById(req.params.comment_id)
+          .then((commentParent) => {
+            commentParent.addComment(comment._id);
+            req.method = 'GET';
+            res.redirect(`/posts/${ req.params.post_id }`);
+          })
+      })
+      .catch((e) => res.status(500)
+        .send(e.stack));
+  } else {
+    res.redirect('/login');
+  }
+});
+
+// comment on a post
 router.post('/comment/:post_id', (req, res) => {
   if (req.session.username) {
     var comment = new Comment({
@@ -80,6 +125,8 @@ router.post('/comment/:post_id', (req, res) => {
     res.redirect('/login');
   }
 });
+
+
 
 router.get('/comment/up/:post_id/:comment_id/', (req, res) => {
   if (req.session.username) {
@@ -130,11 +177,16 @@ router.post('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   if (req.session.username) {
-    Post.findById(req.params.id)
-      .populate('_author')
-      .populate('_comments')
+    Post.findOne({
+        _id: req.params.id
+      })
+      .populate({
+        path: '_comments',
+        populate: {
+          path: '_comments'
+        }
+      })
       .then((post) => {
-        console.log(post);
         res.render('posts/show', {
           post
         });

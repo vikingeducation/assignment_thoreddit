@@ -80,6 +80,13 @@ CommentSchema.methods.addComment = function(comment_id) {
   this.save();
 }
 
+var autoPopulateComments = function(next) {
+  this.populate('_comments');
+  next();
+}
+
+CommentSchema.pre('findOne', autoPopulateComments);
+
 // Create the model with a defined schema
 var Comment = mongoose.model('Comment', CommentSchema);
 

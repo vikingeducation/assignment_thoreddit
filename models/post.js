@@ -90,6 +90,15 @@ PostSchema.methods.addComment = function(comment_id) {
   this.save();
 }
 
+var autoPopulateComments = function(next) {
+  this.populate('_author');
+  next();
+}
+
+PostSchema
+  .pre('findOne', autoPopulateComments);
+
+
 // Create the model with a defined schema
 var Post = mongoose.model('Post', PostSchema);
 
