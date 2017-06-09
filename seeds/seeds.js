@@ -13,7 +13,7 @@ module.exports = () => {
     });
     users.push(user);
   }
-  // Seed other models...
+
 
 
   // ----------------------------------------

@@ -20,10 +20,10 @@
       {{#each users as |user| }}
       <tr>
         <td>
-          <a href="/users/{{ user.id }}">{{ user.fname }}</a>
+          <a href="/users/{{ user._id }}">{{ user.fname }}</a>
         </td>
         <td>
-          <a href="/users/{{ user.id }}">{{ user.lname }}</a>
+          <a href="/users/{{ user._id }}">{{ user.lname }}</a>
         </td>
         <td>
           <a href="/users/{{ user.id }}">{{ user.username }}</a>

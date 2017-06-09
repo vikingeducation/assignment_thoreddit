@@ -1,0 +1,21 @@
+<header class="page-header">
+  <h1>Post: {{ post.title }}</h1>
+  <a href="/users/{{ post._id }}/edit" class="btn btn-primary">Edit</a>
+  <a href="/users/{{ post._id }}?_method=delete" class="btn btn-danger">Delete</a>
+</header>
+
+<div class="row">
+  <div class="col-sm-2">
+    <p><a href="/posts/{{ post._id }}/up">Up:</a> {{ post.upvote }}</p>
+    <p><a href="/posts/{{ post._id }}/down">Down:</a> {{ post.downvote }}</p>
+    <p>Score: {{ post.score }}</p>
+
+  </div>
+  <div class="col-sm-10">
+    <h1>{{ post.title }}</h1>
+    <h3><i>by {{ post._author.username}}</i></h3>
+    <p>{{ post.body}}</p>
+          <hr>
+  </div>
+
+</div>
