@@ -3,13 +3,9 @@ var Schema = mongoose.Schema;
 
 // Create a new schema for
 // the user model
-var PostSchema = new Schema({
-  title: String,
+var CommentSchema = new Schema({
   body: String,
-  _author: {
-    type: Schema.Types.ObjectId,
-    ref: 'User'
-  },
+  post: Schema.Types.ObjectId,
   _comments: [{
     type: Schema.Types.ObjectId,
     ref: 'Comment'
@@ -22,28 +18,22 @@ var PostSchema = new Schema({
   timestamps: true
 });
 
-PostSchema.virtual('score')
+CommentSchema.virtual('score')
   .get(function() {
     return this.vote.up.length - this.vote.down.length;
   });
 
-PostSchema.virtual('upvote')
+CommentSchema.virtual('upvote')
   .get(function() {
     return this.vote.up.length;
   });
 
-PostSchema.virtual('downvote')
+CommentSchema.virtual('downvote')
   .get(function() {
     return this.vote.down.length;
   });
 
-PostSchema.virtual('preview')
-  .get(function() {
-    return this.body.substring(0, 200) + (this.body.length < 200 ? "" :
-      "...(more)");
-  });
-
-PostSchema.methods.voteUp = function(username) {
+CommentSchema.methods.voteUp = function(username) {
   // see if already in array
   var i = this.vote.up.indexOf(username);
   // if not found, then add the user
@@ -64,7 +54,7 @@ PostSchema.methods.voteUp = function(username) {
   }
 };
 
-PostSchema.methods.voteDown = function(username) {
+CommentSchema.methods.voteDown = function(username) {
   // see if already in array
   var i = this.vote.down.indexOf(username);
   // if not found, then add the user
@@ -85,12 +75,12 @@ PostSchema.methods.voteDown = function(username) {
   }
 };
 
-PostSchema.methods.addComment = function(comment_id) {
+CommentSchema.methods.addComment = function(comment_id) {
   this._comments.push(comment_id);
   this.save();
 }
 
 // Create the model with a defined schema
-var Post = mongoose.model('Post', PostSchema);
+var Comment = mongoose.model('Comment', CommentSchema);
 
-module.exports = Post;
+module.exports = Comment;

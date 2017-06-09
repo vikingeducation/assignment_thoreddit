@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var models = require('./../models');
 var User = mongoose.model('User');
 var Post = mongoose.model('Post');
+var Comment = mongoose.model('Comment');
 
 /* GET users listing. */
 router.get('/', (req, res) => {
@@ -26,6 +27,83 @@ router.get('/', (req, res) => {
 router.get('/new', (req, res) => {
   if (req.session.username) {
     res.render('posts/new');
+  } else {
+    res.redirect('/login');
+  }
+});
+
+// must be before the /:id route
+// this is to block people going to page directly with no post ID'd
+router.get('/comment', (req, res) => {
+  if (req.session.username) {
+    res.redirect('/posts');
+  } else {
+    res.redirect('/login');
+  }
+});
+
+// this is the correct path to add a comment to a post
+router.get('/comment/:post_id', (req, res) => {
+  if (req.session.username) {
+    Post.findById(req.params.post_id)
+      .populate('_author')
+      .then((post) => {
+        res.render('posts/comment', {
+          post
+        });
+      })
+      .catch((e) => res.status(500)
+        .send(e.stack));
+  } else {
+    res.redirect('/login');
+  }
+});
+
+router.post('/comment/:post_id', (req, res) => {
+  if (req.session.username) {
+    var comment = new Comment({
+      body: req.body.comment_text,
+      post: req.params.post_id
+    });
+    comment.save()
+      .then((comment) => {
+        Post.findById(req.params.post_id)
+          .then((post) => {
+            post.addComment(comment._id);
+            req.method = 'GET';
+            res.redirect(`/posts/${ post._id }`);
+          })
+      })
+      .catch((e) => res.status(500)
+        .send(e.stack));
+  } else {
+    res.redirect('/login');
+  }
+});
+
+router.get('/comment/up/:post_id/:comment_id/', (req, res) => {
+  if (req.session.username) {
+    Comment.findById(req.params.comment_id)
+      .then((comment) => {
+        comment.voteUp(req.session.username);
+        res.redirect(`/posts/${ req.params.post_id }`);
+      })
+      .catch((e) => res.status(500)
+        .send(e.stack));
+  } else {
+    res.redirect('/login');
+  }
+});
+
+router.get('/comment/down/:post_id/:comment_id/', (req, res) => {
+  if (req.session.username) {
+    Comment.findById(req.params.comment_id)
+      .then((comment) => {
+        comment.voteDown(req.session.username);
+        res.redirect(`/posts/${ req.params.post_id }`);
+      })
+      .catch((e) => res.status(500)
+        .send(e.stack));
   } else {
     res.redirect('/login');
   }
@@ -54,7 +132,9 @@ router.get('/:id', (req, res) => {
   if (req.session.username) {
     Post.findById(req.params.id)
       .populate('_author')
+      .populate('_comments')
       .then((post) => {
+        console.log(post);
         res.render('posts/show', {
           post
         });
