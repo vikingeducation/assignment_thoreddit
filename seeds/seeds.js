@@ -110,6 +110,28 @@ module.exports = () => {
     parent.children.push(comment);
     subChildrenComments.push(comment);
   }
+
+  // ----------------------------------------
+  // Create SubChildren Comments
+  // ----------------------------------------
+  console.log('Creating SubSubChildren Comments...');
+  let subsubChildrenComments = [];
+  for (let i = 0; i < MULTIPLIER * 200; i++) {
+    let user = users[i % users.length];
+    let parent = subChildrenComments[i % subChildrenComments.length];
+    let comment = new Comment({
+      body: lorem({
+              count: 5,
+              units: 'sentences' 
+            }),
+      user: user,
+      post: parent.post,
+      parent: parent,
+      score: 0
+    });
+    parent.children.push(comment);
+    subsubChildrenComments.push(comment);
+  }
   
   // ----------------------------------------
   // Finish
@@ -121,7 +143,8 @@ module.exports = () => {
     posts,
     parentComments,
     childrenComments,
-    subChildrenComments
+    subChildrenComments,
+    subsubChildrenComments
   ].forEach((collection) => {
     collection.forEach((model) => {
       promises.push(model.save());

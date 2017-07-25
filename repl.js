@@ -12,7 +12,7 @@ require('./mongo')().then(() => {
   });
 
 
-  repl.context.lg = (data) => console.log(data);
+  repl.context.lg = (data) => console.log(JSON.stringify(data, null, 2));
 });
 
 

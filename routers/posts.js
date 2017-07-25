@@ -70,6 +70,7 @@ router.post('/', (req, res) => {
     title: req.body.post.title,
     body: req.body.post.body,
     user: req.body.post.user,
+    score: 0
   });
 
   post.save()
