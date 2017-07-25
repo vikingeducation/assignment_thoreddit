@@ -1,26 +1,27 @@
-# assignment_thorredit
-A social news web application for Viking thunder Gods
+# Thoreddit
 
-Name: Christian Florez
+## Introduction
+Thoreddit is a light reddit clone using MongoDB
 
-upvoting/downvoting sketch:
+## Technologies Used
+Node, Express, MongoDB
 
-score should be a model with following attributes:
-commentId: (if blank is a comment on post)
-postId:
-userId:
-amount: (-1, 0, or 1)
+## Getting Started
+Clone the repository and install the dependencies. Populate the database using `npm run seeds`. Then, check your database to see what users were created. You can do this by running `npm run c`, then running a query like the following:
 
-Then the ideal would be to simply include this as a reference like this:
-// in comments model
-score: [{
-  type: Schema.Types.ObjectId,
-  ref: "Votes"
-}]
+```
+User.findOne().then(lg)
+```
 
-But then aggregation becomes a pain in the ass
+Use their email and username to log in to the application.
 
-So easier solution is to simply have score be an integer, and have it be evaluated/updated
-when posting to votes
+## Deployment Link
+A deployed version of this project may be found [here.](https://ancient-bastion-11058.herokuapp.com/)
 
-This should work FINE
+You can login using one of the following credentials:
+
+Username: ipsumea8 / deseruntid0
+
+Email: ipsumea8@gmail.com / deseruntid0@gmail.com
+
+All usernames/emails follow the same pattern. Once logged in, you can try logging in to various other users. Try commenting on a post, upvoting, and downvoting, and clicking on different user profiles or posts.
