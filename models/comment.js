@@ -24,14 +24,12 @@ const CommentSchema = new Schema({
   timestamps: true
 });
 
-var autoPopulateChildren = function(next) {
-    this.populate('children');
-    next();
-};
+// var autoPopulateChildren = function(next) {
+//     this.populate('children');
+//     next();
+// };
 
-CommentSchema
-.pre('findOne', autoPopulateChildren)
-.pre('find', autoPopulateChildren)
+// CommentSchema.pre('findOne', autoPopulateChildren).pre('find', autoPopulateChildren)
 
 const Comment = mongoose.model('Comment', CommentSchema);
 
