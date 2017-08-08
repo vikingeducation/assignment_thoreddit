@@ -51,9 +51,12 @@ app.use((req, res, next) => {
   }
 });
 
+app.get("/", (req, res) => {
+  res.redirect("/users");
+});
 // not set up yet!!!
 var usersRouter = require("./routers/users");
-app.use(["/", "/users"], usersRouter);
+app.use("/users", usersRouter);
 
 var postsRouter = require("./routers/posts");
 app.use("/posts", postsRouter);

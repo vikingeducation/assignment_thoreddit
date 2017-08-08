@@ -1,7 +1,7 @@
-  
+
   <h1>User: {{user.username}}</h1>
     <div class="panel-body">
-    {{#if users.length }}
+    {{#if user }}
       <table class="row table table-striped">
         <thead>
           <tr>
@@ -30,11 +30,11 @@
         </tbody>
       </table>
     {{else}}
-      <p class="text-danger">No users</p>
+      <p class="text-danger">Could not find user!</p>
     {{/if }}
 
 </div>
-
+<h3>{{user.username}}'s Posts</h3>
     <div class="panel-body">
     {{#if user.posts.length }}
       <table class="row table table-striped">
@@ -42,6 +42,7 @@
           <tr>
             <th>Title</th>
             <th>Author</th>
+            <th>Score</th>
           </tr>
         </thead>
         <tbody>
@@ -51,9 +52,11 @@
                 <a href="/posts/show/{{ post.id }}">{{ post.title }}</a>
               </td>
               <td>
-                <a href="/posts/show/{{ post.id }}">{{ post.user.username }}</a>
+                <a href="/users/show/{{ ../user.id }}">{{ ../user.username }}</a>
               </td>
-        
+              <td>
+                {{post.score.value}}
+              </td>
               <td>
                 <button class="btn btn-primary">Edit</button> </td>
               <td>

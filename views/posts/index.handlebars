@@ -16,6 +16,7 @@
           <tr>
             <th>Title</th>
             <th>Author</th>
+            <th>Score</th>
           </tr>
         </thead>
         <tbody>
@@ -27,7 +28,9 @@
               <td>
                 <a href="/posts/show/{{ post.id }}">{{ post.user.username }}</a>
               </td>
-        
+              <td>
+                {{post.score.value}}
+              </td>
               <td>
                 <button class="btn btn-primary">Edit</button> </td>
               <td>

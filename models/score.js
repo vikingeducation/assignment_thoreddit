@@ -18,6 +18,6 @@ var ScoreSchema = new Schema(
   }
 );
 
-var Score = mongoose.model("Rating", ScoreSchema);
+var Score = mongoose.model("Score", ScoreSchema);
 
 module.exports = Score;

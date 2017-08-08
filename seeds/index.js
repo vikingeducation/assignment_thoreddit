@@ -33,7 +33,8 @@ const seeds = () => {
       title: `Post ${i}`,
       text: `I have ${i} cats.`,
       user: users[j],
-      comments: []
+      comments: [],
+      score: {}
     });
     users[j].posts.push(post);
     posts.push(post);
@@ -47,7 +48,8 @@ const seeds = () => {
   for (let i = 0; i < 5; i++) {
     var comment = new Comment({
       text: `Wow, I have ${i} cats also!`,
-      user: users[i]
+      user: users[i],
+      score: {}
     });
     posts[i].comments.push(comment);
     comments.push(comment);
@@ -65,6 +67,7 @@ const seeds = () => {
       users: [users[j]],
       scorable: posts[i]
     });
+    posts[i].score = score;
     scores.push(score);
   }
   for (let i = 0; i < 5; i++) {
@@ -73,6 +76,7 @@ const seeds = () => {
       users: [users[j]],
       scorable: comments[i]
     });
+    comments[i].score = score;
     scores.push(score);
   }
 
