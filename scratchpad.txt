@@ -1,0 +1,23 @@
+Users
+//todo
+
+//todo
+Ratings:
+  id:
+  user:
+  value:
+
+
+
+Ratable: //post and comment inherit from this
+  id:
+  rating:
+  user:
+  text:
+
+Posts
+  title
+
+Comments
+  parent (post):
+  
