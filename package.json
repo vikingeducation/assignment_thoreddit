@@ -1,0 +1,34 @@
+{
+  "name": "assignment_thoreddit",
+  "version": "1.0.0",
+  "description": "A social news web application for Viking thunder Gods",
+  "main": "app.js",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "dotenv": "^4.0.0",
+    "express-handlebars": "^3.0.0",
+    "express-method-override-get-post-support": "0.0.7",
+    "load-helpers": "^1.0.1",
+    "method-override": "^2.3.9",
+    "mongoose": "^4.11.6",
+    "morgan-toolkit": "^1.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "console": "node repl",
+    "seed": "node seeds",
+    "start": "which nodemon > /dev/null && nodemon app.js || node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thebopshoobop/assignment_thoreddit.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thebopshoobop/assignment_thoreddit/issues"
+  },
+  "homepage": "https://github.com/thebopshoobop/assignment_thoreddit#readme"
+}
