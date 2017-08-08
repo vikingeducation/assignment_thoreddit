@@ -30,7 +30,7 @@ function seeds() {
 
   let comments = [];
   for (let i = 0; i < 200; i++) {
-    let comment = new Post({
+    let comment = new Comment({
       body: faker.random.words(50),
       user: users[i % 10],
       post: posts[i % 20]
@@ -39,16 +39,6 @@ function seeds() {
     posts[i % 20].comments.push(comment);
     comments.push(comment);
   }
-
-  console.log("get here?");
-
-  function test() {
-    posts.forEach(post => {
-      console.log(post, "no title");
-    });
-  }
-
-  test();
 
   let promises = [];
   [users, posts, comments].forEach(collection => {

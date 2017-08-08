@@ -18,7 +18,6 @@ const PostSchema = new Schema(
     ]
   },
   {
-    timestamps: true,
     discriminatorKey: "scorableKind"
   }
 );

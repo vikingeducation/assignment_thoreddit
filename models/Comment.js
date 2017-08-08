@@ -15,7 +15,6 @@ const CommentSchema = new Schema(
     body: String
   },
   {
-    timestamps: true,
     discriminatorKey: "scorableKind"
   }
 );
