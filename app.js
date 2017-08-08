@@ -10,8 +10,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride(getPostSupport.callback, getPostSupport.options));
 
 const hbs = exphbs.create({
-  partialsDir: "views/",
-  defaultLayout: "main"
+	partialsDir: "views/partials",
+	defaultLayout: "main"
 });
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
@@ -24,11 +24,11 @@ process.env.NODE_ENV === "production" ? (args = [port]) : (args = [port, host]);
 var sessionsRouter = require("./routers/sessions")(app);
 
 app.use((req, res, next) => {
-  if (mongoose.connection.readyState) {
-    next();
-  } else {
-    require("./mongo")().then(() => next());
-  }
+	if (mongoose.connection.readyState) {
+		next();
+	} else {
+		require("./mongo")().then(() => next());
+	}
 });
 
 app.use("/", sessionsRouter);
@@ -38,11 +38,11 @@ app.use("/users", usersRouter);
 var postsRouter = require("./routers/posts");
 app.use("/posts", postsRouter);
 args.push(() => {
-  console.log(`Listening: http://${host}:${port}`);
+	console.log(`Listening: http://${host}:${port}`);
 });
 
 app.get("/", (req, res) => {
-  res.redirect("/users");
+	res.redirect("/users");
 });
 
 app.listen.apply(app, args);

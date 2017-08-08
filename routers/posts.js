@@ -38,7 +38,9 @@ router.get("/:id/edit", (req, res) => {
 // ----------------------------------------
 router.get("/:id", (req, res) => {
   Post.findById(req.params.id)
+    .populate("subPosts")
     .then(post => {
+      console.log(post);
       res.render("posts/show", { post });
     })
     .catch(e => res.status(500).send(e.stack));

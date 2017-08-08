@@ -28,14 +28,14 @@ const seeds = () => {
   for (let i = 1; i < 21; i++) {
     authorId = i - 1;
 
-    if (i > 9) {
+    if (authorId > 9) {
       authorId -= 10;
     }
 
     var post = new Post({
       title: `Title of ${i}`,
       author: users[authorId],
-      body: `Blah blah blah blah ${i}`,
+      body: `This is a post! ${i}`,
       votes: 0,
       topLevel: true,
       subPosts: []
@@ -48,20 +48,30 @@ const seeds = () => {
   var subPosts = [];
   var authorId;
 
-  for (let i = 21; i < 41; i++) {
-    authorId = 1;
+  for (let i = 0; i < 20; i++) {
+    authorId = i;
 
-    if (authorId > 10) {
+    if (authorId > 9) {
       authorId -= 10;
     }
 
     var subPost = new Post({
       title: `Title of ${i}`,
       author: users[authorId],
-      body: `Blah blah blah blah ${i}`,
+      body: `This is a subpost! ${i}`,
       topLevel: false,
       subPosts: []
     });
+
+    var subSubPost = new Post({
+      title: `Title of ${i}`,
+      author: users[authorId],
+      body: `This is a sub-subpost! ${i}`,
+      topLevel: false,
+      subPosts: []
+    });
+    console.log(authorId);
+    subPost[authorId].subPosts.push(subSubPost);
     posts[authorId].subPosts.push(subPost);
     users[authorId].posts.push(post);
     posts.push(subPost);
