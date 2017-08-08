@@ -67,8 +67,8 @@ mongoseeder.seed({
   seeds: seeds
 });
 
-mongoseeder.clean({
-  mongodbUrl: process.env.DB_URL,
-  models: models,
-  mongoose: require("mongoose")
-});
+// mongoseeder.clean({
+//   mongodbUrl: process.env.DB_URL,
+//   models: models,
+//   mongoose: require("mongoose")
+// });
