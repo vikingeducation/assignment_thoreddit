@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var RatableSchema = new Schema(
+var ScorableSchema = new Schema(
   {
     text: String,
-    rating: {
+    score: {
       type: Schema.Types.ObjectId,
-      ref: "Rating"
+      ref: "Score"
     },
     user: {
       type: Schema.Types.ObjectId,
@@ -19,6 +19,6 @@ var RatableSchema = new Schema(
   }
 );
 
-var Ratable = mongoose.model("Ratable", RatableSchema);
+var Scorable = mongoose.model("Scorable", ScorableSchema);
 
-module.exports = Ratable;
+module.exports = Scorable;

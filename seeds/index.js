@@ -4,9 +4,10 @@ var env = process.env.NODE_ENV || "development";
 var config = require("./../config/mongo")[env];
 const mongooseeder = require("mongooseeder");
 
-const { User, Ratable, Rating, Post, Comment } = models;
+const { User, Scorable, Score, Post, Comment } = models;
 
 const seeds = () => {
+  let j;
   // ----------------------------------------
   // Create Users
   // ----------------------------------------
@@ -26,13 +27,15 @@ const seeds = () => {
   // ----------------------------------------
   console.log("Creating Posts");
   var posts = [];
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 10; i++) {
+    i > 4 ? (j = i - 5) : (j = i);
     var post = new Post({
       title: `Post ${i}`,
       text: `I have ${i} cats.`,
-      rating: new Rating({ value: 0, user: users[i], ratable: posts[i] }),
-      user: user[i]
+      user: users[j],
+      comments: []
     });
+    users[j].posts.push(post);
     posts.push(post);
   }
 
@@ -44,10 +47,33 @@ const seeds = () => {
   for (let i = 0; i < 5; i++) {
     var comment = new Comment({
       text: `Wow, I have ${i} cats also!`,
-      rating: new Rating({ value: 0, user: users[i], ratable: comments[i] }),
       user: users[i]
     });
+    posts[i].comments.push(comment);
     comments.push(comment);
+  }
+
+  // ----------------------------------------
+  // Scores
+  // ----------------------------------------
+  console.log("Creating Scores");
+  var scores = [];
+  for (let i = 0; i < 10; i++) {
+    i > 4 ? (j = i - 5) : (j = i);
+    var score = new Score({
+      value: 1,
+      users: [users[j]],
+      scorable: posts[i]
+    });
+    scores.push(score);
+  }
+  for (let i = 0; i < 5; i++) {
+    var score = new Score({
+      value: 1,
+      users: [users[j]],
+      scorable: comments[i]
+    });
+    scores.push(score);
   }
 
   // ----------------------------------------
@@ -55,7 +81,7 @@ const seeds = () => {
   // ----------------------------------------
   console.log("Saving...");
   var promises = [];
-  [users, posts, comments].forEach(collection => {
+  [users, posts, comments, scores].forEach(collection => {
     collection.forEach(model => {
       promises.push(model.save());
     });

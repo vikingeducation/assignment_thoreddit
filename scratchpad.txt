@@ -3,19 +3,20 @@ Users
 - email
 - posts: [] (ref Post)
 
-Ratings:
-- user: (ref User)
-- ratable: (ref Ratable)
+Scores:
+- users: [] (ref User)
+- ratable: (ref Scorable)
 - value:
 
 
 
-Ratable:    //post and comment inherit from this
+Scorable:    //post and comment inherit from this
 - text:
-- rating: (ref Rating)
+- score: (ref Scores)
 - user: (ref User)
 
 >>  Posts
     - Title:
+    - Comments: [] (ref Comments)
 
 >>  Comments

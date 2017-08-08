@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-var Ratable = require("./ratable");
+var Scorable = require("./scorable");
 
 var CommentSchema = new Schema(
   {},
@@ -9,6 +9,6 @@ var CommentSchema = new Schema(
   }
 );
 
-var Comment = Ratable.discriminator("Comment", CommentSchema);
+var Comment = Scorable.discriminator("Comment", CommentSchema);
 
 module.exports = Comment;
