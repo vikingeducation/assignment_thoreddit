@@ -1,14 +1,13 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const PostSchema = require("./Post");
-const CommentSchema = require("./Comment");
 
 const ScorableSchema = new Schema(
   {
     score: Number
   },
   {
-    timestamps: true
+    timestamps: true,
+    discriminatorKey: "scorableKind"
   }
 );
 

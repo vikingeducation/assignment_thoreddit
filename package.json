@@ -9,6 +9,7 @@
     "dotenv": "^4.0.0",
     "express-handlebars": "^3.0.0",
     "express-method-override-get-post-support": "0.0.7",
+    "faker": "^4.1.0",
     "load-helpers": "^1.0.1",
     "method-override": "^2.3.9",
     "mongoose": "^4.11.6",

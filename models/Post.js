@@ -1,23 +1,28 @@
 const mongoose = require("mongoose");
+const Scorable = require("./Scorable");
 const Schema = mongoose.Schema;
 
-const PostSchema = new Schema({
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "User"
+const PostSchema = new Schema(
+  {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    },
+    body: String,
+    title: String,
+    comments: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Comment"
+      }
+    ]
+  },
+  {
+    timestamps: true,
+    discriminatorKey: "scorableKind"
   }
-  body: String,
-  title: String,
-  score: Number,
-  comments: [{
-    type: Schema.Types.ObjectId,
-    ref: "Comment"
-  }]
-}, {
-  timestamps: true,
-  discriminatorKey: 'scorableKind'
-});
+);
 
-// let Post = mongoose.model("Post", PostSchema);
+let Post = Scorable.discriminator("Post", PostSchema);
 
-module.exports = PostSchema;
+module.exports = Post;
