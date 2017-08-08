@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const mongooseeder = require("mongooseeder");
 var env = process.env.NODE_ENV || "development";
 var config = require("./../config/mongo")[env];
-const models = require("../models");
+const models = require("./../models");
 const { User, Post } = models;
 const mongodbUrl =
   process.env.NODE_ENV === "production"
@@ -10,6 +10,38 @@ const mongodbUrl =
     : `mongodb://${config.host}/${config.database}`;
 
 const seeds = () => {
+  console.log("Creating Users");
+  var users = [];
+  for (let i = 1; i < 11; i++) {
+    var user = new User({
+      username: `foobar${i}`,
+      email: `foobar${i}@gmail.com`,
+      posts: [i, i + 10]
+    });
+    users.push(user);
+  }
+
+  console.log("Creating Posts");
+  var posts = [];
+  var authorId;
+
+  for (let i = 1; i < 21; i++) {
+    authorId = i;
+
+    if (i > 10) {
+      authorId -= 10;
+    }
+
+    var post = new Post({
+      title: `Title of ${i}`,
+      author: authorId,
+      body: `Blah blah blah blah ${i}`,
+      topLevel: true,
+      subPosts: []
+    });
+    posts.push(post);
+  }
+
   var promises = [];
   [users, posts].forEach(collection => {
     collection.forEach(model => {
@@ -24,10 +56,5 @@ mongooseeder.seed({
   models: models,
   clean: true,
   mongoose: mongoose,
-  seeds: () => {
-    // Run your seeds here
-    // Example:
-    return models.User.create({ email });
-    return models.Post.create({ email });
-  }
+  seeds: seeds
 });
