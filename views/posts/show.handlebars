@@ -1,0 +1,27 @@
+<header class="page-header">
+  <h1>{{post.title}}</h1>
+  <h3>{{post.username}}</h3>
+  <a href="/posts/new" class="btn btn-primary">+ New post</a>
+</header>
+
+<div class="panel panel-default">
+  <div class='panel-heading'>
+    {{post.user.username}}
+  </div>
+  <div class="panel-body"><p>
+    {{post.body}}
+  </p></div>
+</div>
+
+<h3>Comments</h3>
+{{#each post.comments as |comment|}}
+<div class="panel panel-default">
+  <div class='panel-heading'>
+    {{comment.user.username}}
+  </div>
+  <div class="panel-body">
+    {{comment.message}}
+  </div>
+
+</div>
+{{/each}}
