@@ -1,0 +1,28 @@
+<header class="page-header">
+  <div class='row'>
+    <h3>Check out this awesome post</h3>
+  </div>
+  <div class='row'>
+    <div class='col-xs-3'>
+      <button class='btn btn-success'>Upvote</button>
+      <button class='btn btn-danger'>Downvote</button>
+    </div>
+    <div class='col-xs-6'>
+      <h2>{{post.title}}</h2>
+      <h5>by {{post.username }}</h5>
+      <p>{{post.body}}</p>
+    </div>
+  </div>
+  {{#if comments.length }}
+  <div class='row' id='comments'>
+    {{#each comment as |comment|}}
+      <div class='col-x-12'>
+        Insert Comments Here Later
+      </div>
+    {{/each}}
+  </div>
+  {{else}}
+    <h3>Comments</h3>
+    <p>No comments, terrible post</p>
+  {{/if}}
+</header>

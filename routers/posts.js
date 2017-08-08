@@ -17,24 +17,26 @@ router.get("/", (req, res) => {
           username: post.username,
           id: post.id
         });
-      })
-      console.log(shortPosts);
-      return res.render("./users/index", { posts: shortPosts });
+      });
+      return res.render("./posts/index", { posts: shortPosts });
     })
     .catch(e => res.status(500).send(e.stack));
 });
 
 //show route
-// router.get("/show/:id", (req, res) => {
-//   let id = req.params.id;
-//   User.findById(id)
-//     .then(user => {
-//       return res.render("./users/show", { user });
-//     })
-//     .catch(e => res.status(500).send(e.stack));
-// });
-//
-// //edit page route
+router.get("/show/:id", (req, res) => {
+  let id = req.params.id;
+  Post.findById(id)
+    .populate("votes")
+    .populate("user")
+    .then(post => {
+      console.log(`post = ${post}`);
+      return res.render("./posts/show", { post });
+    })
+    .catch(e => res.status(500).send(e.stack));
+});
+
+// //edit post route
 // router.get("/:id/edit", (req, res) => {
 //   let id = req.params.id;
 //   User.findById(id)
@@ -43,10 +45,14 @@ router.get("/", (req, res) => {
 //     })
 //     .catch(e => res.status(500).send(e.stack));
 // });
-//
-// //create endpoint
-// router.put("/:id", (req, res) => {
-//   var userParams = {
+
+//LATER
+
+//new Post page
+
+//create endpoint
+// router.put("/new", (req, res) => {
+//   var postParams = {
 //     fname: req.body.user.fname,
 //     lname: req.body.user.lname,
 //     username: req.body.user.username,

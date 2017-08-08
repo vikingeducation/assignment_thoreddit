@@ -26,23 +26,22 @@ const PostSchema = new Schema(
 PostSchema.virtual("shortBody").get(function() {
   let bodyShort = [];
   let bodyArray = this.body.split(" ");
-  for(let i = 0; i < 5; i++) {
+  for (let i = 0; i < 5; i++) {
     bodyShort.push(bodyArray[i]);
   }
   return bodyShort.join(" ");
-})
+});
 
 // Virtual method for returning short title
-PostSchema.virtual("shortTitle").set(function() {
+PostSchema.virtual("shortTitle").get(function() {
   let titleShort = [];
   let titleArray = this.title.split(" ");
-  for(let i = 0; i < 3; i++) {
+  for (let i = 0; i < 3; i++) {
     titleShort.push(titleArray[i]);
   }
 
   return titleShort.join(" ");
-})
-
+});
 
 const Post = mongoose.model("Post", PostSchema);
 
