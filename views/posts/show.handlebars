@@ -2,15 +2,18 @@
 {{#if post }}
 <h1>{{post.title}}</h1>
       <h2>By: {{post.user.username}}</h2>
-        <h3>Score: {{post.score.value}}</h3>
+        <h3>Post Score: {{post.score.value}}</h3>
 
     {{else}}
       <p class="text-danger">No post found!</p>
     {{/if }}
 <p>{{post.text}}</p>
 <hr>
+<h4>Comments:</h4><br>
 {{#each post.comments as |comment|}}
 <p>{{comment.text}}<br>
+<h6>By {{comment.user.username}}</h6>
+<h6>Comment Score: {{comment.score.value}}</h6>
 </p>
 <hr>
 {{/each}}
