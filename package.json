@@ -14,7 +14,8 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "c" : "node repl.js"
+    "c": "node repl.js",
+    "seeds": "node seeds"
   },
   "repository": {
     "type": "git",
