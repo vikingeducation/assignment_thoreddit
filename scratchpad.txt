@@ -1,23 +1,21 @@
 Users
-//todo
+- username
+- email
+- posts: [] (ref Post)
 
-//todo
 Ratings:
-  id:
-  user:
-  value:
+- user: (ref User)
+- ratable: (ref Ratable)
+- value:
 
 
 
-Ratable: //post and comment inherit from this
-  id:
-  rating:
-  user:
-  text:
+Ratable:    //post and comment inherit from this
+- text:
+- rating: (ref Rating)
+- user: (ref User)
 
-Posts
-  title
+>>  Posts
+    - Title:
 
-Comments
-  parent (post):
-  
+>>  Comments
