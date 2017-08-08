@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 
 // dotenv
-require('dotenv').config();
+require("dotenv").config();
 
 // Templates
 const expressHandlebars = require("express-handlebars");
@@ -36,7 +36,7 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use("/", require("./routers/example"));
+app.use("/", require("./routers/posts"));
 
 // Set up port/host
 const port = process.env.PORT || process.argv[2] || 3000;

@@ -1,0 +1,34 @@
+<header class="page-header">
+  <h1>Posts</h1>
+  <a href="{{ newPostPath }}" class="btn btn-primary">+ New Post</a>
+</header>
+
+
+{{#if posts.length }}
+<table class="table">
+  <thead>
+    <tr>
+      <th>Posted</th>
+      <th>Title</th>
+      <th>Username</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each posts as |post| }}
+    <tr>
+      <td>
+        <a href="{{ postPath post._id }}">{{ post.created_at }}</a>
+      </td>
+      <td>
+        <a href="{{ postPath post._id }}">{{ post.title }}</a>
+      </td>
+      <td>
+        <a href="{{ userPath post.user._id }}">{{ post.user.username }}</a>
+      </td>
+    </tr>
+    {{/each }}
+  </tbody>
+</table>
+{{else }}
+<p class="text-danger">No posts</p>
+{{/if }}
