@@ -8,9 +8,9 @@ var Post = mongoose.model("Post");
 // Index
 // ----------------------------------------
 router.get("/", (req, res) => {
-  Post.find({})
-    .then(users => {
-      res.render("index", { users });
+  Post.find({ topLevel: true })
+    .then(posts => {
+      res.render("posts/index", { posts });
     })
     .catch(e => res.status(500).send(e.stack));
 });
@@ -49,10 +49,12 @@ router.get("/:id", (req, res) => {
 // ----------------------------------------
 router.post("/", (req, res) => {
   var post = new Post({
-    fname: req.body.user.fname,
-    lname: req.body.user.lname,
-    username: req.body.user.username,
-    email: req.body.user.email
+    title: req.body.post.title,
+    author: req.body.post.author,
+    body: req.body.post.body,
+    votes: req.body.post.votes,
+    topLevel: req.body.post.topLevel,
+    subPosts: req.body.post.subPosts
   });
 
   post
@@ -68,10 +70,12 @@ router.post("/", (req, res) => {
 // ----------------------------------------
 router.put("/:id", (req, res) => {
   var postParams = {
-    fname: req.body.post.fname,
-    lname: req.body.post.lname,
-    username: req.body.post.postname,
-    email: req.body.post.email
+    title: req.body.post.title,
+    author: req.body.post.author,
+    body: req.body.post.body,
+    votes: req.body.post.votes,
+    topLevel: req.body.post.topLevel,
+    subPosts: req.body.post.subPosts
   };
 
   User.findByIdAndUpdate(req.params.id, postParams)

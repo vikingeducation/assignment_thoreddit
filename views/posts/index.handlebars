@@ -1,0 +1,16 @@
+
+
+<header class="page-header">
+  <h1>Posts</h1>
+  <a href="/posts/new" class="btn btn-primary">+ New Post</a>
+</header>
+
+
+      {{#each posts as |post| }}
+        <div>
+            <a href="/posts/{{ post.id }}">
+              <h3>{{ post.title }} :By: {{ post.author }} :Votes: {{ post.votes }}</h3>
+            </a>
+            <p>{{ post.body }} </p>
+          </div>
+      {{/each }}

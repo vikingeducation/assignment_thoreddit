@@ -26,7 +26,7 @@ const seeds = () => {
   var authorId;
 
   for (let i = 1; i < 21; i++) {
-    authorId = i;
+    authorId = i - 1;
 
     if (i > 10) {
       authorId -= 10;
@@ -39,9 +39,33 @@ const seeds = () => {
       topLevel: true,
       subPosts: []
     });
-    users[authorId - 1].posts.push(post);
+    users[authorId].posts.push(post);
     posts.push(post);
   }
+
+  ///
+  var subPosts = [];
+  var authorId;
+
+  for (let i = 21; i < 41; i++) {
+    authorId = 1;
+
+    if (authorId > 10) {
+      authorId -= 10;
+    }
+
+    var subPost = new Post({
+      title: `Title of ${i}`,
+      author: users[authorId],
+      body: `Blah blah blah blah ${i}`,
+      topLevel: false,
+      subPosts: []
+    });
+    posts[authorId].subPosts.push(subPost);
+    users[authorId].posts.push(post);
+    posts.push(subPost);
+  }
+  ///
 
   var promises = [];
   [users, posts].forEach(collection => {

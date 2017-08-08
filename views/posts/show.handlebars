@@ -1,0 +1,8 @@
+
+
+
+  <a href="/posts/{{ post.id }}" ><h1>{{ post.title }} {{ post.author }} {{ post.votes }}</h1></a>
+  <p>{{ post.body }}</p>
+  {{#if post.subPosts.length}}
+    {{>postPartial.handlebars}}
+  {{/if}}
