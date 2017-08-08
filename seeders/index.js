@@ -26,9 +26,9 @@ const seeds = () => {
   var authorId;
 
   for (let i = 1; i < 21; i++) {
-    authorId = i;
+    authorId = i - 1;
 
-    if (i > 10) {
+    if (i > 9) {
       authorId -= 10;
     }
 
@@ -36,10 +36,11 @@ const seeds = () => {
       title: `Title of ${i}`,
       author: users[authorId],
       body: `Blah blah blah blah ${i}`,
+      votes: 0,
       topLevel: true,
       subPosts: []
     });
-    users[authorId - 1].posts.push(post);
+    users[authorId].posts.push(post);
     posts.push(post);
   }
 
