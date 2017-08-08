@@ -16,7 +16,7 @@ const seeds = () => {
   console.log('Creating Users');
   const users = [];
   for (let i = 0; i < 5; i++) {
-    var user = new User({
+    let user = new User({
       fname: 'Foo',
       lname: 'Bar',
       username: `foobar${ i }`,
@@ -24,6 +24,17 @@ const seeds = () => {
     });
     users.push(user);
   }
+
+  console.log('Creating Votes');
+  votes = [];
+  for(let i = 0; i < 1000; i++) {
+    let vote = new Vote({
+      let vote = new Vote({
+        user: users[i % (users.length - 1)];
+        vote: Math.round(Math.random()) ? true : false;
+    })
+  }
+
 
   console.log('Saving...');
   const promises = [];
