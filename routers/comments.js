@@ -13,17 +13,16 @@ const h = require("../helpers");
 // });
 
 router.post("/new", (req, res) => {
-	if (!req.body.body || !req.body.userId) {
-		req.flash("alert", "You must include a comment!");
-		res.redirect("back");
-	} else {
-		CommentController.new(req.body)
-			.then(comment => {
-				console.log(comment, "????");
-				res.redirect("back");
-			})
-			.catch(e => res.status(500).send(e.stack));
-	}
+  if (!req.body.body || !req.body.userId) {
+    req.flash("alert", "You must include a comment!");
+    res.redirect("back");
+  } else {
+    CommentController.new(req.body)
+      .then(comment => {
+        res.redirect("back");
+      })
+      .catch(e => res.status(500).send(e.stack));
+  }
 });
 
 // router.get("/:id", (req, res) => {

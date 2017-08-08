@@ -18,6 +18,7 @@ const UserController = {
   addComment: params => {
     return UserController.getById(params.userId).then(user => {
       user.comments.push(params.comment);
+      return user.save();
     });
   }
 };

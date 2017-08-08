@@ -21,8 +21,9 @@ let PostController = {
   },
 
   addComment: params => {
-    return PostController.getById(params.postId).then(post => {
+    return Post.findById(params.postId).then(post => {
       post.comments.push(params.comment);
+      return post.save();
     });
   }
 };
