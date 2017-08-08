@@ -8,5 +8,7 @@ mongoose.Promise = bluebird;
 var models = {};
 
 //hook up our models later
+models.User = require("./user");
+
 
 module.exports = models;

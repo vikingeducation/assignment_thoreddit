@@ -9,7 +9,3 @@ module.exports = () => {
   var mongoUrl = envUrl ? envUrl : localUrl;
   return mongoose.connect(mongoUrl);
 };
-//wherever you want to connect just write this
-require("./mongo")().then(() => {
-  //... Start using the MongoDB connection
-});
