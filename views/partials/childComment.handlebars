@@ -1,8 +1,5 @@
-<ul>
-	{{#each comments as |comment|}}
-	<li>{{comment}}</li>
-	{{/each}}
+
 	<li>
-		<!-- {{>childComment comments=comment.comments}} -->
+		<h4>{{comment.user.username}}:</h4>
+		{{comment.message}}
 	</li>
-</ul>

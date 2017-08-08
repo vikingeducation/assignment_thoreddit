@@ -14,34 +14,8 @@
 </div>
 
 <h3>Comments</h3>
+<div id='commentContainer'>
 {{#each post.comments as |l0comment|}}
-<div class="panel panel-default">
-  <div class='panel-heading'>
-    {{l0comment.user.username}}
-  </div>
-  <div class="panel-body">
-    {{l0comment.message}}
-  </div>
-  <div class='panel-footer'>
-    <ul class='list-unstyled'>
-    	{{#each l0comment.comments as |l1comment|}}
-    	<li>
-        <h4>{{l1comment.user.username}}:</h4>
-        {{l1comment.message}}
-      </li>
-      <li>
-        <ul>
-          {{#each l1comment.comments as |l2comment|}}
-          <li>
-            <h4>{{l2comment.user.username}}:</h4>
-            {{l2comment.message}}
-          </li>
-
-          {{/each}}
-        </ul>
-    	</li>
-    	{{/each}}
-    </ul>
-  </div>
-</div>
+  {{>postComment comment=l0comment}}
 {{/each}}
+</div>
