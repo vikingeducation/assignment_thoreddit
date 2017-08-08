@@ -10,6 +10,7 @@ const { User, Post, Comment, Vote } = models;
 
 let votes = [];
 let users = [];
+let comments = [];
 //helper function
 function getVotes(amount) {
   let newVotes = [];
@@ -22,6 +23,26 @@ function getVotes(amount) {
     newVotes.push(vote);
   }
   return newVotes;
+}
+function getComments(amount) {
+  //creating comments
+  let newComments = [];
+  for (let i = 0; i < 2; i++) {
+    let commentAuthor = users[i % (users.length - 1)];
+    let comment = new Comment({
+      votes: getVotes(3),
+      body: randomWords(22).join(" "),
+      user: commentAuthor,
+      username: commentAuthor.name()
+    });
+    // console.log(`Comment = ${comment}`);
+    newComments.push(comment);
+    comments.push(comment);
+  }
+  // console.log(`Comments = ${newComments}`);
+  //console.log(`isArray? = ${Array.isArray(newComments)}`);
+  //console.log(`===========================================`);
+  return newComments;
 }
 
 const seeds = () => {
@@ -49,23 +70,26 @@ const seeds = () => {
       user: postAuthor,
       title: randomWords(10).join(" "),
       body: randomWords(100).join(" "),
-      username: postAuthor.name()
+      username: postAuthor.name(),
+      children: getComments(Math.round(Math.random() * 10))
     });
+    //console.log(`this post = ${post.children}`);
     posts.push(post);
   }
 
   //creating comments
-  let comments = [];
-  for (let i = 0; i < 5; i++) {
-    let commentAuthor = users[i % (users.length - 1)];
-    let comment = new Comment({
-      votes: getVotes(3),
-      body: randomWords(22).join(" "),
-      user: commentAuthor,
-      username: commentAuthor.name()
-    });
-    comments.push(comment);
-  }
+  // let comments = [];
+  // for (let i = 0; i < 5; i++) {
+  //   let commentAuthor = users[i % (users.length - 1)];
+  //   let comment = new Comment({
+  //     votes: getVotes(3),
+  //     body: randomWords(22).join(" "),
+  //     user: commentAuthor,
+  //     username: commentAuthor.name()
+  //   });
+  //   comments.push(comment);
+  // }
+  //Post.find().populate('children').then(lg)
 
   console.log("Saving...");
   const promises = [];

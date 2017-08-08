@@ -15,7 +15,13 @@ const PostSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User"
     },
-    username: String
+    username: String,
+    children: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Comment"
+      }
+    ]
   },
   {
     timestamps: true
