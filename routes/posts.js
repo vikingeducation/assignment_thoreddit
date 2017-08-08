@@ -49,6 +49,10 @@ function gatherNestedComments(comments) {
   }
 }
 
+function resolvePromiseArray() {
+  Promise.all(promiseArray).then(() => {});
+}
+
 router.get("/posts/new", (req, res) => {});
 
 module.exports = router;
