@@ -13,7 +13,7 @@ Ratings:
 Ratable:    //post and comment inherit from this
 - text:
 - rating: (ref Rating)
-- user: (just a string)
+- user: (ref User)
 
 >>  Posts
     - Title:

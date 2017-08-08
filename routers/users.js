@@ -4,8 +4,10 @@ const mongoose = require("mongoose");
 var models = require("./../models");
 var User = mongoose.model("User");
 
-router.get("/users", (req, res) => {
+var onIndex = (req, res) => {
   res.render("users/index");
-});
+};
+router.get("/users", onIndex);
+router.get("/", onIndex);
 
 module.exports = router;
