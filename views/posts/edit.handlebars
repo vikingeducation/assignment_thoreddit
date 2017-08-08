@@ -1,0 +1,40 @@
+
+
+<header class="page-header">
+  <h1>Edit User: {{ user.fname }} {{ user.lname }}</h1>
+</header>
+
+
+<form action="/users/{{ user.id }}" method="post">
+  <input type="hidden" name="_method" value="PUT">
+  <div class="form-group">
+    <label for="user_username">Username</label>
+    <input type="text" id="user_username" name="user[username]" class="form-control" value="{{ user.username }}">
+  </div>
+
+  <div class="form-group">
+    <label for="user_email">Email</label>
+    <input type="text" id="user_email" name="user[email]" class="form-control" value="{{ user.email }}">
+  </div>
+
+  <div class="form-group">
+    <input type="submit" class="btn btn-primary">
+  </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
