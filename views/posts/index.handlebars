@@ -1,31 +1,31 @@
 
 <header class="page-header">
-  <h1>Users</h1>
-  <a href="/users/new" class="btn btn-primary">+ New User</a>
+  <h1>posts</h1>
+  <a href="/posts/new" class="btn btn-primary">+ New post</a>
 </header>
 
 
-{{#if users.length }}
+{{#if posts.length }}
   <table class="table">
     <thead>
       <tr>
-        <th>Username</th>
+        <th>Post</th>
         <th>Email</th>
-        <th></th>
+        <th>username</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      {{#each users as |user| }}
+      {{#each posts as |post| }}
         <tr>
           <td>
+            <a href="/posts/{{ post.id }}">{{ post.title }}</a>
+          </td>
+          <td>
+            <a href="/posts/{{ post.id }}">{{ post.body }}</a>
+          </td>
+          <td>
             <a href="/users/{{ user.id }}">{{ user.username }}</a>
-          </td>
-          <td>
-            <a href="/users/{{ user.id }}">{{ user.email }}</a>
-          </td>
-          <td>
-            <a href="/users/{{ user.id }}">{{ user.posts.length }}</a>
           </td>
           <td>
             <a href="/users/{{ user.id }}/edit">Edit</a>
