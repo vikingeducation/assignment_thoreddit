@@ -13,9 +13,14 @@ router.get("/new", (req, res) => {
 });
 
 router.post("/new", (req, res) => {
-  UserController.new(req.body)
-    .then(user => res.redirect(h.userPath(user._id)))
-    .catch(e => res.status(500).send(e.stack));
+  if (!req.body.username || !req.body.email) {
+    req.flash("alert", "You must fill out both fields!");
+    res.redirect(h.newUserPath());
+  } else {
+    UserController.new(req.body)
+      .then(user => res.redirect(h.userPath(user._id)))
+      .catch(e => res.status(500).send(e.stack));
+  }
 });
 
 router.get("/:id", (req, res) => {

@@ -1,32 +1,51 @@
-{{#if users.username }}
+{{#if user.username }}
 <header class="page-header">
   <h1>{{ user.username }}</h1>
-  <a href="{{ usersPath }}"></a>
 </header>
 
+<section class="row">
+  <table class="col-md-6 table">
+    <caption>Posts</caption> 
+    <thead>
+      <tr>
+        <th>Created</th>
+        <th>Title</th>
+        <th>Comments</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each user.posts as |post|}}
+        <tr>
+          <td>{{ post.createdAt }}</td>
+          <td><a href="{{ postPath post._id }}">{{ post.title }}</a></td>
+          <td>{{ post.comments.length }}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Created</th>
-      <th>Username</th>
-      <th>Email</th>
-      <th>Comments</th>
-      <th>Posts</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each users as |user| }}
-    <tr>
-      <td>{{ user.createdAt }}</td>
-      <td>{{ user.username }}</td>
-      <td>{{ user.email }}</td>
-      <td>{{ user.comments.length }}</td>
-      <td>{{ user.posts.length }}</td>
-    </tr>
-    {{/each }}
-  </tbody>
-</table>
+  <table class="col-md-6 table">
+    <caption>Comments</caption> 
+    <thead>
+      <tr>
+        <th>Created</th>
+        <th>Text</th>
+        <th>Context</th>  
+      </tr>
+    </thead>
+    <tbody>
+      {{#each user.comments as |comment|}}
+        <tr>
+          <td>{{ comment.createdAt }}</td>
+          <td><a href="{{ commentPath comment._id }}">{{ comment.summary }}</a></td>
+          <td><a href="{{ postPath comment.post }}">Go to post</a></td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</section>
+
+
 {{else }}
-<h1 class="text-danger">User does not exist</h1>
+  <h1 class="text-danger">User does not exist</h1>
 {{/if }}

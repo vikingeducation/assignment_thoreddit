@@ -10,6 +10,6 @@ module.exports = {
     return User.create({ username: params.username, email: params.email });
   },
   getById: id => {
-    return User.findById(id).populate("comment post");
+    return User.findById(id).populate("comments posts");
   }
 };

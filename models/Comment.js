@@ -19,5 +19,9 @@ const CommentSchema = new Schema(
   }
 );
 
+CommentSchema.virtual("summary").get(function() {
+  return this.body.slice(0, 100) + "...";
+});
+
 let Comment = Scorable.discriminator("Comment", CommentSchema);
 module.exports = Comment;
