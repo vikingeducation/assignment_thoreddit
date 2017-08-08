@@ -1,0 +1,50 @@
+{{#if post.title }}
+<header class="page-header">
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.body }}</p>
+  <small>{{ post.createdAt }}</small>
+</header>
+
+<h3>Add a comment:</h3>
+<form action="{{ newCommentPath }}" method="post">
+  <input type="hidden" name="postId" value="{{ post._id }}">
+  <div class="form-group">
+    <label for="userId">Username</label>
+    <select class="form-control" name="userId" required="true">
+      {{#each users as |user|}}
+        <option value="{{ user._id }}">{{ user.username }}</option>
+      {{/each}}
+    </select>
+  </div>
+  <div class="form-group">
+    <textarea class="form-control" name="body" require="true"></textarea>
+  </div>
+  <div class="form-group">
+    <input type="submit" class="btn btn-primary">
+  </div>
+</form>
+
+<table class="table">
+  <caption>Comments</caption>
+  <thead>
+    <tr>
+      <th>Created</th>
+      <th>User</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each post.comments as |comment|}}
+    <tr>
+      <td>{{ comment.createdAt }}</td>
+      <td><a href="{{ userPath comment.user._id }}">{{ comment.user.username }}</a></td>
+      <td>{{ comment.body }}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+
+{{else }}
+<h1 class="text-danger">Post does not exist</h1>
+{{/if }}

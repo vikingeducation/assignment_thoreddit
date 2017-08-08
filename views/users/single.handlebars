@@ -4,48 +4,50 @@
 </header>
 
 <section class="row">
-  <table class="col-md-6 table">
-    <caption>Posts</caption> 
-    <thead>
-      <tr>
-        <th>Created</th>
-        <th>Title</th>
-        <th>Comments</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each user.posts as |post|}}
+  <div class="col-md-6">
+    <table class="table">
+      <caption>Posts</caption>
+      <thead>
+        <tr>
+          <th>Created</th>
+          <th>Title</th>
+          <th>Comments</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each user.posts as |post|}}
         <tr>
           <td>{{ post.createdAt }}</td>
           <td><a href="{{ postPath post._id }}">{{ post.title }}</a></td>
           <td>{{ post.comments.length }}</td>
         </tr>
-      {{/each}}
-    </tbody>
-  </table>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
 
-  <table class="col-md-6 table">
-    <caption>Comments</caption> 
-    <thead>
-      <tr>
-        <th>Created</th>
-        <th>Text</th>
-        <th>Context</th>  
-      </tr>
-    </thead>
-    <tbody>
-      {{#each user.comments as |comment|}}
+  <div class="col-md-6">
+    <table class="table">
+      <caption>Comments</caption>
+      <thead>
+        <tr>
+          <th>Created</th>
+          <th>Text</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each user.comments as |comment|}}
         <tr>
           <td>{{ comment.createdAt }}</td>
-          <td><a href="{{ commentPath comment._id }}">{{ comment.summary }}</a></td>
-          <td><a href="{{ postPath comment.post }}">Go to post</a></td>
+          <td><a href="{{ postPath comment.post }}">{{ comment.summary }}</a></td>
         </tr>
-      {{/each}}
-    </tbody>
-  </table>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
 </section>
 
 
 {{else }}
-  <h1 class="text-danger">User does not exist</h1>
+<h1 class="text-danger">User does not exist</h1>
 {{/if }}

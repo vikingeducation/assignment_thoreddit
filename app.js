@@ -7,9 +7,9 @@ require("dotenv").config();
 // Templates
 const expressHandlebars = require("express-handlebars");
 const hbs = expressHandlebars.create({
-	partialsDir: "views/",
-	defaultLayout: "application",
-	helpers: require("./helpers")
+  partialsDir: "views/",
+  defaultLayout: "application",
+  helpers: require("./helpers")
 });
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
@@ -17,6 +17,19 @@ app.set("view engine", "handlebars");
 // Post Data
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Session
+const cookieSession = require("cookie-session");
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["asdf90890sdfa980sdf98a"]
+  })
+);
+
+// Flash
+const flash = require("express-flash-messages");
+app.use(flash());
 
 // Log Request Info
 const morgan = require("morgan");
@@ -31,15 +44,13 @@ app.use(methodOverride(getPostSupport.callback, getPostSupport.options));
 // Connect to Mongoose
 const mongoose = require("mongoose");
 app.use((req, res, next) => {
-	if (mongoose.connection.readyState) next();
-	else require("./mongo")().then(() => next());
+  if (mongoose.connection.readyState) next();
+  else require("./mongo")().then(() => next());
 });
 
 // Routes
-app.use("/", require("./routers/posts"));
-app.use("/posts", function(req, res) {
-	res.redirect("/");
-});
+app.use("/posts", require("./routers/posts"));
+app.all("/", (req, res) => res.redirect("/posts"));
 app.use("/users", require("./routers/users"));
 
 // Set up port/host
@@ -49,7 +60,7 @@ let args = process.env.NODE_ENV === "production" ? [port] : [port, host];
 
 // helpful log when the server starts
 args.push(() => {
-	console.log(`Listening: http://${host}:${port}`);
+  console.log(`Listening: http://${host}:${port}`);
 });
 
 // Use apply to pass the args to listen
