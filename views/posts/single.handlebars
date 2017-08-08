@@ -1,8 +1,8 @@
 {{#if post.title }}
 <header class="page-header">
   <h1>{{ post.title }}</h1>
+  <small>At {{ post.createdAt }} by {{ post.user.username }}</small>
   <p>{{ post.body }}</p>
-  <small>{{ post.createdAt }}</small>
 </header>
 
 <h3>Add a comment:</h3>

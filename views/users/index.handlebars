@@ -19,7 +19,7 @@
     {{#each users as |user| }}
     <tr>
       <td>{{ user.createdAt }}</td>
-      <td>{{ user.username }}</td>
+      <td><a href="{{ userPath user._id }}">{{ user.username }}</a></td>
       <td>{{ user.email }}</td>
       <td>{{ user.comments.length }}</td>
       <td>{{ user.posts.length }}</td>
