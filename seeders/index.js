@@ -16,7 +16,7 @@ const seeds = () => {
     var user = new User({
       username: `foobar${i}`,
       email: `foobar${i}@gmail.com`,
-      posts: [i, i + 10]
+      posts: []
     });
     users.push(user);
   }
@@ -34,11 +34,12 @@ const seeds = () => {
 
     var post = new Post({
       title: `Title of ${i}`,
-      author: authorId,
+      author: users[authorId],
       body: `Blah blah blah blah ${i}`,
       topLevel: true,
       subPosts: []
     });
+    users[authorId - 1].posts.push(post);
     posts.push(post);
   }
 
