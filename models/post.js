@@ -49,6 +49,20 @@ PostSchema.virtual("shortTitle").get(function() {
   return titleShort.join(" ");
 });
 
+// Calculation for the score
+PostSchema.virtual('score').get(function() {
+  let score = 0;
+  this.votes.forEach((vote) => {
+    vote.voteType ? score++ : score--;
+  })
+  return score;
+})
+
+//
+PostSchema.virtual('updateVote').set(function(vote) {
+  return this.votes.push(vote);
+})
+
 const Post = mongoose.model("Post", PostSchema);
 
 module.exports = Post;

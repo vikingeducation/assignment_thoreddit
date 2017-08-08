@@ -4,8 +4,10 @@
   </div>
   <div class='row'>
     <div class='col-xs-3'>
-      <button class='btn btn-success'>Upvote</button>
-      <button class='btn btn-danger'>Downvote</button>
+      <p><strong>Score: </strong>{{ post.score }}</p>
+
+      <a href="/posts/{{post.id}}/upvote"><button class='btn btn-success'>Upvote</button></a>
+      <a href="/posts/{{post.id}}/downvote"><button class='btn btn-danger'>Downvote</button></a>
     </div>
     <div class='col-xs-6'>
       <h2>{{post.title}}</h2>
@@ -15,9 +17,10 @@
   </div>
   {{#if comments.length }}
   <div class='row' id='comments'>
-    {{#each comment as |comment|}}
+    {{#each comments as |comment|}}
       <div class='col-x-12'>
-        Insert Comments Here Later
+        <h5>{{comment.username}} said:</h5>
+        <p>{{comment.body}}</p>
       </div>
     {{/each}}
   </div>

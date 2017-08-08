@@ -27,7 +27,7 @@ function getVotes(amount) {
 function getComments(amount) {
   //creating comments
   let newComments = [];
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < amount; i++) {
     let commentAuthor = users[i % (users.length - 1)];
     let comment = new Comment({
       votes: getVotes(3),
@@ -73,7 +73,6 @@ const seeds = () => {
       username: postAuthor.name(),
       children: getComments(Math.round(Math.random() * 10))
     });
-    //console.log(`this post = ${post.children}`);
     posts.push(post);
   }
 
