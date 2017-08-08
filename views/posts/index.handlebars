@@ -11,6 +11,7 @@
       <th>Posted</th>
       <th>Title</th>
       <th>Username</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -24,6 +25,9 @@
       </td>
       <td>
         <a href="{{ userPath post.user._id }}">{{ post.user.username }}</a>
+      </td>
+      <td>
+        <a href="{{ destroyPostPath post._id }}">delete</a>
       </td>
     </tr>
     {{/each }}

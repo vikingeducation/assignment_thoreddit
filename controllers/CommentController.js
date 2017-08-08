@@ -3,15 +3,6 @@ const PostController = require("./PostController");
 const UserController = require("./UserController");
 
 module.exports = {
-  // getAll: () => {
-  //   return Comment.find({}, {}, { sort: { createdAt: -1 } }).populate("user");
-  // },
-  // getById: id => {
-  //   return Comment.findById(id).populate("user").populate({
-  //     path: "comments",
-  //     populate: { path: "user", model: "User" }
-  //   });
-  // },
   new: params => {
     let comment;
 
