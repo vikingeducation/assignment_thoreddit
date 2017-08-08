@@ -49,8 +49,6 @@ router.get("/:id", (req, res) => {
 // ----------------------------------------
 router.post("/", (req, res) => {
   var user = new User({
-    fname: req.body.user.fname,
-    lname: req.body.user.lname,
     username: req.body.user.username,
     email: req.body.user.email
   });
@@ -68,8 +66,6 @@ router.post("/", (req, res) => {
 // ----------------------------------------
 router.put("/:id", (req, res) => {
   var userParams = {
-    fname: req.body.user.fname,
-    lname: req.body.user.lname,
     username: req.body.user.username,
     email: req.body.user.email
   };

@@ -3,12 +3,15 @@ const app = express();
 const bodyParser = require("body-parser");
 const exphbs = require("express-handlebars");
 const mongoose = require("mongoose");
+const methodOverride = require("method-override");
+const getPostSupport = require("express-method-override-get-post-support");
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride(getPostSupport.callback, getPostSupport.options));
 
 const hbs = exphbs.create({
-  partialsDir: "views/",
-  defaultLayout: "main"
+	partialsDir: "views/",
+	defaultLayout: "main"
 });
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
@@ -19,20 +22,26 @@ var host = "localhost";
 var args;
 process.env.NODE_ENV === "production" ? (args = [port]) : (args = [port, host]);
 var sessionsRouter = require("./routers/sessions")(app);
+
+app.use((req, res, next) => {
+	if (mongoose.connection.readyState) {
+		next();
+	} else {
+		require("./mongo")().then(() => next());
+	}
+});
+
 app.use("/", sessionsRouter);
 
 var usersRouter = require("./routers/users");
 app.use("/users", usersRouter);
 
 args.push(() => {
-  console.log(`Listening: http://${host}:${port}`);
+	console.log(`Listening: http://${host}:${port}`);
 });
-app.use((req, res, next) => {
-  if (mongoose.connection.readyState) {
-    next();
-  } else {
-    require("./mongo")().then(() => next());
-  }
+
+app.get("/", (req, res) => {
+	res.redirect("/users");
 });
 
 app.listen.apply(app, args);

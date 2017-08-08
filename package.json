@@ -21,6 +21,8 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
     "express-handlebars": "^3.0.0",
+    "express-method-override-get-post-support": "0.0.7",
+    "method-override": "^2.3.9",
     "mongoose": "^4.11.6",
     "mongooseeder": "^2.0.5"
   }
