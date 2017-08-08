@@ -1,46 +1,75 @@
-const mongoose = require('mongoose');
-const models = require('./../models');
+const mongoose = require("mongoose");
+const models = require("./../models");
+const randomWords = require("random-words");
 
+let env = process.env.NODE_ENV || "development";
+let config = require("./../config/mongo")[env];
+const mongooseeder = require("mongooseeder");
 
-let env = process.env.NODE_ENV || 'development';
-let config = require('./../config/mongo')[env];
-const mongooseeder = require('mongooseeder');
+const { User, Post, Comment, Vote } = models;
 
-const {
-  User
-} = models;
-
+let votes = [];
+let users = [];
+//helper function
+function getVotes(amount) {
+  let newVotes = [];
+  for (let i = 0; i < amount; i++) {
+    let vote = new Vote({
+      user: users[i % (users.length - 1)],
+      voteType: Math.round(Math.random()) ? true : false
+    });
+    votes.push(vote);
+    newVotes.push(vote);
+  }
+  return newVotes;
+}
 
 const seeds = () => {
-
-  console.log('Creating Users');
-  const users = [];
+  //creating users
+  console.log("Creating Users");
   for (let i = 0; i < 5; i++) {
     let user = new User({
-      fname: 'Foo',
-      lname: 'Bar',
-      username: `foobar${ i }`,
-      email: `foobar${ i }@gmail.com`
+      fname: "Foo",
+      lname: "Bar",
+      username: `foobar${i}`,
+      email: `foobar${i}@gmail.com`
     });
     users.push(user);
   }
 
-  console.log('Creating Votes');
-  votes = [];
-  for(let i = 0; i < 1000; i++) {
-    let vote = new Vote({
-      let vote = new Vote({
-        user: users[i % (users.length - 1)];
-        vote: Math.round(Math.random()) ? true : false;
-    })
+  //creating votes
+  console.log("Creating Votes");
+
+  //creating posts
+  let posts = [];
+  for (let i = 0; i < 10; i++) {
+    let postAuthor = users[i % (users.length - 1)];
+    let post = new Post({
+      votes: getVotes(1),
+      user: postAuthor,
+      title: randomWords(10).join(" "),
+      body: randomWords(100).join(" "),
+      username: postAuthor.name()
+    });
+    posts.push(post);
   }
 
+  //creating comments
+  let comments = [];
+  for (let i = 0; i < 5; i++) {
+    let commentAuthor = users[i % (users.length - 1)];
+    let comment = new Comment({
+      votes: getVotes(3),
+      body: randomWords(22).join(" "),
+      user: commentAuthor,
+      username: commentAuthor.name()
+    });
+    comments.push(comment);
+  }
 
-  console.log('Saving...');
+  console.log("Saving...");
   const promises = [];
-  [
-    users
-  ].forEach(collection => {
+  [users, posts, votes, comments].forEach(collection => {
     collection.forEach(model => {
       promises.push(model.save());
     });
@@ -49,9 +78,10 @@ const seeds = () => {
 };
 
 // store url for seeding
-const mongodbUrl = process.env.NODE_ENV === 'production' ?
-  process.env[config.use_env_variable] :
-  `mongodb://${ config.host }/${ config.database }`;
+const mongodbUrl =
+  process.env.NODE_ENV === "production"
+    ? process.env[config.use_env_variable]
+    : `mongodb://${config.host}/${config.database}`;
 
 // Actual seeding process is happening here
 mongooseeder.seed({

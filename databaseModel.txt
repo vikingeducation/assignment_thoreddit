@@ -13,6 +13,7 @@ Post
   title
   body
   userId
+  children  = [comments]
   timestamps
   username
 

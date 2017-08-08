@@ -1,22 +1,26 @@
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-
-const PostSchema = new Schema({
-  votes: [{
-    type: Schema.Types.ObjectId,
-    ref: "Vote"
-  }],
-  body: String,
-  title: String,
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: "User"
+const PostSchema = new Schema(
+  {
+    votes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Vote"
+      }
+    ],
+    body: String,
+    title: String,
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    },
+    username: String
   },
-  username: String,
-}, {
-  timestamps: true
-});
+  {
+    timestamps: true
+  }
+);
 
 const Post = mongoose.model("Post", PostSchema);
 
