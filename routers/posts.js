@@ -8,15 +8,18 @@ let Post = mongoose.model("Post");
 router.get("/", (req, res) => {
   Post.find()
     .then(posts => {
-      let shortProps = [];
+      let shortPosts = [];
       posts.forEach((post, index) => {
-        shortProps.push({
+        shortPosts.push({
+          createdAt: post.createdAt,
           shortTitle: post.shortTitle,
-          shortBody: post.shortBody
+          shortBody: post.shortBody,
+          username: post.username,
+          id: post.id
         });
-
       })
-      return res.render("./users/index", { posts });
+      console.log(shortPosts);
+      return res.render("./users/index", { posts: shortPosts });
     })
     .catch(e => res.status(500).send(e.stack));
 });

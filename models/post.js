@@ -22,19 +22,8 @@ const PostSchema = new Schema(
   }
 );
 
-// COME BACK TO THIS AND COMBINE FUNCTIONS IF TIME PERMITS
-
 // Virtual method for returning short body
-// PostSchema.virtual("shortBody").get(function() {
-//   let bodyShort = [];
-//   let bodyArray = this.body.split(" ");
-//   for(let i = 0; i < 5; i++) {
-//     bodyShort.push(bodyArray[i]);
-//   }
-//   return bodyShort.join(" ");
-// })
-
-PostSchema.virtual("shortBody").set(function() {
+PostSchema.virtual("shortBody").get(function() {
   let bodyShort = [];
   let bodyArray = this.body.split(" ");
   for(let i = 0; i < 5; i++) {
