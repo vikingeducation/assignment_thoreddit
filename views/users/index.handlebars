@@ -1,0 +1,51 @@
+
+
+<header class="page-header">
+  <h1>Users</h1>
+  <a href="/users/new" class="btn btn-primary">+ New User</a>
+</header>
+
+
+{{#if users.length }}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each users as |user| }}
+        <tr>
+          <td>
+            <a href="/users/{{ user.id }}">{{ user.username }}</a>
+          </td>
+          <td>
+            <a href="/users/{{ user.id }}">{{ user.email }}</a>
+          </td>
+          <td>
+            <a href="/users/{{ user.id }}/edit">Edit</a>
+          </td>
+          <td>
+            <a href="/users/{{ user.id }}?_method=delete" class="text-danger">Delete</a>
+          </td>
+        </tr>
+      {{/each }}
+    </tbody>
+  </table>
+{{else }}
+  <p class="text-danger">No users</p>
+{{/if }}
+
+
+
+
+
+
+
+
+
+
+

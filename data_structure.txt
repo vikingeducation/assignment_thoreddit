@@ -1,0 +1,12 @@
+Users
+	username (string)
+	email (string)
+	posts (array)
+
+Posts
+	title (string)
+	author (string)
+	body (text)
+	votes (integer)
+	topLevel (boolean)
+	comments (array)
