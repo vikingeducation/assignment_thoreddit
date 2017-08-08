@@ -3,12 +3,10 @@ const Schema = mongoose.Schema;
 
 const ScoreableSchema = new Schema(
 	{
-		scores: [
-			{
-				types: Schema.Types.ObjectId,
-				ref: 'Score'
-			}
-		]
+		scores: {
+			type: Schema.Types.ObjectId,
+			ref: 'Score'
+		}
 	},
 	{
 		timestamps: true,

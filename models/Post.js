@@ -6,9 +6,17 @@ const PostSchema = new Schema(
 	{
 		title: String,
 		body: String,
+		user: {
+			type: Schema.Types.ObjectId,
+			ref: 'User'
+		},
 		comment: {
 			type: Schema.Types.ObjectId,
 			ref: 'Comment'
+		},
+		score: {
+			type: Schema.Types.ObjectId,
+			ref: 'Score'
 		}
 	},
 	{

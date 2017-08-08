@@ -12,6 +12,10 @@ const CommentSchema = new Schema(
 		comment: {
 			type: Schema.Types.ObjectId,
 			ref: 'Comment'
+		},
+		score: {
+			type: Schema.Types.ObjectId,
+			ref: 'Score'
 		}
 	},
 	{
