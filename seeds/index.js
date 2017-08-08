@@ -21,7 +21,8 @@ function seeds() {
     let post = new Post({
       title: voca.titleCase(faker.random.words(6)),
       body: faker.random.words(100),
-      user: users[i % 10]
+      user: users[i % 10],
+      score: faker.random.number({ min: -100, max: 100 })
     });
     users[i % 10].posts.push(post);
     posts.push(post);
@@ -38,6 +39,14 @@ function seeds() {
     posts[i % 20].comments.push(comment);
     comments.push(comment);
   }
+
+  let promises = [];
+  [users, posts, comments].forEach(collection => {
+    collection.forEach(model => {
+      promises.push(model.save());
+    });
+  });
+  return Promise.all(promises);
 }
 
 mongoseeder.seed({
