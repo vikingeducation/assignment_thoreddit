@@ -1,0 +1,32 @@
+{{#if users.username }}
+<header class="page-header">
+  <h1>{{ user.username }}</h1>
+  <a href="{{ usersPath }}"></a>
+</header>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Created</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Comments</th>
+      <th>Posts</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each users as |user| }}
+    <tr>
+      <td>{{ user.createdAt }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.comments.length }}</td>
+      <td>{{ user.posts.length }}</td>
+    </tr>
+    {{/each }}
+  </tbody>
+</table>
+{{else }}
+<h1 class="text-danger">User does not exist</h1>
+{{/if }}
