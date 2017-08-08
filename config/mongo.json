@@ -1,10 +1,10 @@
 {
   "development": {
-    "database": "demo_exploring_mongoose_development",
+    "database": "thoreddit_development",
     "host": "localhost"
   },
   "test": {
-    "database": "demo_exploring_mongoose_test",
+    "database": "thoreddit_test",
     "host": "localhost"
   },
   "production": {

@@ -29,8 +29,8 @@ const seeds = () => {
     var post = new Post({
       title: `Post ${i}`,
       text: `I have ${i} cats.`,
-      rating: ObjectId(`${i}`),
-      user: ObjectId(`${i}`)
+      rating: new Rating({value:0, user:users[i], ratable: posts[i]}),
+      user: users[i]
     });
     posts.push(post);
   }
@@ -43,43 +43,19 @@ const seeds = () => {
   for (let i = 0; i < 5; i++) {
     var comment = new Comment({
       text: `Wow, I have ${i} cats also!`,
-      rating: ObjectId(`${i}`),
-      user: ObjectId(`${i}`)
+      rating: new Rating({value:0, user:users[i], ratable: comments[i]}),
+      user: users[i]
     });
     comments.push(comment);
   }
 
-  // ----------------------------------------
-  // Ratings
-  // ----------------------------------------
-  console.log("Creating Ratings");
-  var ratings = [];
-  for (let i = 0; i < MULTIPLIER * 1000; i++) {
-    var hotel = hotels[i % hotels.length];
-    var motel = motels[i % motels.length];
-    var user = users[1];
-    var hotelRating = new Rating({
-      ratable: hotel,
-      user: user,
-      value: randomRating()
-    });
-    var motelRating = new Rating({
-      ratable: motel,
-      user: user,
-      value: randomRating()
-    });
-    hotel.ratings.push(hotelRating);
-    motel.ratings.push(motelRating);
-    ratings.push(hotelRating);
-    ratings.push(motelRating);
-  }
 
   // ----------------------------------------
   // Finish
   // ----------------------------------------
   console.log("Saving...");
   var promises = [];
-  [users, hotels, motels, ratings].forEach(collection => {
+  [users, posts, comments].forEach(collection => {
     collection.forEach(model => {
       promises.push(model.save());
     });
@@ -101,10 +77,3 @@ mongooseeder.seed({
   models: models,
   mongoose: mongoose
 });
-
-// mongooseeder.clean({
-//   database: config.database,
-//   host: config.host,
-//   models: models,
-//   mongoose: mongoose
-// });

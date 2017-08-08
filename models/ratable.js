@@ -3,11 +3,11 @@ var Schema = mongoose.Schema;
 
 var RatableSchema = new Schema(
   {
-    text: String
+    text: String,
     rating: {
       type: Schema.Types.ObjectId,
       ref: "Rating"
-    }
+    },
     user: {
       type: Schema.Types.ObjectId,
       ref: "User"
