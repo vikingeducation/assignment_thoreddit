@@ -22,35 +22,39 @@ const seeds = () => {
 	const posts = [];
 	const comments = [];
 	const scores = [];
-	for (let i = 0; i < 10; i++) {
-		const user = new User({
+	for (let i = 0; i < 1; i++) {
+		const newUser = new User({
 			username: `foobar${i}`,
 			email: `foobar${i}@gmail.com`
 		});
-		user.posts = createPosts();
-
-		users.push(user);
+		let userPosts = createPosts(newUser);
+		newUser.posts = userPosts;
+		users.push(newUser);
 	}
 
 	// ----------------------------------------
 	// Posts
 	// ----------------------------------------
-	function createPosts() {
+	function createPosts(user) {
 		const userPosts = [];
-		for (let i = 0; i < 10; i++) {
+		for (let i = 0; i < 1; i++) {
 			const newPost = new Post({
+				user: user,
 				title: 'An Awesome Post',
 				body:
 					'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 			});
 			const newScore = new Score({
+				post: newPost,
 				value: 0,
 				upVotes: 0,
 				downVotes: 0
 			});
 			scores.push(newScore);
+
 			newPost.score = newScore;
-			newPost.comments = seedComments(3);
+			newPost.comments = seedComments(user, newPost, 3);
+			console.log(newPost.comments);
 			_depth = 0;
 
 			posts.push(newPost);
@@ -62,15 +66,17 @@ const seeds = () => {
 	// ----------------------------------------
 	// Comments
 	// ----------------------------------------
-	function seedComments(maxDepth) {
+	function seedComments(user, post, maxDepth) {
 		process.stdout.write('.');
 		_depth++;
 		let max = Math.floor(1 + Math.random() * 10);
 		let postComments = [];
 		for (let i = 0; i < max; i++) {
 			let newComment = new Comment({
+				post: post,
+				user: user,
 				message:
-					'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+					'111Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 			});
 			let newScore = new Score({
 				value: 0,
@@ -79,7 +85,6 @@ const seeds = () => {
 			});
 			scores.push(newScore);
 			newComment.score = newScore;
-
 			comments.push(newComment);
 			postComments.push(newComment);
 		}
@@ -89,7 +94,7 @@ const seeds = () => {
 			return postComments;
 		} else {
 			postComments.forEach(comment => {
-				comment.comments = seedComments(maxDepth);
+				comment.comments = seedComments(user, post, maxDepth);
 			});
 		}
 	}
@@ -99,7 +104,8 @@ const seeds = () => {
 	// ----------------------------------------
 	console.log('\nSaving...');
 	const promises = [];
-	[scores, users, posts, comments].forEach(collection => {
+	users.forEach(user => console.log(user.posts));
+	[users, posts, comments, scores].forEach(collection => {
 		collection.forEach(model => {
 			promises.push(model.save());
 		});
