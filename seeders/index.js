@@ -59,6 +59,7 @@ const seeds = () => {
       title: `Title of ${i}`,
       author: users[authorId],
       body: `This is a subpost! ${i}`,
+      votes: 0,
       topLevel: false,
       subPosts: []
     });
@@ -67,10 +68,10 @@ const seeds = () => {
       title: `Title of ${i}`,
       author: users[authorId],
       body: `This is a sub-subpost! ${i}`,
+      votes: 0,
       topLevel: false,
       subPosts: []
     });
-    console.log(authorId);
     subPost.subPosts.push(subSubPost);
     posts[authorId].subPosts.push(subPost);
     users[authorId].posts.push(subPost);
