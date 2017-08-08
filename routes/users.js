@@ -4,8 +4,8 @@ var models = require('./../models');
 var { User, Post, Comment } = models;
 
 router.get('/users', (req, res) => {
-	Comment.find()
-		.populate('user')
+	User.find()
+		.populate('post')
 		.then(users => {
 			console.log(users);
 			res.render('users/index', { users });

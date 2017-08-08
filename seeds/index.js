@@ -88,7 +88,6 @@ const seeds = () => {
 			comments.push(newComment);
 			postComments.push(newComment);
 		}
-		// console.log(_depth, maxDepth);
 		if (_depth === maxDepth) {
 			_depth--;
 			return postComments;

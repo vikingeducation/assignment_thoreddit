@@ -5,10 +5,12 @@ const UserSchema = new Schema(
 	{
 		username: String,
 		email: String,
-		post: {
-			type: Schema.Types.ObjectId,
-			ref: 'Post'
-		}
+		post: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: 'Post'
+			}
+		]
 	},
 	{
 		timestamps: true
