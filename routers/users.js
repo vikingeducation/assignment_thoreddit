@@ -5,8 +5,16 @@ var models = require("./../models");
 var User = mongoose.model("User");
 
 var onIndex = (req, res) => {
-  res.render("users/index");
+  User.find().then((users)=>{
+  //   // users.forEach(user => {
+  //   //   // user.posts = user.posts.length
+  //     console.log(users.posts)
+  //   })
+  //   console.log(users.posts.length)
+    res.render("users/index", {users});
+  }) 
 };
+
 router.get("/users", onIndex);
 router.get("/", onIndex);
 
