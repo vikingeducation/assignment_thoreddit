@@ -29,3 +29,18 @@
     </tr>
   </tbody>
 </table>
+
+{{#if user.posts.length}}
+  {{#each user.posts as |post|}}
+    <div class="row">
+    {{#if post.topLevel}}
+      <div class="col-xs-12">
+    {{else}}
+      <div class="col-xs-offset-1 col-xs-11">
+    {{/if}}
+        <a href="/posts/{{ post.id }}" ><h1>{{ post.title }} {{ post.author }} {{ post.votes }}</h1></a>
+        <p>{{ post.body }}</p>
+      </div>
+    </div class="row">
+  {{/each}}
+{{/if}}

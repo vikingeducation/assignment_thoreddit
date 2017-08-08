@@ -38,6 +38,7 @@ router.get("/:id/edit", (req, res) => {
 // ----------------------------------------
 router.get("/:id", (req, res) => {
   User.findById(req.params.id)
+    .populate("posts")
     .then(user => {
       res.render("users/show", { user });
     })

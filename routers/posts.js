@@ -38,8 +38,17 @@ router.get("/:id/edit", (req, res) => {
 // ----------------------------------------
 router.get("/:id", (req, res) => {
   Post.findById(req.params.id)
-    .populate("subPosts")
-    .populate("subPosts")
+    .populate({
+      path: "subPosts",
+      populate: {
+        path: "subPosts",
+        model: "Post",
+        populate: {
+          path: "subPosts",
+          model: "Post"
+        }
+      }
+    })
     .then(post => {
       console.log(post);
       res.render("posts/show", { post });

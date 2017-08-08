@@ -73,7 +73,8 @@ const seeds = () => {
     console.log(authorId);
     subPost.subPosts.push(subSubPost);
     posts[authorId].subPosts.push(subPost);
-    users[authorId].posts.push(post);
+    users[authorId].posts.push(subPost);
+    users[authorId].posts.push(subSubPost);
     posts.push(subPost);
     posts.push(subSubPost);
   }
