@@ -15,7 +15,8 @@ const seeds = () => {
   for (let i = 0; i < 5; i++) {
     var user = new User({
       username: `foobar${i}`,
-      email: `foobar${i}@gmail.com`
+      email: `foobar${i}@gmail.com`,
+      posts: []
     });
     users.push(user);
   }
@@ -29,8 +30,8 @@ const seeds = () => {
     var post = new Post({
       title: `Post ${i}`,
       text: `I have ${i} cats.`,
-      rating: new Rating({value:0, user:users[i], ratable: posts[i]}),
-      user: users[i]
+      rating: new Rating({ value: 0, user: users[i], ratable: posts[i] }),
+      user: user[i]
     });
     posts.push(post);
   }
@@ -43,12 +44,11 @@ const seeds = () => {
   for (let i = 0; i < 5; i++) {
     var comment = new Comment({
       text: `Wow, I have ${i} cats also!`,
-      rating: new Rating({value:0, user:users[i], ratable: comments[i]}),
+      rating: new Rating({ value: 0, user: users[i], ratable: comments[i] }),
       user: users[i]
     });
     comments.push(comment);
   }
-
 
   // ----------------------------------------
   // Finish

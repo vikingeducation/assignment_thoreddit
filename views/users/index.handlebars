@@ -1,0 +1,54 @@
+<header class="page-header">
+  <h1>Users</h1>
+</header>
+
+
+<button class="btn btn-success">+New User</button>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Select a user to view their profile</h3>
+
+  </div>
+  <div class="panel-body">
+    {{#if users.length }}
+      <table class="row table table-striped">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Posts</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each users as |user| }}
+            <tr>
+              <td>
+                <a href="/users/show/{{ user.id }}">{{ user.username }}</a>
+              </td>
+              <td>
+                <a href="/users/show/{{ user.id }}">{{ user.email }}</a>
+              </td>
+              <td>
+                <a href="/users/show/{{ user.id }}">Like</a>
+              </td>
+              <td>
+                <button class="btn btn-primary">Edit</button> </td>
+              <td>
+                <button class="btn btn-danger">Delete</button> </td>
+            </tr>
+          {{/each }}
+        </tbody>
+      </table>
+    {{else}}
+      <p class="text-danger">No users</p>
+    {{/if }}
+
+  </div>
+  <div class="panel-footer">
+    <ul class="pagination">
+      <li><a href="#">&laquo;</a></li>
+
+      <li><a href="#">&raquo;</a></li>
+    </ul>
+  </div>
+</div>
