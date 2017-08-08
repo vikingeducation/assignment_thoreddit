@@ -1,0 +1,97 @@
+<form action='/users/new', method='POST'>
+  <div class="form-group">
+    <label for="email">Email address:</label>
+    <input type="email" class="form-control" name="email" value={{email}}>
+  </div>
+  <div class="form-group">
+    <label for="username">Username:</label>
+    <input type="text" class="form-control" name="username" value={{username}}>
+  </div>
+  <div class="form-group">
+    <label for="age">age:</label>
+    <input type="text" class="form-control" name="age" value='99'>
+  </div>
+  <div class="form-group">
+    <label for="gender">Gender</label>
+    <input type="radio" name="gender" value='Male' checked>Male
+    <input type="radio" name="gender" value='Female'>Female
+  </div>
+  <div class="form-group">
+    <label for="location">Location</label>
+    <input type="text" class="form-control" name="location" value='Skaarsgard'>
+  </div>
+  <div class="form-group">
+    <label for="Relationship">Relationship Status</label>
+    <select name='Relationship'>
+      <option value= 'single'>Single</option>
+      <option value= 'In Relationship'>In Relationship</option>
+      <option value= 'Married'>Married</option>
+      <option value= 'Divorced/Widowed'>Divorced/Widowed</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="education">education</label>
+    <input type="text" class="form-control" name="education" value='Graduate of Aasgaard Community College'>
+  </div>
+  <div class="form-group">
+    <label for="kids">Kids?</label>
+    <select name='kids'>
+      <option value= '0'>0</option>
+      <option value= '1'>1</option>
+      <option value= '2'>2</option>
+      <option value= '3'>3+</option>
+    </select>
+  </div>
+  <div class='form-group'>
+    <label for="height">Height: </label>
+    <label for="Feet">Feet</label>
+    <select name='feet'>
+      <option value= '2'>2</option>
+      <option value= '3'>3</option>
+      <option value= '4'>4</option>
+      <option value= '5'>5</option>
+      <option value= '6'>6</option>
+      <option value= '7'>7</option>
+      <option value= '8'>8</option>
+    </select>
+    <label for="inches">Inches</label>
+    <select name='inches'>
+      <option value= '0'>0</option>
+      <option value= '1'>1</option>
+      <option value= '2'>2</option>
+      <option value= '3'>3</option>
+      <option value= '4'>4</option>
+      <option value= '5'>5</option>
+      <option value= '6'>6</option>
+      <option value= '7'>7</option>
+      <option value= '8'>8</option>
+      <option value= '9'>9+</option>
+      <option value= '10'>10</option>
+      <option value= '11'>11</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="occupation">Occupation</label>
+    <input type="text" class="form-control" name="occupation" value='Pillaging'>
+  </div>
+
+  <!-- tons of text here -->
+  <div class="form-group">
+    <label for="about">About Me:</label>
+    <textarea class="form-control" name="about" placeholder="I am pretty much the best.">I am pretty much the best. *flexes*</textarea>
+  </div>
+  <div class="form-group">
+    <label for="talents">talents:</label>
+    <textarea class="form-control" name="talents" placeholder="things and stuff">I can bench-press three longboats, four on a good day.</textarea>
+  </div>
+  <div class="form-group">
+    <label for="favoriteThings">Favorite Things:</label>
+    <textarea class="form-control" name="favoriteThings" placeholder="Rain drops on roses and whiskers on kittens, bright copper kettles and warm woolen mittens">Kittens, flowers, honeysuckle, and the blood of my enemies spilt upon the ground.</textarea>
+  </div>
+  <div class="form-group">
+    <label for="why">Why you should message me</label>
+    <textarea class="form-control" name="why" placeholder="things and stuff">I will kill you if you do not.</textarea>
+  </div>
+  <button class='btn btn-submit'>TIME TO FIND SOME VIKINGS!</button>
+
+</form>
