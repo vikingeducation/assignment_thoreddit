@@ -1,0 +1,69 @@
+------Minimum Viable Product
+
+User
+  fName
+  lName
+  username
+  email
+
+
+Post
+  --virtual function get score:
+  votes[pos, neg]
+  title
+  body
+  userId
+  timestamps
+  username
+
+Comments
+ body
+ userId
+ votes[pos, neg]
+ timestamps
+
+
+Vote
+ user
+ voteType Up/Down
+
+------Balla Balla Product Requiremnets
+----potentially use inheritance
+--Posts and Comments inherit from Submissions
+Inheritance Structure
+------------------
+Submission
+ ->Post
+ ->Comment
+ ---------------------
+
+ Submission
+  --virtual function get score:
+  --virtual function get children:
+   votes[vote, vote]
+   body
+   userId
+   timestamps
+
+ Post
+   title
+
+ Comments
+  ??
+
+  User
+    fName
+    lName
+    username
+    email
+
+ Vote
+  user
+  voteType Up/Down
+
+
+
+
+
+
+--
