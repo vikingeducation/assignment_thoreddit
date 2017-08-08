@@ -37,10 +37,10 @@ router.get("/:id/comments/new", (req, res) => {
 });
 
 router.post("/:id/comments/new", (req, res) => {
-  let thisUser = Users.find({ username: req.body.comment.username });
+  let postId = req.params.id
+  let thisUser = Users.find({ username: req.body.comment.username }).id;
 
   let newComment = new Comment({
-    kind: "Comment",
     text: req.body.comment.text,
     score: {},
     user: thisUser
@@ -56,7 +56,9 @@ router.post("/:id/comments/new", (req, res) => {
 
   newComment.save().then(() => {
     newScore.save().then(() => {
-      res.redirect(`/${req.params.id}/show`);
+    //  let updatedPost = Posts.findByIdAndUpdate(postId, {comments: comments.push(newComment)}).then(()=>{
+        res.redirect(`/posts`);
+     
     });
   });
 });
