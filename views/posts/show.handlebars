@@ -9,6 +9,9 @@
     {{/if }}
 <p>{{post.text}}</p>
 <hr>
+<form action="/posts/{{post.id}}/comments/new" method="get">
+<button class="btn btn-primary" value="submit">+New User</button>
+</form>
 <h4>Comments:</h4><br>
 {{#each post.comments as |comment|}}
 <p>{{comment.text}}<br>

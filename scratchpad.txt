@@ -5,7 +5,7 @@ Users
 
 Scores:
 - users: [] (ref User)
-- ratable: (ref Scorable)
+- scorable: (ref Scorable)
 - value:
 
 
