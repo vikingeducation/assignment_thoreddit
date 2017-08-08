@@ -39,13 +39,11 @@ const seeds = () => {
 		const userPosts = [];
 		for (let i = 0; i < 1; i++) {
 			const newPost = new Post({
-				user: user,
 				title: 'An Awesome Post',
 				body:
 					'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 			});
 			const newScore = new Score({
-				post: newPost,
 				value: 0,
 				upVotes: 0,
 				downVotes: 0
@@ -54,7 +52,6 @@ const seeds = () => {
 
 			newPost.score = newScore;
 			newPost.comments = seedComments(user, newPost, 3);
-			console.log(newPost.comments);
 			_depth = 0;
 
 			posts.push(newPost);
@@ -73,7 +70,6 @@ const seeds = () => {
 		let postComments = [];
 		for (let i = 0; i < max; i++) {
 			let newComment = new Comment({
-				post: post,
 				user: user,
 				message:
 					'111Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'

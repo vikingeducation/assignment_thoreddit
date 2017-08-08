@@ -5,7 +5,7 @@ const UserSchema = new Schema(
 	{
 		username: String,
 		email: String,
-		post: [
+		posts: [
 			{
 				type: Schema.Types.ObjectId,
 				ref: 'Post'

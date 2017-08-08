@@ -13,10 +13,12 @@ const CommentSchema = new Schema(
 			type: Schema.Types.ObjectId,
 			ref: 'Post'
 		},
-		comment: {
-			type: Schema.Types.ObjectId,
-			ref: 'Comment'
-		},
+		comments: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: 'Comment'
+			}
+		],
 		score: {
 			type: Schema.Types.ObjectId,
 			ref: 'Score'
