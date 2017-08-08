@@ -1,15 +1,20 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const Scoreable = require('./Scoreable');
 
-var PostSchema = new Schema(
-  {
-    title: String,
-    body: String,
-    score: Number
-  },
-  {
-    timestamps: true
-  }
+const PostSchema = new Schema(
+	{
+		title: String,
+		body: String,
+		comment: {
+			type: Schema.Types.ObjectId,
+			ref: 'Comment'
+		}
+	},
+	{
+		discriminatorKey: 'kind',
+		timestamps: true
+	}
 );
 
-module.exports = mongoose.model("Post", PostSchema);
+module.exports = Scoreable.discriminator('Post', PostSchema);

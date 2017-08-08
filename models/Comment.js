@@ -1,14 +1,23 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const Scoreable = require('./Scoreable');
 
-var CommentSchema = new Schema(
-  {
-    message: String,
-    score: Number
-  },
-  {
-    timestamps: true
-  }
+const CommentSchema = new Schema(
+	{
+		message: String,
+		user: {
+			type: Schema.Types.ObjectId,
+			ref: 'User'
+		},
+		comment: {
+			type: Schema.Types.ObjectId,
+			ref: 'Comment'
+		}
+	},
+	{
+		discriminatorKey: 'kind',
+		timestamps: true
+	}
 );
 
-module.exports = mongoose.model("Comment", CommentSchema);
+module.exports = Scoreable.discriminator('Comment', CommentSchema);

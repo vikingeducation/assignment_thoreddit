@@ -20,12 +20,12 @@ Posts {
   userId: userModel,
   title: string,
   body: string,
-  score: number,
+  score: scoreModel,
   timestamps,
   comments: {
     message: string
     userId: userModel,
-    score: number,
+    score: scoreModel,
     comments: {
       ...
     }
