@@ -58,7 +58,6 @@ const seeds = () => {
 	// Comments
 	// ----------------------------------------
 	let _depth = 0;
-
 	function seedComments(depth) {
 		let max = Math.floor(1 + Math.random() * 10);
 		let postComments = [];

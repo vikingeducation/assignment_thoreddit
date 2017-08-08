@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const ScorableSchema = new Schema(
+const ScoreableSchema = new Schema(
 	{
 		scores: [
 			{
@@ -16,4 +16,4 @@ const ScorableSchema = new Schema(
 	}
 );
 
-module.exports = mongoose.model('Posting', ScorableSchema);
+module.exports = mongoose.model('Scoreable', ScoreableSchema);
