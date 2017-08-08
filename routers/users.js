@@ -18,4 +18,11 @@ var onIndex = (req, res) => {
 router.get("/users", onIndex);
 router.get("/", onIndex);
 
+router.get("/show/:id", (req, res)=>{
+  User.findById(req.params.id).populate('posts').then(user=>{
+    res.render('/users/show', {user})
+  })
+})
+
+
 module.exports = router;

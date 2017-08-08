@@ -54,10 +54,10 @@ app.use((req, res, next) => {
 // not set up yet!!!
 var usersRouter = require("./routers/users");
 app.use(["/", "/users"], usersRouter);
-//
-// var someRouter = require("./routers/");
-// app.use("/", someRouter);
-//
+
+var postsRouter = require("./routers/posts");
+app.use("/posts", postsRouter);
+
 // var someRouter = require("./routers/");
 // app.use("/", someRouter);
 
