@@ -52,8 +52,7 @@ const seeds = () => {
 			scores.push(newScore);
 
 			newPost.score = newScore;
-			let newComments = seedComments(user, newPost, 5);
-			newPost.comments = newComments;
+			newPost.comments = seedComments(user, newPost, 5);
 			_depth = 0;
 
 			posts.push(newPost);
