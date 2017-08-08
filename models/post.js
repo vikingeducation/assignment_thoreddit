@@ -9,7 +9,6 @@ var PostSchema = {
   topLevel: Boolean,
   subPosts: [{ type: Schema.Types.ObjectId, ref: "Post" }]
 };
-
 var Post = mongoose.model("Post", PostSchema);
 
 module.exports = Post;
