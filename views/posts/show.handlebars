@@ -6,6 +6,7 @@
 	  <p>{{ post.body }}</p>
 	  <button class="btn btn-primary">Upvote</button>
     <button class="btn btn-danger">Downvote</button>
+		<a href="/posts/{{post.id}}/new"> Comment</a>
 	  {{#if post.subPosts.length}}
 	    {{>postPartial subPosts=post.subPosts}}
 	  {{/if}}

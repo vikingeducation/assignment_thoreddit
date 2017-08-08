@@ -41,6 +41,9 @@
         <a href="/posts/{{ post.id }}" ><h1>{{ post.title }} {{ post.author }} {{ post.votes }}</h1></a>
         <p>{{ post.body }}</p>
       </div>
+      <button class="btn btn-primary">Upvote</button>
+      <button class="btn btn-danger">Downvote</button>
+      <a href="/posts/{{post.id}}/new"> Comment</a>
     </div class="row">
   {{/each}}
 {{/if}}

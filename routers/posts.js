@@ -19,9 +19,15 @@ router.get("/", (req, res) => {
 // New
 // ----------------------------------------
 router.get("/new", (req, res) => {
-  res.render("new");
+  res.render("posts/new");
 });
-
+router.get("/:id/new", (req, res) => {
+  Post.findById(req.params.id)
+    .then(post => {
+      res.render("posts/newSubPost", { post });
+    })
+    .catch(e => res.status(500).send(e.stack));
+});
 // ----------------------------------------
 // Edit
 // ----------------------------------------
@@ -60,13 +66,14 @@ router.get("/:id", (req, res) => {
 // Create
 // ----------------------------------------
 router.post("/", (req, res) => {
+  let rnd = Math.floor(Math.random() * 10 + 1);
   var post = new Post({
     title: req.body.post.title,
-    author: req.body.post.author,
+    author: "foobar1",
     body: req.body.post.body,
-    votes: req.body.post.votes,
-    topLevel: req.body.post.topLevel,
-    subPosts: req.body.post.subPosts
+    votes: rnd,
+    topLevel: true,
+    subPosts: []
   });
 
   post
@@ -76,7 +83,27 @@ router.post("/", (req, res) => {
     })
     .catch(e => res.status(500).send(e.stack));
 });
+//
+router.post("/:id", (req, res) => {
+  let rnd = Math.floor(Math.random() * 10 + 1);
+  var post = new Post({
+    title: req.body.post.title,
+    author: "foobar1",
+    body: req.body.post.body,
+    votes: rnd,
+    topLevel: false,
+    subPosts: []
+  });
 
+  post
+    .save()
+    .then(post => {
+      Post.findByIdAndUpdate(req.params.id, { $push: { subPosts: post } });
+
+      res.redirect(`/posts/${post.id}`);
+    })
+    .catch(e => res.status(500).send(e.stack));
+});
 // ----------------------------------------
 // Update
 // ----------------------------------------
