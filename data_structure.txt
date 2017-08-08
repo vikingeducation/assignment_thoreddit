@@ -5,6 +5,7 @@ Users
 
 Posts
 	title (string)
+	author (string)
 	body (text)
 	votes (integer)
 	topLevel (boolean)

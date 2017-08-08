@@ -6,8 +6,8 @@ const exphbs = require("express-handlebars");
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const hbs = exphbs.create({
-	partialsDir: "views/",
-	defaultLayout: "main"
+  partialsDir: "views/",
+  defaultLayout: "main"
 });
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
@@ -19,7 +19,7 @@ var args;
 process.env.NODE_ENV === "production" ? (args = [port]) : (args = [port, host]);
 
 args.push(() => {
-	console.log(`Listening: http://${host}:${port}`);
+  console.log(`Listening: http://${host}:${port}`);
 });
 
 app.listen.apply(app, args);
