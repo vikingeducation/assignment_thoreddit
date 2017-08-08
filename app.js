@@ -59,7 +59,10 @@ app.get("/", (req, res) => {
 
 // Import our routers
 const usersRoutes = require("./routers/users");
+const postsRoutes = require("./routers/posts");
 app.use("/users", usersRoutes);
+app.use("/posts", postsRoutes);
+
 
 const port = process.env.PORT || 3000;
 const host = "localhost";

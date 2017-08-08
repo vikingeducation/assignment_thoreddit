@@ -22,6 +22,39 @@ const PostSchema = new Schema(
   }
 );
 
+// COME BACK TO THIS AND COMBINE FUNCTIONS IF TIME PERMITS
+
+// Virtual method for returning short body
+// PostSchema.virtual("shortBody").get(function() {
+//   let bodyShort = [];
+//   let bodyArray = this.body.split(" ");
+//   for(let i = 0; i < 5; i++) {
+//     bodyShort.push(bodyArray[i]);
+//   }
+//   return bodyShort.join(" ");
+// })
+
+PostSchema.virtual("shortBody").set(function() {
+  let bodyShort = [];
+  let bodyArray = this.body.split(" ");
+  for(let i = 0; i < 5; i++) {
+    bodyShort.push(bodyArray[i]);
+  }
+  return bodyShort.join(" ");
+})
+
+// Virtual method for returning short title
+PostSchema.virtual("shortTitle").set(function() {
+  let titleShort = [];
+  let titleArray = this.title.split(" ");
+  for(let i = 0; i < 3; i++) {
+    titleShort.push(titleArray[i]);
+  }
+
+  return titleShort.join(" ");
+})
+
+
 const Post = mongoose.model("Post", PostSchema);
 
 module.exports = Post;
