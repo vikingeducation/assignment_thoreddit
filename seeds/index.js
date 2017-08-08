@@ -22,7 +22,7 @@ const seeds = () => {
 	const posts = [];
 	const comments = [];
 	const scores = [];
-	for (let i = 0; i < 1; i++) {
+	for (let i = 0; i < 10; i++) {
 		const newUser = new User({
 			username: `foobar${i}`,
 			email: `foobar${i}@gmail.com`
@@ -37,7 +37,7 @@ const seeds = () => {
 	// ----------------------------------------
 	function createPosts(user) {
 		const userPosts = [];
-		for (let i = 0; i < 1; i++) {
+		for (let i = 0; i < 10; i++) {
 			const newPost = new Post({
 				title: 'An Awesome Post',
 				body:
@@ -51,7 +51,9 @@ const seeds = () => {
 			scores.push(newScore);
 
 			newPost.score = newScore;
-			newPost.comments = seedComments(user, newPost, 3);
+			let newComments = seedComments(user, newPost, 3);
+			console.log(newComments);
+			newPost.comments = newComments;
 			_depth = 0;
 
 			posts.push(newPost);
@@ -65,12 +67,13 @@ const seeds = () => {
 	// ----------------------------------------
 	function seedComments(user, post, maxDepth) {
 		process.stdout.write('.');
-		_depth++;
+
 		let max = Math.floor(1 + Math.random() * 10);
 		let postComments = [];
 		for (let i = 0; i < max; i++) {
 			let newComment = new Comment({
 				user: user,
+				post: post,
 				message:
 					'111Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 			});
@@ -84,14 +87,14 @@ const seeds = () => {
 			comments.push(newComment);
 			postComments.push(newComment);
 		}
-		if (_depth === maxDepth) {
-			_depth--;
-			return postComments;
-		} else {
+		if (_depth !== maxDepth) {
 			postComments.forEach(comment => {
+				_depth++;
 				comment.comments = seedComments(user, post, maxDepth);
+				_depth--;
 			});
 		}
+		return postComments;
 	}
 
 	// ----------------------------------------
@@ -99,7 +102,6 @@ const seeds = () => {
 	// ----------------------------------------
 	console.log('\nSaving...');
 	const promises = [];
-	users.forEach(user => console.log(user.posts));
 	[users, posts, comments, scores].forEach(collection => {
 		collection.forEach(model => {
 			promises.push(model.save());
