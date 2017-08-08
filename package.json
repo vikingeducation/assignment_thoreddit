@@ -1,0 +1,29 @@
+{
+  "name": "assignment_thoreddit",
+  "version": "1.0.0",
+  "description": "A social news web application for Viking thunder Gods",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gregfilipczak/assignment_thoreddit.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gregfilipczak/assignment_thoreddit/issues"
+  },
+  "homepage": "https://github.com/gregfilipczak/assignment_thoreddit#readme",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "express-handlebars": "^3.0.0",
+    "mongo": "^0.1.0",
+    "mongoose": "^4.11.6",
+    "morgan": "^1.8.2"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "development": {
+    "database": "database_thoreddit",
+    "host": "localhost"
+  }
+}

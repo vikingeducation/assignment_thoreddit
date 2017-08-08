@@ -1,0 +1,33 @@
+//Grab all users
+
+Users {
+  username: 'String',
+  email: string,
+}
+
+Users with all associated posts:
+
+Users {
+  username: 'String',
+  email: string,
+  posts: {
+    ...
+  }
+}
+
+
+Posts {
+  userId: userModel,
+  title: string,
+  body: string,
+  score: number,
+  timestamps,
+  comments: {
+    message: string
+    userId: userModel,
+    score: number,
+    comments: {
+      ...
+    }
+  }
+}
