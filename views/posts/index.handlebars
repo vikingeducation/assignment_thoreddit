@@ -17,7 +17,8 @@
     {{#each posts as |post| }}
     <tr>
       <td>
-        <a href="{{ postPath post._id }}">{{ post.created_at }}</a>
+        {{ log post }}
+        <a href="{{ postPath post._id }}">{{ post.createdAt }}</a>
       </td>
       <td>
         <a href="{{ postPath post._id }}">{{ post.title }}</a>

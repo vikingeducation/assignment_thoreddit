@@ -1,7 +1,7 @@
 const { Post } = require("../models");
 
 module.exports = {
-  getAll: () => {
-    return Post.find();
-  }
+	getAll: () => {
+		return Post.find().populate("user");
+	}
 };

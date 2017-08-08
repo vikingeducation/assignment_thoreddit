@@ -40,6 +40,16 @@ function seeds() {
     comments.push(comment);
   }
 
+  console.log("get here?");
+
+  function test() {
+    posts.forEach(post => {
+      console.log(post, "no title");
+    });
+  }
+
+  test();
+
   let promises = [];
   [users, posts, comments].forEach(collection => {
     collection.forEach(model => {
@@ -55,4 +65,10 @@ mongoseeder.seed({
   clean: true,
   mongoose: require("mongoose"),
   seeds: seeds
+});
+
+mongoseeder.clean({
+  mongodbUrl: process.env.DB_URL,
+  models: models,
+  mongoose: require("mongoose")
 });

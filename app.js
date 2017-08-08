@@ -7,9 +7,9 @@ require("dotenv").config();
 // Templates
 const expressHandlebars = require("express-handlebars");
 const hbs = expressHandlebars.create({
-  partialsDir: "views/",
-  defaultLayout: "application",
-  helpers: require("./helpers")
+	partialsDir: "views/",
+	defaultLayout: "application",
+	helpers: require("./helpers")
 });
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
@@ -31,8 +31,8 @@ app.use(methodOverride(getPostSupport.callback, getPostSupport.options));
 // Connect to Mongoose
 const mongoose = require("mongoose");
 app.use((req, res, next) => {
-  if (mongoose.connection.readyState) next();
-  else require("./mongo")().then(() => next());
+	if (mongoose.connection.readyState) next();
+	else require("./mongo")().then(() => next());
 });
 
 // Routes
@@ -45,7 +45,7 @@ let args = process.env.NODE_ENV === "production" ? [port] : [port, host];
 
 // helpful log when the server starts
 args.push(() => {
-  console.log(`Listening: http://${host}:${port}`);
+	console.log(`Listening: http://${host}:${port}`);
 });
 
 // Use apply to pass the args to listen
