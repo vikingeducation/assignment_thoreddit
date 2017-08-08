@@ -4,12 +4,15 @@ const Schema = mongoose.Schema;
 
 const CommentSchema = new Schema(
   {
+    post: {
+      type: Schema.Types.ObjectId,
+      ref: "Post"
+    },
     user: {
       type: Schema.Types.ObjectId,
       ref: "User"
     },
-    body: String,
-    title: String
+    body: String
   },
   {
     timestamps: true,
