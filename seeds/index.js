@@ -39,9 +39,7 @@ function getComments(amount) {
     newComments.push(comment);
     comments.push(comment);
   }
-  // console.log(`Comments = ${newComments}`);
-  //console.log(`isArray? = ${Array.isArray(newComments)}`);
-  //console.log(`===========================================`);
+
   return newComments;
 }
 

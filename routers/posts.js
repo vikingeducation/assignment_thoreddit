@@ -22,7 +22,7 @@ router.get("/show/:id", (req, res) => {
   let id = req.params.id;
   Post.findById(id).populate("votes").populate("user").populate("children").then(post => {
     console.log(`post = ${post}`);
-    return res.render("./posts/show", {post, comments: post.children});
+    return res.render("./posts/show", { post, comments: post.children});
   }).catch(e => res.status(500).send(e.stack));
 });
 
