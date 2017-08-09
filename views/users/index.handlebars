@@ -2,8 +2,9 @@
   <h1>Users</h1>
 </header>
 
-
-<button class="btn btn-success">+New User</button>
+<form action="/users/new" method="get">
+<button type="submit" class="btn btn-success">+New User</button>
+</form>
 <div class="panel panel-primary">
   <div class="panel-heading">
     <h3 class="panel-title">Select a user to view their profile</h3>
@@ -32,9 +33,15 @@
                 {{user.posts.length}}
               </td>
               <td>
-                <button class="btn btn-primary">Edit</button> </td>
+                <form action="users/{{user.id}}/edit" method="get">
+                <input type="submit" class="btn btn-primary" value="edit"></input>
+                </form>
               <td>
-                <button class="btn btn-danger">Delete</button> </td>
+                <form action="users/{{user.id}}?_method=DELETE" method="post">
+                <input type="submit" class="btn btn-danger" value="delete"></input>
+                </form>
+              </td>
+
             </tr>
           {{/each }}
         </tbody>

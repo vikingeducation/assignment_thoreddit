@@ -5,14 +5,14 @@
 </header>
 
 
-<form action="/posts/:id/comments/new" method="post">
+<form method="post">
   <div class="form-group">
     <label for="new_comment_text">Post a new Comment</label>
     <input type="text" id="new_comment_text" name="comment[text]" class="form-control">
     <input type="hidden" name="comment[username]" value='foobar1'>
   </div>
 
- 
+
   <div class="form-group">
     <input type="submit" class="btn btn-primary">
   </div>

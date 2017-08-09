@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+var findOrCreate = require("mongoose-findorcreate");
 
 var ScorableSchema = new Schema(
   {
@@ -18,6 +19,8 @@ var ScorableSchema = new Schema(
     discriminatorKey: "kind"
   }
 );
+
+ScorableSchema.plugin(findOrCreate);
 
 var Scorable = mongoose.model("Scorable", ScorableSchema);
 

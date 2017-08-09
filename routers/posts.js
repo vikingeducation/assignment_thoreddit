@@ -2,15 +2,14 @@ var express = require("express");
 var router = express.Router();
 const mongoose = require("mongoose");
 var models = require("./../models");
-var Posts = mongoose.model("Post");
-var Users = mongoose.model("User");
-var Scorables = mongoose.model("Scorable");
-var Scores = mongoose.model("Score");
-var Comment = require("../models/comment");
-var Score = require("../models/score");
+var Post = mongoose.model("Post");
+var User = mongoose.model("User");
+var Scorable = mongoose.model("Scorable");
+var Score = mongoose.model("Score");
+var Comment = mongoose.model("Comment");
 
 router.get("/", (req, res) => {
-  Posts.find()
+  Post.find()
     .populate("user")
     .populate("score")
     .sort({ title: 1 })
@@ -19,8 +18,8 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/show/:id", (req, res) => {
-  Posts.findById(req.params.id)
+router.get("/show/:postId", (req, res) => {
+  Post.findById(req.params.postId)
     .populate("score")
     .populate("user")
     .populate({
@@ -32,33 +31,58 @@ router.get("/show/:id", (req, res) => {
     });
 });
 
-router.get("/:id/comments/new", (req, res) => {
+router.get("/:postId/comments/new", (req, res) => {
   res.render("comments/new");
 });
 
-router.post("/:id/comments/new", (req, res) => {
-  let postId = req.params.id
-  let thisUser = Users.find({ username: req.body.comment.username }).id;
+router.post("/:postId/comments/new", (req, res) => {
+  let postId = req.params.postId;
+  let thisUser;
+  User.find({ username: req.body.comment.username }).then(user => {
+    thisUser = user[0];
 
-  let newComment = new Comment({
-    text: req.body.comment.text,
-    score: {},
-    user: thisUser
+    let newComment = new Comment({
+      text: req.body.comment.text,
+      score: {},
+      user: thisUser
+    });
+
+    let newScore = new Score({
+      value: 0,
+      scorable: newComment,
+      users: []
+    });
+
+    newComment.score = newScore;
+
+    var promises = [];
+    promises.push(newComment.save(), newScore.save(), Post.findById(postId));
+    Promise.all(promises).then(results => {
+      let post = results[2];
+      post.comments.push(newComment);
+      post.save().then(() => {
+        res.redirect(`/posts/show/${postId}`);
+      });
+    });
   });
+});
 
-  let newScore = new Score({
-    value: 0,
-    scorable: newComment,
-    users: []
+router.put("/:postId/:vote", (req, res) => {
+  Score.find({ scorable: req.params.postId }).then(score => {
+    //need to check if session user has already voted
+    score[0].value += req.params.vote === "up" ? 1 : -1;
+    score[0].save().then(() => {
+      res.redirect(`/posts/show/${req.params.postId}`);
+    });
   });
+});
 
-  newComment.score = newScore;
-
-  newComment.save().then(() => {
-    newScore.save().then(() => {
-    //  let updatedPost = Posts.findByIdAndUpdate(postId, {comments: comments.push(newComment)}).then(()=>{
-        res.redirect(`/posts`);
-     
+router.put("/:postId/comments/:commentId/:vote", (req, res) => {
+  Score.find({ scorable: req.params.commentId }).then(score => {
+    //need to check if session user has already voted
+    score[0].value += req.params.vote === "up" ? 1 : -1;
+    score[0].save().then(() => {
+      res.redirect(`/posts/show/${req.params.postId}`);
     });
   });
 });
