@@ -1,3 +1,5 @@
-module.exports = function() {
-  return require("mongoose").connect(process.env.DB_URL);
+const mongoose = require("mongoose");
+
+module.exports = () => {
+  return mongoose.connect(require("./config/mongoUrl"));
 };

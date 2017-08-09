@@ -1,18 +1,17 @@
 let repl = require("repl").start({});
 const mongoose = require("mongoose");
 const models = require("./models");
-require("dotenv").config();
 
 // connect
 require("./mongo")().then(() => {
-	// Set `models` global
-	repl.context.models = models;
+  // Set `models` global
+  repl.context.models = models;
 
-	// model globals
-	Object.keys(models).forEach(modelName => {
-		repl.context[modelName] = mongoose.model(modelName);
-	});
+  // model globals
+  Object.keys(models).forEach(modelName => {
+    repl.context[modelName] = mongoose.model(modelName);
+  });
 
-	// logger
-	repl.context.lg = data => console.log(data);
+  // logger
+  repl.context.lg = data => console.log(data);
 });

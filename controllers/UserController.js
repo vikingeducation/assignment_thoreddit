@@ -13,13 +13,6 @@ const UserController = {
 
   new: params => {
     return User.create({ username: params.username, email: params.email });
-  },
-
-  addComment: params => {
-    return UserController.getById(params.userId).then(user => {
-      user.comments.push(params.comment);
-      return user.save();
-    });
   }
 };
 

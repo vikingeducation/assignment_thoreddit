@@ -36,7 +36,7 @@ router.get("/:id", (req, res) => {
         });
       } else {
         req.flash("alert", "Post not found");
-        res.redirect(h.postPath());
+        res.redirect(h.postsPath());
       }
     })
     .catch(e => res.status(500).send(e.stack));

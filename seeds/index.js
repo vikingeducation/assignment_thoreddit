@@ -2,7 +2,6 @@ const models = require("../models");
 const faker = require("faker");
 const voca = require("voca");
 const mongoseeder = require("mongooseeder");
-require("dotenv").config();
 
 let { Comment, User, Post } = models;
 
@@ -41,7 +40,7 @@ function seeds() {
   }
 
   let promises = [];
-  [users, posts, comments].forEach(collection => {
+  [posts, users, comments].forEach(collection => {
     collection.forEach(model => {
       promises.push(model.save());
     });
@@ -50,15 +49,9 @@ function seeds() {
 }
 
 mongoseeder.seed({
-  mongodbUrl: process.env.DB_URL,
+  mongodbUrl: require("../config/mongoUrl"),
   models: models,
   clean: true,
   mongoose: require("mongoose"),
   seeds: seeds
 });
-
-// mongoseeder.clean({
-//   mongodbUrl: process.env.DB_URL,
-//   models: models,
-//   mongoose: require("mongoose")
-// });

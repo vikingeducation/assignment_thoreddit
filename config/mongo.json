@@ -1,6 +1,6 @@
 {
   "development": {
-    "database": "",
+    "database": "thoreddit_dev",
     "host": "localhost"
   },
   "test": {

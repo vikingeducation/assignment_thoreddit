@@ -1,5 +1,4 @@
-const { Post, User } = require("../models");
-const UserController = require("./UserController");
+const { Post } = require("../models");
 
 let PostController = {
   getAll: () => {
@@ -14,31 +13,10 @@ let PostController = {
   },
 
   new: params => {
-    let post;
     return Post.create({
       title: params.title,
       body: params.body,
       user: params.userId
-    });
-    // .then(p => {
-    //   post = p;
-    //   return User.findById(params.userId);
-    // })
-    // .then(user => {
-    //   console.log("user: ", user);
-    //   console.log("post: ", post);
-    //   user.posts.push(post._id);
-    //   return user.save();
-    // })
-    // .then(() => {
-    //   return post;
-    // });
-  },
-
-  addComment: params => {
-    return Post.findById(params.postId).then(post => {
-      post.comments.push(params.comment);
-      return post.save();
     });
   },
 

@@ -11,11 +11,11 @@ const ScorableSchema = new Schema(
   }
 );
 
-ScorableSchema.method.upvote = function() {
+ScorableSchema.methods.upvote = function() {
   return (this.score += 1);
 };
 
-ScorableSchema.method.downvote = function() {
+ScorableSchema.methods.downvote = function() {
   return (this.score -= 1);
 };
 
