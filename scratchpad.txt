@@ -1,0 +1,22 @@
+Users
+- username
+- email
+- posts: [] (ref Post)
+
+Scores:
+- users: [] (ref User)
+- scorable: (ref Scorable)
+- value:
+
+
+
+Scorable:    //post and comment inherit from this
+- text:
+- score: (ref Scores)
+- user: (ref User)
+
+>>  Posts
+    - Title:
+    - Comments: [] (ref Comments)
+
+>>  Comments

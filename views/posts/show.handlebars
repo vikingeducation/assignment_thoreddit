@@ -1,0 +1,42 @@
+{{#if post }}
+  <h1>{{post.title}}</h1>
+  <h2>By: {{post.user.username}}</h2>
+  <p>{{post.text}}</p>
+  <h3>Post Score: {{post.score.value}}</h3>
+  <form style="float: left;" method="post" action="/posts/{{post.id}}/up?_method=PUT">
+    <input class="btn btn-default" type="submit" value="+1"></input>
+  </form>
+  <form style="float: left;" method="post" action="/posts/{{post.id}}/down?_method=PUT">
+    <input class="btn btn-default" type="submit" value="-1"></input>
+  </form>
+  <hr>
+  <hr>
+  <hr>
+
+
+{{else}}
+  <p class="text-danger">No post found!</p>
+{{/if }}
+
+
+<h4>Comments:</h4><br>
+{{#each post.comments as |comment|}}
+  <p>{{comment.text}}<br>
+    <h6>By {{comment.user.username}}</h6>
+    <h6>Comment Score: {{comment.score.value}}</h6>
+    <form style="float: left;" method="post" action="/posts/{{../post.id}}/comments/{{comment.id}}/up?_method=PUT">
+      <input class="btn btn-default" type="submit" value="+1"></input>
+    </form>
+    <form style="float: left;" method="post" action="/posts/{{../post.id}}/comments/{{comment.id}}/down?_method=PUT">
+      <input class="btn btn-default" type="submit" value="-1"></input>
+    </form>
+  </p>
+  <hr>
+  <hr>
+  <hr>
+
+{{/each}}
+
+<form action="/posts/{{post.id}}/comments/new" method="get">
+  <button class="btn btn-primary" value="submit">+New Comment</button>
+</form>

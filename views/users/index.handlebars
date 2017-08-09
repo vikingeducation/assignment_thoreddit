@@ -1,0 +1,61 @@
+<header class="page-header">
+  <h1>Users</h1>
+</header>
+
+<form action="/users/new" method="get">
+<button type="submit" class="btn btn-success">+New User</button>
+</form>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Select a user to view their profile</h3>
+
+  </div>
+  <div class="panel-body">
+    {{#if users.length }}
+      <table class="row table table-striped">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Posts</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each users as |user| }}
+            <tr>
+              <td>
+                <a href="/users/show/{{ user.id }}">{{ user.username }}</a>
+              </td>
+              <td>
+                <a href="/users/show/{{ user.id }}">{{ user.email }}</a>
+              </td>
+              <td>
+                {{user.posts.length}}
+              </td>
+              <td>
+                <form action="users/{{user.id}}/edit" method="get">
+                <input type="submit" class="btn btn-primary" value="edit"></input>
+                </form>
+              <td>
+                <form action="users/{{user.id}}?_method=DELETE" method="post">
+                <input type="submit" class="btn btn-danger" value="delete"></input>
+                </form>
+              </td>
+
+            </tr>
+          {{/each }}
+        </tbody>
+      </table>
+    {{else}}
+      <p class="text-danger">No users</p>
+    {{/if }}
+
+  </div>
+  <div class="panel-footer">
+    <ul class="pagination">
+      <li><a href="#">&laquo;</a></li>
+
+      <li><a href="#">&raquo;</a></li>
+    </ul>
+  </div>
+</div>
