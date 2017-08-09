@@ -1,0 +1,31 @@
+<header class="page-header">
+  <div class='row'>
+    <h3>Check out this awesome post</h3>
+  </div>
+  <div class='row'>
+    <div class='col-xs-3'>
+      <p><strong>Score: </strong>{{ post.score }}</p>
+
+      <a href="/posts/{{post.id}}/upvote"><button class='btn btn-success'>Upvote</button></a>
+      <a href="/posts/{{post.id}}/downvote"><button class='btn btn-danger'>Downvote</button></a>
+    </div>
+    <div class='col-xs-6'>
+      <h2>{{post.title}}</h2>
+      <h5>by {{post.username }}</h5>
+      <p>{{post.body}}</p>
+    </div>
+  </div>
+  {{#if comments.length }}
+  <div class='row' id='comments'>
+    {{#each comments as |comment|}}
+      <div class='col-x-12'>
+        <h5>{{comment.username}} said:</h5>
+        <p>{{comment.body}}</p>
+      </div>
+    {{/each}}
+  </div>
+  {{else}}
+    <h3>Comments</h3>
+    <p>No comments, terrible post</p>
+  {{/if}}
+</header>
