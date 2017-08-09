@@ -13,6 +13,22 @@ const UserSchema = new Schema(
   }
 );
 
+UserSchema.statics.getAll = function() {
+  return this.find({}, {}, { sort: { createdAt: -1 } })
+    .populate({ path: "comments", options: { sort: { createdAt: -1 } } })
+    .populate({ path: "posts", options: { sort: { createdAt: -1 } } });
+};
+
+UserSchema.statics.getById = function(id) {
+  return this.findById(id)
+    .populate({ path: "comments", options: { sort: { createdAt: -1 } } })
+    .populate({ path: "posts", options: { sort: { createdAt: -1 } } });
+};
+
+UserSchema.statics.new = function(params) {
+  return this.create({ username: params.username, email: params.email });
+};
+
 UserSchema.pre("remove", function(next) {
   mongoose.model("Post").remove({ user: this._id }).exec();
   mongoose.model("Comment").remove({ user: this._id }).exec();

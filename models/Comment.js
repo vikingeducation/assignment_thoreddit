@@ -17,6 +17,14 @@ CommentSchema.virtual("summary").get(function() {
   return this.body.slice(0, 100) + "...";
 });
 
+CommentSchema.statics.new = function(params) {
+  return this.create({
+    body: params.body,
+    user: params.userId,
+    post: params.postId
+  });
+};
+
 CommentSchema.post("save", function() {
   mongoose
     .model("User")

@@ -1,9 +1,10 @@
 const router = require("express").Router();
-const { PostController, UserController } = require("../controllers");
+const User = require("../models/User");
 const h = require("../helpers");
+const Post = require("../models/Post");
 
 router.get("/", (req, res) => {
-  PostController.getAll()
+  Post.getAll()
     .then(posts => {
       res.render("posts/index", { posts });
     })
@@ -11,7 +12,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/new", (req, res) => {
-  UserController.getAll().then(users => {
+  User.getAll().then(users => {
     res.render("posts/new", { users });
   });
 });
@@ -21,17 +22,17 @@ router.post("/new", (req, res) => {
     req.flash("alert", "You must include a title!");
     res.redirect(h.newPostPath());
   } else {
-    PostController.new(req.body)
+    Post.new(req.body)
       .then(post => res.redirect(h.postPath(post._id)))
       .catch(e => res.status(500).send(e.stack));
   }
 });
 
 router.get("/:id", (req, res) => {
-  PostController.getById(req.params.id)
+  Post.getById(req.params.id)
     .then(post => {
       if (post) {
-        return UserController.getAll().then(users => {
+        return User.getAll().then(users => {
           res.render("posts/single", { post, users });
         });
       } else {
@@ -43,7 +44,7 @@ router.get("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  PostController.deleteById(req.params.id)
+  Post.findByIdAndRemove(req.params.id)
     .then(() => res.redirect(h.postsPath()))
     .catch(e => res.status(500).send(e.stack));
 });

@@ -1,9 +1,9 @@
 const router = require("express").Router();
-const { CommentController } = require("../controllers");
+const Comment = require("../models/Comment");
 const h = require("../helpers");
 
 // router.get("/", (req, res) => {
-//   CommentController.getAll()
+//   Comment.getAll()
 //     .then(users => res.render("users/index", { users }))
 //     .catch(e => res.status(500).send(e.stack));
 // });
@@ -17,7 +17,7 @@ router.post("/new", (req, res) => {
     req.flash("alert", "You must include a comment!");
     res.redirect("back");
   } else {
-    CommentController.new(req.body)
+    Comment.new(req.body)
       .then(comment => {
         res.redirect("back");
       })
@@ -26,7 +26,7 @@ router.post("/new", (req, res) => {
 });
 
 // router.get("/:id", (req, res) => {
-//   UserController.getById(req.params.id).then(user => {
+//   User.getById(req.params.id).then(user => {
 //     if (user) res.render("users/single", { user });
 //     else {
 //       req.flash("alert", "User not found");

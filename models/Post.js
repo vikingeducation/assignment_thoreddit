@@ -14,6 +14,26 @@ const PostSchema = new Schema(
   }
 );
 
+PostSchema.statics.getAll = function() {
+  return this.find({}, {}, { sort: { createdAt: -1 } }).populate("user");
+};
+
+PostSchema.statics.getById = function(id) {
+  return this.findById(id).populate("user").populate({
+    path: "comments",
+    populate: { path: "user", model: "User" },
+    options: { sort: { createdAt: -1 } }
+  });
+};
+
+PostSchema.statics.new = function(params) {
+  return this.create({
+    title: params.title,
+    body: params.body,
+    user: params.userId
+  });
+};
+
 PostSchema.post("save", function() {
   mongoose
     .model("User")
