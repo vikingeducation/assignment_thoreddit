@@ -1,0 +1,28 @@
+<header class="page-header">
+  <h1>New User</h1>
+</header>
+
+
+<form action="/users" method="post">
+
+  <div class="form-group">
+    <label for="user_fname">First Name</label>
+    <input type="text" class="form-control" name="user[fname]" id="user_fname">
+  </div>
+  <div class="form-group">
+    <label for="user_lname">Last Name</label>
+    <input type="text" class="form-control" name="user[lname]" id="user_lname">
+  </div>
+  <div class="form-group">
+    <label for="user_username">Username</label>
+    <input type="text" class="form-control" name="user[username]" id="user_username">
+  </div>
+  <div class="form-group">
+    <label for="user_email">Email</label>
+    <input type="text" class="form-control" name="user[email]" id="user_email">
+  </div>
+
+  <div class="form-group">
+    <input type="submit" class="btn btn-primary">
+  </div>
+</form>

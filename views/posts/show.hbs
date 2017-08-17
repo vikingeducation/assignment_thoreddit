@@ -1,0 +1,51 @@
+<header class="page-header">
+  <h1>Post: {{ post.title }}</h1>
+  <a href="/posts/{{ post._id }}/edit" class="btn btn-primary">Edit</a>
+  <a href="/posts/{{ post._id }}?_method=delete" class="btn btn-danger">Delete</a>
+</header>
+
+<div class="row">
+  <div class="col-sm-1">
+    <p><a href="/posts/{{ post._id }}/up">Up:</a> {{ post.upvote }}</p>
+    <p><a href="/posts/{{ post._id }}/down">Down:</a> {{ post.downvote }}</p>
+    <p>Score: {{ post.score }}</p>
+
+  </div>
+  <div class="col-sm-11">
+    <h1>{{ post.title }}</h1>
+    <h3><i>by {{ post._author.username}}</i></h3>
+    <p>{{ post.body}}</p>
+    <a href="/posts/comment/{{ post._id }}" class="btn btn-primary">Comment</a>
+    <hr>
+  </div>
+</div>
+
+{{#if post._comments.length }}
+  {{#each post._comments as |comment|}}
+    <div class="row bottom-margin">
+      <div class="col-sm-offset-1 col-sm-1 left-border">
+        <p><a href="/posts/comment/up/{{ ../post._id}}/{{ comment._id }}">Up:</a> {{ comment.upvote }}</p>
+        <p><a href="/posts/comment/down/{{ ../post._id}}/{{ comment._id }}">Down:</a> {{ comment.downvote }}</p>
+        <p>Score: {{ comment.score }}</p>
+      </div>
+      <div class="col-sm-9">
+        <p>{{ comment.body }}</p>
+        <a href="/posts/comment/add/{{ ../post._id}}/{{ comment._id }}" class="btn btn-primary">Comment</a>
+      </div>
+    </div>
+    {{#if comment._comments.length }}
+      {{#each comment._comments as |subcomment|}}
+        <div class="row bottom-margin">
+          <div class="col-sm-offset-2 col-sm-2 left-border">
+            <p><a href="/posts/comment/up/{{ subcomment.post }}/{{ subcomment._id }}">Up:</a> {{ subcomment.upvote }}</p>
+            <p><a href="/posts/comment/down/{{ subcomment.post }}/{{ subcomment._id }}">Down:</a> {{ subcomment.downvote }}</p>
+            <p>Score: {{ subcomment.score }}</p>
+          </div>
+          <div class="col-sm-8">
+            <p>{{ subcomment.body }}</p>
+          </div>
+        </div>
+      {{/each}}
+    {{/if }}
+  {{/each}}
+{{/if }}

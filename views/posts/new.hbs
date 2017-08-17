@@ -1,0 +1,21 @@
+<header class="page-header">
+  <h1>New Post</h1>
+</header>
+
+
+<form action="/posts" method="post">
+
+  <div class="form-group">
+    <label for="post_title">Title</label>
+    <input type="text" class="form-control" name="post[title]" id="post_title">
+  </div>
+  <div class="form-group">
+    <label for="post_body">Body</label>
+    <textarea class="form-control" name="post[body]" id="post_body"></textarea>
+  </div>
+
+
+  <div class="form-group">
+    <input type="submit" class="btn btn-primary" value="Save">
+  </div>
+</form>

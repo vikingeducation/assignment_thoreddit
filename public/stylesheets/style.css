@@ -1,0 +1,25 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.navbar-padding {
+  padding-right: 40px;
+}
+
+.vertical-spacer {
+  padding-top: 100px;
+}
+
+.left-border {
+  border-left-style: groove;
+  border-left-width: medium;
+}
+
+.bottom-margin {
+  margin-bottom: 20px;
+}
