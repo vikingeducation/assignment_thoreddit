@@ -1,0 +1,41 @@
+<header class="page-header">
+  <h1>Posts</h1>
+</header>
+
+
+  <!-- Post -->
+  <div role="tabpanel" class="tab-pane active" id="posts">
+    <ol class="list-group">
+      <li class="list-group-item">
+        <div class="ratable comment">
+          <a href="/comments/{{ post.id }}">
+            <h3>{{ post.title }}</h3>
+          </a>
+          <h6>score: {{ post.score }}</h6>
+          <h6>Vote: <a href="#">up</a> <a href="#">down</a></h6>
+          <p>{{ post.body }}</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+<a href="/comments/{{ post.id }}/edit"><p>comment</p></a>
+
+  <!-- Comments -->
+  <div role="tabpanel" class="tab-pane active" id="hotels">
+    <ol class="list-group">
+      {{#each comments as |comment| }}
+        <li class="list-group-item">
+          <div class="ratable comment">
+            <h3>{{ comment.name }}</h3>
+            <h4>Score: {{ comment.score }}</h4>
+            <p>{{comment.body}}</p>
+            <p><a href="comment/{{comment.id}}">comment</a></p>
+          </div>
+        </li>
+        {{#each comments.arr as |other|}}
+          <p>{{other.body}}</p>
+        {{/each}}
+      {{/each}}
+    </ol>
+  </div>

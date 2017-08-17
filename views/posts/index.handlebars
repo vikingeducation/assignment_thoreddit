@@ -1,0 +1,30 @@
+
+
+<header class="page-header">
+  <h1>Posts</h1>
+</header>
+
+
+
+
+  <!-- Hotels -->
+  <div role="tabpanel" class="tab-pane active" id="posts">
+    <ol class="list-group">
+
+      {{#each posts as |post| }}
+        <li class="list-group-item">
+          <div class="ratable hotel">
+            <a href="/comments/{{ post.id }}">
+              <h3>{{ post.title }}</h3>
+            </a>
+            <h6>score: {{ post.score }}</h6>
+            <h6>Vote: <a href="#">up</a> <a href="#">down</a></h6>
+
+            <h6>author: {{ post.name }}</h6>
+            <h6>created at: {{post.createdAt}}</h6>
+            <p>{{ post.body }}</p>
+          </div>
+          </li>
+      {{/each}}
+    </ol>
+  </div>
