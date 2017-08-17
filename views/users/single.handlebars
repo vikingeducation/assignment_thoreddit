@@ -1,0 +1,62 @@
+{{#if user.username }}
+<header class="page-header">
+  <h1>{{ user.username }}</h1>
+  <a href="{{ destroyUserPath user._id }}"><button class="btn btn-danger">Delete</button></a>
+</header>
+
+<section class="row">
+  <div class="col-md-6">
+    <table class="table">
+      <caption>Posts</caption>
+      <thead>
+        <tr>
+          <th>Created</th>
+          <th>Title</th>
+          <th>Comments</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each user.posts as |post|}}
+        <tr>
+          <td>{{ post.createdAt }}</td>
+          <td><a href="{{ postPath post._id }}">{{ post.title }}</a></td>
+          <td>{{ post.comments.length }}</td>
+          <td>
+            <a href="{{ destroyPostPath post._id }}"><button class="btn btn-danger">Delete</button></a>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-6">
+    <table class="table">
+      <caption>Comments</caption>
+      <thead>
+        <tr>
+          <th>Created</th>
+          <th>Text</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each user.comments as |comment|}}
+        <tr>
+          <td>{{ comment.createdAt }}</td>
+          <td><a href="{{ postPath comment.post }}">{{ comment.summary }}</a></td>
+          <td>
+            <a href="{{ destroyCommentPath comment._id }}"><button class="btn btn-danger">Delete</button></a>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+{{else }}
+<h1 class="text-danger">User does not exist</h1>
+{{/if }}

@@ -1,0 +1,40 @@
+<header class="page-header">
+  <h1>Posts</h1>
+  <a href="{{ newPostPath }}" class="btn btn-primary">+ New Post</a>
+</header>
+
+
+{{#if posts.length }}
+<table class="table">
+  <thead>
+    <tr>
+      <th>Posted</th>
+      <th>Title</th>
+      <th>User</th>
+      <th>Comments</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each posts as |post| }}
+    <tr>
+      <td>
+        <a href="{{ postPath post._id }}">{{ post.createdAt }}</a>
+      </td>
+      <td>
+        <a href="{{ postPath post._id }}">{{ post.title }}</a>
+      </td>
+      <td>
+        <a href="{{ userPath post.user._id }}">{{ post.user.username }}</a>
+      </td>
+      <td>{{ post.comments.length }}</td>
+      <td>
+        <a href="{{ destroyPostPath post._id }}"><button class="btn btn-danger">Delete</button></a>
+      </td>
+    </tr>
+    {{/each }}
+  </tbody>
+</table>
+{{else }}
+<p class="text-danger">No posts</p>
+{{/if }}

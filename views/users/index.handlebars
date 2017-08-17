@@ -1,0 +1,36 @@
+<header class="page-header">
+  <h1>Users</h1>
+  <a href="{{ newUserPath }}" class="btn btn-primary">+ New User</a>
+</header>
+
+
+{{#if users.length }}
+<table class="table">
+  <thead>
+    <tr>
+      <th>Created</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Comments</th>
+      <th>Posts</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each users as |user| }}
+    <tr>
+      <td>{{ user.createdAt }}</td>
+      <td><a href="{{ userPath user._id }}">{{ user.username }}</a></td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.comments.length }}</td>
+      <td>{{ user.posts.length }}</td>
+      <td>
+        <a href="{{ destroyUserPath user._id }}"><button class="btn btn-danger">Delete</button></a>
+      </td>
+    </tr>
+    {{/each }}
+  </tbody>
+</table>
+{{else }}
+<p class="text-danger">No users</p>
+{{/if }}
