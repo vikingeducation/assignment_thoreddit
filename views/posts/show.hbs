@@ -1,0 +1,22 @@
+
+<div class="row">
+  <div class="col-xs-2">
+    <a href="#">Upvote</a><br>
+    <a href="#">Downvote</a>
+    <p>Score: {{post.score}}</p>
+  </div>
+  <div class="col-xs-10">
+    <h1>{{post.title}}</h1>
+    <p>by <span>{{post.author.username}}</span></p>
+    <p>{{post.body}}</p>
+    <a href="#">Comment</a>
+  </div>
+</div>
+  {{#each post.comments as |comment|}}
+    <div class="row">
+      <div class="col-xs-8 col-xs-offset-2">
+        <h4>{{comment.author}} said...</h4>
+        <p>{{comment.body}}</p>
+      </div>
+    </div>
+  {{/each}}
