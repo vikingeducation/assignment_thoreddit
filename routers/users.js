@@ -33,4 +33,10 @@ router.get("/:id", (req, res) => {
   });
 });
 
+router.delete("/:id", (req, res) => {
+  User.findByIdAndRemove(req.params.id)
+    .then(() => res.redirect("back"))
+    .catch(e => res.status(500).send(e.stack));
+});
+
 module.exports = router;

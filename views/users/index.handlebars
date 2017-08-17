@@ -13,6 +13,7 @@
       <th>Email</th>
       <th>Comments</th>
       <th>Posts</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -23,6 +24,9 @@
       <td>{{ user.email }}</td>
       <td>{{ user.comments.length }}</td>
       <td>{{ user.posts.length }}</td>
+      <td>
+        <a href="{{ destroyUserPath user._id }}"><button class="btn btn-danger">Delete</button></a>
+      </td>
     </tr>
     {{/each }}
   </tbody>

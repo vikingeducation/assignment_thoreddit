@@ -37,7 +37,7 @@ PostSchema.statics.new = function(params) {
 PostSchema.post("save", function() {
   mongoose
     .model("User")
-    .update({ _id: this.user }, { $pullAll: { posts: [this._id] } })
+    .update({ _id: this.user }, { $pull: { posts: this._id } }, { multi: true })
     .exec();
   mongoose
     .model("User")
@@ -48,12 +48,13 @@ PostSchema.post("save", function() {
 PostSchema.pre("remove", function(next) {
   mongoose
     .model("User")
-    .update({ posts: this._id }, { $pullAll: { posts: [this._id] } })
+    .update(
+      { posts: this._id },
+      { $pull: { posts: this._id } },
+      { multi: true }
+    )
     .exec();
-  mongoose
-    .model("Comment")
-    .update({ post: this._id }, { $pullAll: { posts: [this._id] } })
-    .exec();
+  mongoose.model("Comment").remove({ post: this._id }).exec();
   next();
 });
 

@@ -25,6 +25,12 @@ router.post("/new", (req, res) => {
   }
 });
 
+router.delete("/:id", (req, res) => {
+  Comment.findByIdAndRemove(req.params.id)
+    .then(() => res.redirect("back"))
+    .catch(e => res.status(500).send(e.stack));
+});
+
 // router.get("/:id", (req, res) => {
 //   User.getById(req.params.id).then(user => {
 //     if (user) res.render("users/single", { user });

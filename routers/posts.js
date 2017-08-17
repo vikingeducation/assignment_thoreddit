@@ -45,7 +45,7 @@ router.get("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   Post.findByIdAndRemove(req.params.id)
-    .then(() => res.redirect(h.postsPath()))
+    .then(() => res.redirect("back"))
     .catch(e => res.status(500).send(e.stack));
 });
 

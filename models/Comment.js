@@ -28,7 +28,11 @@ CommentSchema.statics.new = function(params) {
 CommentSchema.post("save", function() {
   mongoose
     .model("User")
-    .update({ _id: this.user }, { $pullAll: { comments: [this._id] } })
+    .update(
+      { _id: this.user },
+      { $pull: { comments: this._id } },
+      { multi: true }
+    )
     .exec();
   mongoose
     .model("User")
@@ -36,7 +40,11 @@ CommentSchema.post("save", function() {
     .exec();
   mongoose
     .model("Post")
-    .update({ _id: this.post }, { $pullAll: { comments: [this._id] } })
+    .update(
+      { _id: this.post },
+      { $pull: { comments: this._id } },
+      { multi: true }
+    )
     .exec();
   mongoose
     .model("Post")
@@ -47,11 +55,19 @@ CommentSchema.post("save", function() {
 CommentSchema.pre("remove", function(next) {
   mongoose
     .model("User")
-    .update({ _id: this.user }, { $pullAll: { comments: [this._id] } })
+    .update(
+      { _id: this.user },
+      { $pull: { comments: this._id } },
+      { multi: true }
+    )
     .exec();
   mongoose
     .model("Post")
-    .update({ _id: this.post }, { $pullAll: { comments: [this._id] } })
+    .update(
+      { _id: this.post },
+      { $pull: { comments: this._id } },
+      { multi: true }
+    )
     .exec();
   next();
 });
