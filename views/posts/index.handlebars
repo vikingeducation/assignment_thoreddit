@@ -1,0 +1,21 @@
+
+
+<header class="page-header">
+  <h1>Posts</h1>
+  <p>========================= </p>
+  <a href="/posts/new">+ New Post</a>
+  <p>========================= </p>
+</header>
+
+
+{{#each posts as |post| }}
+  <div>
+      <a href="/posts/{{ post.id }}">
+        <h3>{{ post.title }} :By: {{ post.author.username }} :Votes: {{ post.votes }}</h3>
+      </a>
+      <p>{{ post.body }} </p>
+      <button class="btn btn-primary">Upvote</button>
+      <button class="btn btn-danger">Downvote</button>
+      <a href="/posts/{{post.id}}/new"> Comment</a>
+    </div>
+{{/each }}
