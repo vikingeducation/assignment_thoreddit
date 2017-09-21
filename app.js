@@ -8,6 +8,18 @@ var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // ----------------------------------------
+// Sessions/Cookies
+// ----------------------------------------
+var cookieSession = require("cookie-session");
+
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["asdf1234567890qwer"]
+  })
+);
+
+// ----------------------------------------
 // Public
 // ----------------------------------------
 app.use(express.static(`${__dirname}/public`));
