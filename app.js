@@ -25,10 +25,32 @@ app.use(
 app.use(express.static(`${__dirname}/public`));
 
 // ----------------------------------------
+// Logging
+// ----------------------------------------
+var morgan = require("morgan");
+var morganToolkit = require("morgan-toolkit")(morgan);
+
+app.use(morganToolkit());
+
+// ----------------------------------------
+// Mongoose
+// ----------------------------------------
+const mongoose = require("mongoose");
+app.use((req, res, next) => {
+  if (mongoose.connection.readyState) {
+    next();
+  } else {
+    require("./mongo")().then(() => next());
+  }
+});
+
+// ----------------------------------------
 // Routes
 // ----------------------------------------
 var loginRouter = require("./routers/login")(app);
 app.use("/", loginRouter);
+var userRouter = require("./routers/user")(app);
+app.use("/user", userRouter);
 
 // ----------------------------------------
 // Template Engine

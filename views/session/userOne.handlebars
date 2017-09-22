@@ -1,0 +1,45 @@
+<div class="ml-auto">
+  <a href="/"><button class="btn btn-primary">Users</button></a>
+  <a href="/posts"><button class="btn btn-primary">Posts</button></a>
+  <a href="/logout"><button class="btn btn-danger">Logout</button></a>
+</div>
+</nav>
+<hr>
+<div class="container">
+  <div class="row">
+    <h1>User: {{user.fname}} {{user.lname}} </h1>
+  </div>
+  <div class="row">
+    <a href="edit/{{user.id}}"><button class="btn btn-primary">Edit</button></a>
+    <a href="delete/{{user.id}}"><button class="btn btn-danger">Delete</button></a>
+  </div>
+  <div class="row">
+    <table class="table-bordered table-hover">
+      <thead>
+        <tr>
+          <td>Key</td>
+          <td>Value</td>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td> First Name</td>
+        <td> {{user.fname}} </td>
+      </tr>
+      <tr>
+        <td> Last Name</td>
+        <td> {{user.lname}} </td>
+      </tr>
+      <tr>
+        <td> Username</td>
+        <td> {{user.username}} </td>
+      </tr>
+      <tr>
+        <td> Email</td>
+        <td> {{user.email}} </td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
