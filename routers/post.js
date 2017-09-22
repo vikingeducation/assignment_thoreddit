@@ -11,8 +11,16 @@ module.exports = app => {
     Post.find({})
       .populate("user")
       .then(posts => {
-        console.log(posts);
         res.render("post/start", { posts });
+      })
+      .catch(e => res.status(500).send(e.stack));
+  });
+
+  router.get("/:id", (req, res) => {
+    Post.findById(req.params.id)
+      .populate("user")
+      .then(post => {
+        res.render("post/postOne", { post });
       })
       .catch(e => res.status(500).send(e.stack));
   });

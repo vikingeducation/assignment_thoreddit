@@ -6,6 +6,7 @@ var PostSchema = new Schema(
     posted: { type: Date, default: Date.now },
     title: String,
     body: String,
+    score: Number,
     user: {
       type: Schema.Types.ObjectId,
       ref: "User"

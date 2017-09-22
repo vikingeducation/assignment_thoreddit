@@ -25,6 +25,14 @@ app.use(
 app.use(express.static(`${__dirname}/public`));
 
 // ----------------------------------------
+// Referrer
+// ----------------------------------------
+app.use((req, res, next) => {
+  req.session.backUrl = req.header("Referer") || "/";
+  next();
+});
+
+// ----------------------------------------
 // Logging
 // ----------------------------------------
 var morgan = require("morgan");

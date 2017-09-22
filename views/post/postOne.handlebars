@@ -1,0 +1,25 @@
+<div class="ml-auto">
+  <a href="/"><button class="btn btn-primary">Users</button></a>
+  <a href="/post"><button class="btn btn-primary">Posts</button></a>
+  <a href="/logout"><button class="btn btn-danger">Logout</button></a>
+</div>
+</nav>
+<hr>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-1 col-sm-offset-1" style="height:auto;">
+      <h6><a href="#">Upvote</a></h6>
+      <h6><a href="#">Downvote</a></h6>
+      <h6>Score: {{post.score}}</h6>
+    </div>
+    <div class="col-sm-8">
+      <h2>{{post.title}} </h2>
+      <h4> By {{post.user.username}}</h4>
+      <p>{{post.body}}</p>
+      <p><a href="#">Comment</a></p>
+      <hr>
+    </div>
+  </div>
+
+
+</div>
