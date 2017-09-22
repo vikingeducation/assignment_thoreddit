@@ -4,7 +4,7 @@ var env = process.env.NODE_ENV || "development";
 var config = require("./../config/mongo")[env];
 const mongooseeder = require("mongooseeder");
 
-const { User } = models;
+const { User, Postable, Post } = models;
 
 const seeds = () => {
   console.log("Creating Users");
@@ -19,9 +19,21 @@ const seeds = () => {
     users.push(user);
   }
 
+  console.log("Creating Posts");
+  var posts = [];
+  for (var i = 0; i < 5; i++) {
+    var post = new Post({
+      posted: new Date("2016-11-11"),
+      title: `Title${i}`,
+      body: `${i}. Lorem ipsum blah blah`,
+      user: users[i]._id
+    });
+    posts.push(post);
+  }
+
   console.log("Saving...");
   var promises = [];
-  [users].forEach(collection => {
+  [users, posts].forEach(collection => {
     collection.forEach(model => {
       promises.push(model.save());
     });

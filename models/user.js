@@ -9,7 +9,8 @@ var UserSchema = new Schema(
     email: String
   },
   {
-    timestamps: true
+    timestamps: true,
+    discriminatorKey: "kind"
   }
 );
 

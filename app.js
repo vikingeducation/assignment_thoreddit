@@ -51,13 +51,21 @@ var loginRouter = require("./routers/login")(app);
 app.use("/", loginRouter);
 var userRouter = require("./routers/user")(app);
 app.use("/user", userRouter);
+var postRouter = require("./routers/post")(app);
+app.use("/post", postRouter);
 
 // ----------------------------------------
 // Template Engine
 // ----------------------------------------
 var expressHandlebars = require("express-handlebars");
+var dotdot = require("./helpers/dotdot");
+var dateShorter = require("./helpers/dateShorter");
 
 var hbs = expressHandlebars.create({
+  helpers: {
+    dotdot,
+    dateShorter
+  },
   partialsDir: "views/",
   defaultLayout: "application"
 });

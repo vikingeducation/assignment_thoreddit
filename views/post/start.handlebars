@@ -7,25 +7,26 @@
 <hr>
 <div class="container">
   <div class="row">
-    <h1>Users <a href="/"><button class="btn btn-primary">+ New User</button></a></h1>
+    <h1>Post <a href="/"><button class="btn btn-primary">+ New Post</button></a></h1>
   </div>
   <div class="row">
     <table class="table-bordered table-hover">
       <thead>
         <tr>
+          <td>Posted At</td>
+          <td>Title</td>
+          <td>Body</td>
           <td>Username</td>
-          <td>Email</td>
-          <td>Edit</td>
-          <td>Delete</td>
         </tr>
       </thead>
       <tbody>
-    {{#each users as |user|}}
+    {{#each posts as |post|}}
       <tr>
-        <td> <a href="user/{{user.id}}">{{user.username}} </a></td>
-        <td> <a href="user/{{user.id}}">{{user.email}} </a></td>
-        <td> <a class="text-warning" href="user/edit/{{user.id}}"> Edit </a></td>
-        <td> <a class="text-danger" href="user/delete/{{user.id}}">Delete </a></td>
+        <td> <a href="post/{{post.id}}">{{dateShorter post.posted}} </a></td>
+        <td> <a href="post/{{post.id}}">{{post.title}} </a></td>
+        <td> <a href="post/{{post.id}}">{{dotdot post.body}} </a></td>
+        <td> <a href="user/{{post.user.id}}">{{post.user.username}} </a></td>
+
       </tr>
       {{/each}}
       </tbody>
