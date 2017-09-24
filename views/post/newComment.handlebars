@@ -1,0 +1,21 @@
+<div class="ml-auto">
+  <a href="/"><button class="btn btn-primary">Users</button></a>
+  <a href="/post"><button class="btn btn-primary">Posts</button></a>
+  <a href="/logout"><button class="btn btn-danger">Logout</button></a>
+</div>
+</nav>
+<hr>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-6" style="display: block; margin-right:auto; margin-left:auto; margin-top: 10%;">
+      <form class="form-group" action="/comment" method="post">
+        <h3>New Comment</h3>
+        <h4>Commenting on a ("Post" or "Comment")</h4>
+        <p> Original Message: {{post.body}}</p>
+        <label>Body: </label><input class="form-control" type="text" placeholder="Edit here..." name="commentBody">
+        <br>
+        <button class="btn btn-primary form-control" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

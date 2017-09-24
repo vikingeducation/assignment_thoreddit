@@ -16,10 +16,16 @@ module.exports = app => {
       .catch(e => res.status(500).send(e.stack));
   });
 
+  router.get("/:postid/newComment/:linktoId", (req, res) => {
+    console.log("!@#", req.params.postid, req.params.linktoId);
+    res.redirect("back");
+  });
+
   router.get("/:id", (req, res) => {
     Post.findById(req.params.id)
       .populate("user")
       .then(post => {
+        console.log(post);
         res.render("post/postOne", { post });
       })
       .catch(e => res.status(500).send(e.stack));

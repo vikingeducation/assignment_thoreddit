@@ -10,7 +10,8 @@ var PostSchema = new Schema(
     user: {
       type: Schema.Types.ObjectId,
       ref: "User"
-    }
+    },
+    comment: Object
   },
   {
     timestamps: true
