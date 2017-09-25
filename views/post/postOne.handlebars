@@ -1,0 +1,87 @@
+<div class="ml-auto">
+  <a href="/"><button class="btn btn-primary">Users</button></a>
+  <a href="/post"><button class="btn btn-primary">Posts</button></a>
+  <a href="/logout"><button class="btn btn-danger">Logout</button></a>
+</div>
+</nav>
+<hr>
+<div class="container">
+  <div class="row">
+    <div class="col-md-1" style="padding:0px;">
+      <h6><a href="/post/{{post.id}}/newUpVote/1">Upvote</a></h6>
+      <h6><a href="/post/{{post.id}}/newDownVote/1">Downvote</a></h6>
+      <h6>Score: {{post.score}}</h6>
+    </div>
+    <div class="col-md-8">
+      <h2>{{post.title}} </h2>
+      <h4> By {{post.user.username}}</h4>
+      <p>{{post.body}}</p>
+      <p><a href="/post/{{post.id}}/newComment/1">Comment</a></p>
+      <hr>
+    </div>
+  </div>
+  {{#each post.comment as |comment|}}
+      <div class="row">
+        <div class="col-md-1 col-md-offset-2" style="border-right:2px solid gray;">
+        </div>
+        <div class="col-md-offset-1" style="padding:0px;">
+          <h6><a href="/post/{{../post.id}}/newUpVote/{{comment.id}}">Upvote</a></h6>
+          <h6><a href="/post/{{../post.id}}/newDownVote/{{comment.id}}">Downvote</a></h6>
+          <h6>Score: {{comment.score}}</h6>
+        </div>
+        <div class="col-md-7">
+          <h4>{{comment.user}} said:</h4>
+          <p>{{comment.body}}</p>
+          <p><a href="/post/{{../post.id}}/newComment/{{comment.id}}">Comment</a></p>
+        </div>
+      </div>
+      {{#each comment.comment as |comment2|}}
+        <div class="row">
+          <div class="col-md-2 col-md-offset-2" style="border-right:2px solid gray;">
+          </div>
+          <div class="col-md-offset-1" style="padding:0px;">
+            <h6><a href="/post/{{../../post.id}}/newUpVote/{{comment2.id}}">Upvote</a></h6>
+            <h6><a href="/post/{{../../post.id}}/newDownVote/{{comment2.id}}">Downvote</a></h6>
+            <h6>Score: {{comment2.score}}</h6>
+          </div>
+          <div class="col-md-7">
+            <h4>{{comment2.user}} said:</h4>
+            <p>{{comment2.body}}</p>
+            <p><a href="/post/{{../../post.id}}/newComment/{{comment2.id}}">Comment</a></p>
+          </div>
+        </div>
+        {{#each comment2.comment as |comment3|}}
+          <div class="row">
+            <div class="col-md-3 col-md-offset-2" style="border-right:2px solid gray;">
+            </div>
+            <div class="col-md-offset-1" style="padding:0px;">
+              <h6><a href="/post/{{../../../post.id}}/newUpVote/{{comment3.id}}">Upvote</a></h6>
+              <h6><a href="/post/{{../../../post.id}}/newDownVote/{{comment3.id}}">Downvote</a></h6>
+              <h6>Score: {{comment3.score}}</h6>
+            </div>
+            <div class="col-md-7">
+              <h4>{{comment3.user}} said:</h4>
+              <p>{{comment3.body}}</p>
+              <p><a href="/post/{{../../../post.id}}/newComment/{{comment3.id}}">Comment</a></p>
+            </div>
+          </div>
+          {{#each comment3.comment as |comment4|}}
+            <div class="row">
+              <div class="col-md-4 col-md-offset-2" style="border-right:2px solid gray;">
+              </div>
+              <div class="col-md-offset-1" style="padding:0px;">
+                <h6><a href="/post/{{../../../../post.id}}/newUpVote/{{comment4.id}}">Upvote</a></h6>
+                <h6><a href="/post/{{../../../../post.id}}/newDownVote/{{comment4.id}}">Downvote</a></h6>
+                <h6>Score: {{comment4.score}}</h6>
+              </div>
+              <div class="col-md-7">
+                <h4>{{comment4.user}} said:</h4>
+                <p>{{comment4.body}}</p>
+              </div>
+            </div>
+          {{/each}}
+        {{/each}}
+      {{/each}}
+  {{/each}}
+
+</div>
