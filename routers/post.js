@@ -37,6 +37,30 @@ module.exports = app => {
       .catch(e => res.status(500).send(e.stack));
   });
 
+  router.get("/:postid/newUpVote/:linktoId", (req, res) => {
+    Post.findById(req.params.postid).then(post => {
+      var commentId = req.params.linktoId;
+      var postComment = commentFinder(post, commentId);
+      postComment.score = postComment.score + 1;
+
+      Post.update({ _id: `${req.params.postid}` }, post).then(posting => {
+        res.redirect(`/post/${req.params.postid}`);
+      });
+    });
+  });
+
+  router.get("/:postid/newDownVote/:linktoId", (req, res) => {
+    Post.findById(req.params.postid).then(post => {
+      var commentId = req.params.linktoId;
+      var postComment = commentFinder(post, commentId);
+      postComment.score = postComment.score - 1;
+
+      Post.update({ _id: `${req.params.postid}` }, post).then(posting => {
+        res.redirect(`/post/${req.params.postid}`);
+      });
+    });
+  });
+
   router.get("/:postid/newComment/:linktoId", (req, res) => {
     Post.findById(req.params.postid).then(post => {
       var commentId = req.params.linktoId;

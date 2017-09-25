@@ -19,17 +19,6 @@ const seeds = () => {
     users.push(user);
   }
 
-  // console.log("##Creating Comments...");
-  // var comments = [];
-  // for (var i = 0; i < 5; i++) {
-  //   var comment = new Comment({
-  //     body: `${i} comment lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum`,
-  //     score: 123,
-  //     user: users[1]._id
-  //   });
-  //   comments.push(comment);
-  // }
-
   console.log("##Creating Posts...");
   var posts = [];
   for (var i = 0; i < 5; i++) {
