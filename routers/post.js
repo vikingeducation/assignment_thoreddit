@@ -40,11 +40,53 @@ module.exports = app => {
   router.get("/:postid/newUpVote/:linktoId", (req, res) => {
     Post.findById(req.params.postid).then(post => {
       var commentId = req.params.linktoId;
+      var postId = req.params.postid;
       var postComment = commentFinder(post, commentId);
-      postComment.score = postComment.score + 1;
 
-      Post.update({ _id: `${req.params.postid}` }, post).then(posting => {
-        res.redirect(`/post/${req.params.postid}`);
+      User.find({
+        username: req.session.userInfo.username,
+        email: req.session.userInfo.email
+      }).then(user => {
+        var matchUp = false;
+        var matchDown = false;
+        for (var i = 0; i < user[0].upVote.length; i++) {
+          if (
+            JSON.stringify(user[0].upVote[i]) ===
+            JSON.stringify({ postId, commentId })
+          ) {
+            matchUp = true;
+          }
+        }
+        for (var i = 0; i < user[0].downVote.length; i++) {
+          if (
+            JSON.stringify(user[0].downVote[i]) ===
+            JSON.stringify({ postId, commentId })
+          ) {
+            matchDown = true;
+          }
+        }
+        if (matchUp) {
+          postComment.score = postComment.score + 0;
+        } else if (matchDown) {
+          var index = user[0].downVote.indexOf({ postId, commentId });
+          user[0].downVote.splice(index, 1);
+          user[0].upVote.push({ postId, commentId });
+          postComment.score = postComment.score + 2;
+        } else {
+          user[0].upVote.push({ postId, commentId });
+          postComment.score = postComment.score + 1;
+        }
+        User.update(
+          {
+            username: req.session.userInfo.username,
+            email: req.session.userInfo.email
+          },
+          user[0]
+        ).then(() => {
+          Post.update({ _id: `${req.params.postid}` }, post).then(posting => {
+            res.redirect(`/post/${req.params.postid}`);
+          });
+        });
       });
     });
   });
@@ -52,11 +94,53 @@ module.exports = app => {
   router.get("/:postid/newDownVote/:linktoId", (req, res) => {
     Post.findById(req.params.postid).then(post => {
       var commentId = req.params.linktoId;
+      var postId = req.params.postid;
       var postComment = commentFinder(post, commentId);
-      postComment.score = postComment.score - 1;
 
-      Post.update({ _id: `${req.params.postid}` }, post).then(posting => {
-        res.redirect(`/post/${req.params.postid}`);
+      User.find({
+        username: req.session.userInfo.username,
+        email: req.session.userInfo.email
+      }).then(user => {
+        var matchUp = false;
+        var matchDown = false;
+        for (var i = 0; i < user[0].upVote.length; i++) {
+          if (
+            JSON.stringify(user[0].upVote[i]) ===
+            JSON.stringify({ postId, commentId })
+          ) {
+            matchUp = true;
+          }
+        }
+        for (var i = 0; i < user[0].downVote.length; i++) {
+          if (
+            JSON.stringify(user[0].downVote[i]) ===
+            JSON.stringify({ postId, commentId })
+          ) {
+            matchDown = true;
+          }
+        }
+        if (matchDown) {
+          postComment.score = postComment.score + 0;
+        } else if (matchUp) {
+          var index = user[0].upVote.indexOf({ postId, commentId });
+          user[0].upVote.splice(index, 1);
+          user[0].downVote.push({ postId, commentId });
+          postComment.score = postComment.score - 2;
+        } else {
+          user[0].downVote.push({ postId, commentId });
+          postComment.score = postComment.score - 1;
+        }
+        User.update(
+          {
+            username: req.session.userInfo.username,
+            email: req.session.userInfo.email
+          },
+          user[0]
+        ).then(() => {
+          Post.update({ _id: `${req.params.postid}` }, post).then(posting => {
+            res.redirect(`/post/${req.params.postid}`);
+          });
+        });
       });
     });
   });

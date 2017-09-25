@@ -14,7 +14,9 @@ const seeds = () => {
       fname: `Foo${i}`,
       lname: `Bar${i}`,
       username: `Foobar${i}`,
-      email: `Foobar${i}@gmail.com`
+      email: `Foobar${i}@gmail.com`,
+      upVote: [],
+      downVote: []
     });
     users.push(user);
   }

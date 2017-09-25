@@ -6,7 +6,9 @@ var UserSchema = new Schema(
     fname: String,
     lname: String,
     username: String,
-    email: String
+    email: String,
+    upVote: Array,
+    downVote: Array
   },
   {
     timestamps: true,
