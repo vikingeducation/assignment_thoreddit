@@ -16,7 +16,7 @@
       <h2>{{post.title}} </h2>
       <h4> By {{post.user.username}}</h4>
       <p>{{post.body}}</p>
-      <p><a href="/post/{{post.id}}/newComment/{{post.id}}">Comment</a></p>
+      <p><a href="/post/{{post.id}}/newComment/1">Comment</a></p>
       <hr>
     </div>
   </div>
@@ -32,7 +32,7 @@
         <div class="col-md-7">
           <h4>{{comment.user}} said:</h4>
           <p>{{comment.body}}</p>
-          <p><a href="/post/{{../post.id}}/newComment/{{../post.comment.id}}">Comment</a></p>
+          <p><a href="/post/{{../post.id}}/newComment/{{comment.id}}">Comment</a></p>
         </div>
       </div>
       {{#each comment.comment as |comment2|}}
@@ -47,7 +47,7 @@
           <div class="col-md-7">
             <h4>{{comment2.user}} said:</h4>
             <p>{{comment2.body}}</p>
-            <p><a href="/post/{{../post.id}}/newComment/{{../post.comment2.id}}">Comment</a></p>
+            <p><a href="/post/{{../../post.id}}/newComment/{{comment2.id}}">Comment</a></p>
           </div>
         </div>
         {{#each comment2.comment as |comment3|}}
@@ -62,7 +62,7 @@
             <div class="col-md-7">
               <h4>{{comment3.user}} said:</h4>
               <p>{{comment3.body}}</p>
-              <p><a href="/post/{{../post.id}}/newComment/{{../post.comment3.id}}">Comment</a></p>
+              <p><a href="/post/{{../../../post.id}}/newComment/{{comment3.id}}">Comment</a></p>
             </div>
           </div>
           {{#each comment3.comment as |comment4|}}
@@ -77,7 +77,6 @@
               <div class="col-md-7">
                 <h4>{{comment4.user}} said:</h4>
                 <p>{{comment4.body}}</p>
-                <p><a href="/post/{{../post.id}}/newComment/{{../post.comment4.id}}">Comment</a></p>
               </div>
             </div>
           {{/each}}

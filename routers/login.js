@@ -7,10 +7,16 @@ var User = mongoose.model("User");
 
 module.exports = app => {
   var startPage = (req, res) => {
-    if (req.session.userInfo != null) {
-      User.find({})
-        .then(users => {
-          res.render("session/start", { users });
+    if (req.session.userInfo) {
+      var usernameEntered = req.session.userInfo.username;
+      var emailEntered = req.session.userInfo.email;
+      User.findOne({ username: usernameEntered, email: emailEntered })
+        .then(user => {
+          if (user) {
+            res.redirect("/user");
+          } else {
+            res.redirect("/login");
+          }
         })
         .catch(e => res.status(500).send(e.stack));
     } else {
@@ -26,10 +32,17 @@ module.exports = app => {
     if (req.body.username.length > 0 && req.body.email.length > 0) {
       var usernameEntered = req.body.username;
       var emailEntered = req.body.email;
-      req.session.userInfo = { username: usernameEntered, email: emailEntered };
-      User.find({})
-        .then(users => {
-          res.render("session/start", { users });
+      User.findOne({ username: usernameEntered, email: emailEntered })
+        .then(user => {
+          if (user) {
+            req.session.userInfo = {
+              username: usernameEntered,
+              email: emailEntered
+            };
+            res.redirect("/user");
+          } else {
+            res.redirect("/login");
+          }
         })
         .catch(e => res.status(500).send(e.stack));
     } else {
@@ -41,7 +54,7 @@ module.exports = app => {
     if (req.session.userInfo) {
       req.session.userInfo = null;
     }
-    res.render("session/login");
+    res.redirect("/login");
   });
 
   return router;

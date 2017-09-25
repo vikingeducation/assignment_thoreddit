@@ -41,36 +41,45 @@ const seeds = () => {
       user: users[i]._id,
       comment: [
         {
+          id: 11,
           user: "Foo",
           body: "Comment 123",
-          score: 123
+          score: 123,
+          comment: []
         },
         {
+          id: 12,
           user: "Foo2",
           body: "Comment 123, 321",
           score: 122,
           comment: [
             {
+              id: 1211,
               user: "Bar",
               body: "Comment on 123, 321",
-              score: 121
+              score: 121,
+              comment: []
             }
           ]
         },
         {
+          id: 13,
           user: "Foo2",
           body: "Comment 120",
           score: 115,
           comment: [
             {
+              id: 1311,
               user: "Foo1",
               body: "Comment 120",
               score: 112,
               comment: [
                 {
+                  id: 131111,
                   user: "Bar2",
                   body: "Comment on 120, 321",
-                  score: 111
+                  score: 111,
+                  comment: []
                 }
               ]
             }

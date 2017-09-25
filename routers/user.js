@@ -6,6 +6,12 @@ var models = require("./../models");
 var User = mongoose.model("User");
 
 module.exports = app => {
+  router.get("/", (req, res) => {
+    User.find({}).then(users => {
+      res.render("session/start", { users });
+    });
+  });
+
   router.get("/:id", (req, res) => {
     User.findById(req.params.id)
       .then(user => {
