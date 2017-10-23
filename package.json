@@ -1,0 +1,32 @@
+{
+  "name": "assignment_thoreddit",
+  "version": "1.0.0",
+  "description": "A social news web application for Viking thunder Gods",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tketron/assignment_thoreddit.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tketron/assignment_thoreddit/issues"
+  },
+  "homepage": "https://github.com/tketron/assignment_thoreddit#readme",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
+    "cookie-session": "^2.0.0-beta.3",
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "express-method-override-get-post-support": "0.0.7",
+    "method-override": "^2.3.10",
+    "mongoose": "^4.12.3",
+    "mongooseeder": "^2.0.5",
+    "morgan": "^1.9.0",
+    "morgan-toolkit": "^1.0.2"
+  }
+}
