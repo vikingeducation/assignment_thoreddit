@@ -74,17 +74,17 @@ app.use((req, res, next) => {
 // ----------------------------------------
 // Routes
 // ----------------------------------------
-// var sessionsRouter = require('./routers/sessions')(app);
-// app.use('/', sessionsRouter);
-//
-// var usersRouter = require('./routers/users');
-// app.use('/users', usersRouter);
+var sessionsRouter = require('./routers/sessions')(app);
+app.use('/', sessionsRouter);
+
+var usersRouter = require('./routers/users');
+app.use('/users', usersRouter);
 //
 // var ratablesRouter = require('./routers/ratables');
 // app.use('/ratables', ratablesRouter);
-app.use((req, res, next) => {
-  res.render('layouts/application');
-});
+// app.use((req, res, next) => {
+//   res.render('body');
+// });
 
 // ----------------------------------------
 // Template Engine
