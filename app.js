@@ -62,27 +62,27 @@ app.use(morganToolkit());
 // ----------------------------------------
 // Mongoose
 // ----------------------------------------
-const mongoose = require("mongoose");
-app.use((req, res, next) => {
-	if (mongoose.connection.readyState) {
-		next();
-	} else {
-		require("./mongo")().then(() => next());
-	}
-});
+// const mongoose = require("mongoose");
+// app.use((req, res, next) => {
+// 	if (mongoose.connection.readyState) {
+// 		next();
+// 	} else {
+// 		require("./mongo")().then(() => next());
+// 	}
+// });
 
 // ----------------------------------------
 // Routes
 // ----------------------------------------
-// var sessionsRouter = require("./routers/sessions")(app);
-// app.use("/", sessionsRouter);
-//
-// var usersRouter = require("./routers/users");
-// app.use("/users", usersRouter);
+var sessionsRouter = require("./routers/sessions")(app);
+app.use("/", sessionsRouter);
 
-app.get("/", (req, res) => {
-	res.send("its halloween my dudes");
-});
+var frontpage = require("./routers/frontpage");
+app.use("/", frontpage);
+
+// app.get("/", (req, res) => {
+// 	res.send("its halloween my dudes");
+// });
 
 // ----------------------------------------
 // Template Engine
