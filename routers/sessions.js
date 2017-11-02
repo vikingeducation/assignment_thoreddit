@@ -39,6 +39,8 @@ module.exports = app => {
 		tempEmail = req.body.email;
 		req.session.currentUser = { tempUser, tempEmail };
 
+		//put some db queries here
+
 		onNew(req, res);
 	});
 

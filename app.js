@@ -49,7 +49,7 @@ app.use((req, res, next) => {
 // ----------------------------------------
 // Public
 // ----------------------------------------
-app.use(express.static(`${__dirname}/public`));
+// app.use(express.static(`${__dirname}/public`));
 
 // ----------------------------------------
 // Logging
@@ -62,14 +62,14 @@ app.use(morganToolkit());
 // ----------------------------------------
 // Mongoose
 // ----------------------------------------
-// const mongoose = require("mongoose");
-// app.use((req, res, next) => {
-// 	if (mongoose.connection.readyState) {
-// 		next();
-// 	} else {
-// 		require("./mongo")().then(() => next());
-// 	}
-// });
+const mongoose = require("mongoose");
+app.use((req, res, next) => {
+	if (mongoose.connection.readyState) {
+		next();
+	} else {
+		require("./mongo")().then(() => next());
+	}
+});
 
 // ----------------------------------------
 // Routes

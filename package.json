@@ -26,6 +26,7 @@
     "express-method-override-get-post-support": "0.0.7",
     "method-override": "^2.3.10",
     "mongoose": "^4.12.4",
+    "mongooseeder": "^2.0.5",
     "morgan": "^1.9.0",
     "morgan-toolkit": "^1.0.2"
   }
