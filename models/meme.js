@@ -6,13 +6,10 @@ var MemeSchema = new Schema(
 		title: String,
 		description: String,
 		url: String,
-		user: [
-			{
-				type: Schema.Types.ObjectId,
-				ref: "User"
-			}
-		],
-		comments: Array
+		user: {
+			type: Schema.Types.ObjectId,
+			ref: "User"
+		}
 	},
 	{
 		timestamps: true,
