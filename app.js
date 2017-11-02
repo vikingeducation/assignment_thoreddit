@@ -79,12 +79,9 @@ app.use('/', sessionsRouter);
 
 var usersRouter = require('./routers/users');
 app.use('/users', usersRouter);
-//
-// var ratablesRouter = require('./routers/ratables');
-// app.use('/ratables', ratablesRouter);
-// app.use((req, res, next) => {
-//   res.render('body');
-// });
+
+var postsRouter = require('./routers/posts');
+app.use('/posts', postsRouter);
 
 // ----------------------------------------
 // Template Engine

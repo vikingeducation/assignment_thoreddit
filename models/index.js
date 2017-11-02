@@ -11,5 +11,6 @@ var models = {};
 // models.User = require('./user');
 //... more models
 models.User = require('./user');
+models.Post = require('./post');
 
 module.exports = models;
