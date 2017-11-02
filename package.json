@@ -24,6 +24,7 @@
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
     "express-method-override-get-post-support": "0.0.7",
+    "faker": "^4.1.0",
     "method-override": "^2.3.10",
     "mongoose": "^4.12.4",
     "mongooseeder": "^2.0.5",

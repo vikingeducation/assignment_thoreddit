@@ -43,7 +43,9 @@ module.exports = app => {
 				if (user) {
 					req.session.currentUser = {
 						username: user.username,
-						email: user.email
+						email: user.email,
+						id: user.id,
+						_id: user._id
 					};
 					res.redirect("/frontpage");
 				} else {

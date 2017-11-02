@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
 const models = require("./../models");
 
+var faker = require("faker");
+
 var env = process.env.NODE_ENV || "development";
 var config = require("./../config/mongo")[env];
 const mongooseeder = require("mongooseeder");
 
-const { User } = models;
+const { User, Meme } = models;
 
 const seeds = () => {
 	//users
@@ -19,14 +21,33 @@ const seeds = () => {
 		users.push(user);
 	}
 
+	// MEMES
+	console.log("Creating MEMES yall");
+	var memes = [];
+
+	for (let i = 0; i < 5; i++) {
+		var title = faker.lorem.word();
+		var description = faker.lorem.sentence();
+		var url = faker.internet.url();
+
+		var meme = new Meme({
+			title: title,
+			description: description,
+			url: url,
+			user: users[i]
+		});
+
+		memes.push(meme);
+	}
+
 	// saving
 	console.log("Saving...");
 	var promises = [];
-	// users.forEach(collection => {
-	users.forEach(model => {
-		promises.push(model.save());
+	[users, memes].forEach(collection => {
+		collection.forEach(model => {
+			promises.push(model.save());
+		});
 	});
-	// });
 
 	return Promise.all(promises);
 };

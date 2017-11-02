@@ -80,10 +80,6 @@ app.use("/", sessionsRouter);
 var frontpage = require("./routers/frontpage");
 app.use("/", frontpage);
 
-// app.get("/", (req, res) => {
-// 	res.send("its halloween my dudes");
-// });
-
 // ----------------------------------------
 // Template Engine
 // ----------------------------------------
