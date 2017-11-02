@@ -2,8 +2,8 @@ var url = require("url");
 var express = require("express");
 var router = express.Router();
 const mongoose = require("mongoose");
-// var models = require("./../models");
-// var User = mongoose.model("User");
+var models = require("./../models");
+var User = mongoose.model("User");
 
 var tempUser, tempEmail;
 
@@ -35,15 +35,25 @@ module.exports = app => {
 
 	//POST login
 	router.post("/sessions", (req, res) => {
-		tempUser = req.body.user;
-		tempEmail = req.body.email;
-		req.session.currentUser = { tempUser, tempEmail };
-
-		//put some db queries here
-
-		onNew(req, res);
+		User.findOne({
+			username: req.body.username,
+			email: req.body.email
+		})
+			.then(user => {
+				if (user) {
+					req.session.currentUser = {
+						username: user.username,
+						email: user.email
+					};
+					res.redirect("/frontpage");
+				} else {
+					res.redirect("/login");
+				}
+			})
+			.catch(e => res.status(500).send(e.stack));
 	});
 
+	//logout
 	var onDestroy = (req, res) => {
 		req.session.currentUser = null;
 		res.redirect("/login");
