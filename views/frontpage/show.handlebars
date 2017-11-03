@@ -1,7 +1,7 @@
 
 
 <div class="">
-  <a href="#">Upvote</a>
+  <a href="#">Upvote</a><br>
   <a href="#">Downvote</a>
   Score: {{meme.score}}
 </div>
@@ -18,16 +18,18 @@
 <div class="">
   {{#each comments as |comment|}}
   <div class="">
-    <a href="#">Upvote</a>
+    <a href="#">Upvote</a><br>
     <a href="#">Downvote</a>
     Score: {{comment.score}}
   </div>
 
   <div class="">
-    <h4>{{comment.body}}</h4>
+    <p>{{comment.body}}</p>
     <h5>By User: {{ comment.user }}</h5>
     <h4><a href="{{comment.id}}/new">Comment</a></h4>
-  </div>
+  </div><br>
+
+  <hr>
 
   {{/each}}
 </div>

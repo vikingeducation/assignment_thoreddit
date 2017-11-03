@@ -35,7 +35,7 @@ const seeds = () => {
 			description: description,
 			url: url,
 			user: users[i],
-			score: i * 100
+			score: i * 111
 		});
 
 		memes.push(meme);
@@ -44,14 +44,14 @@ const seeds = () => {
 	// Comments
 	console.log("Creating comments");
 	var comments = [];
-	for (let i = 0; i < 10; i++) {
+	for (let i = 0; i < 100; i++) {
 		var body = faker.random.words(30);
 
 		var comment = new Comment({
 			body: body,
-			meme: memes[i],
-			user: users[i],
-			score: i * 10
+			meme: memes[i % 10],
+			user: users[i % 10],
+			score: i * 11
 		});
 
 		comments.push(comment);
