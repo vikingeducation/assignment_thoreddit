@@ -21,6 +21,7 @@ router.get('/', (req, res) => {
 // ----------------------------------------
 router.get('/:id', (req, res) => {
   Post.findById(req.params.id)
+    .populate('author')
     .then(post => {
       res.render('posts/show', { post });
     })

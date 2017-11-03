@@ -18,6 +18,13 @@ const seeds = () => {
   // ----------------------------------------
   console.log('Creating Users');
   var users = [];
+  var user = new User({
+    fname: 'Tyler',
+    lname: 'Ketron',
+    username: 'tketron',
+    email: 'tketron@gmail.com'
+  });
+  users.push(user);
   for (let i = 0; i < MULTIPLIER * 2; i++) {
     var user = new User({
       fname: 'Foo',
@@ -37,7 +44,7 @@ const seeds = () => {
     var post = new Post({
       title: 'A Post',
       body: 'This is an example post on Thoreddit',
-      author: users[i]
+      author: users[Math.floor(Math.random() * users.length)]
     });
     posts.push(post);
   }
