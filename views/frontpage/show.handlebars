@@ -2,15 +2,15 @@
 
 <div class="">
   <a href="#">Upvote</a><br>
-  <a href="#">Downvote</a>
+  <a href="#">Downvote</a><br>
   Score: {{meme.score}}
 </div>
 
 <div class="">
-  <h1>meme.title</h1>
-  <h4>meme.description</h4>
-  <h5>By User: {{ user.username }}</h5>
-  <h4><a href="{{meme.id}}/new">Comment</a></h4>
+  <h1>{{meme.title}}</h1>
+  <h4>{{meme.description}}</h4>
+  <h5>By User: {{ meme.user.username }}</h5>
+  <h4><a href="{{meme.id}}/new">Reply</a></h4>
 </div>
 
 <hr>
@@ -19,14 +19,14 @@
   {{#each comments as |comment|}}
   <div class="">
     <a href="#">Upvote</a><br>
-    <a href="#">Downvote</a>
+    <a href="#">Downvote</a><br>
     Score: {{comment.score}}
-  </div>
+  </div><br>
 
   <div class="">
     <p>{{comment.body}}</p>
-    <h5>By User: {{ comment.user }}</h5>
-    <h4><a href="{{comment.id}}/new">Comment</a></h4>
+    <h5>By User: {{ comment.user.username }}</h5>
+    <h4><a href="{{comment.id}}/new">Reply</a></h4>
   </div><br>
 
   <hr>

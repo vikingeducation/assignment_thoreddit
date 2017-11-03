@@ -10,6 +10,10 @@ var MemeSchema = new Schema(
 			type: Schema.Types.ObjectId,
 			ref: "User"
 		},
+		comments: {
+			type: Schema.Types.ObjectId,
+			ref: "Comment"
+		},
 		score: Number
 	},
 	{

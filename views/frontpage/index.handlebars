@@ -1,7 +1,7 @@
 <h1>Front Page</h1>
 
 <ol class="list-group">
-  {{#each memesByScore as |meme|}}
+  {{#each memes as |meme|}}
     <li class="list-group-item">
       <div class="float-left">
         <a href="#">Upvote</a><br>
@@ -11,6 +11,7 @@
         <h2><a href="{{meme.url}}">{{meme.title}}</a></h2>
         <h5><a href="/meme/{{meme._id}}">Comments</a></h5>
         <h4>Score: {{meme.score}}</h4>
+        <h4>by user: meme.user.username</h4>
       </div>
     </li>
   {{/each}}

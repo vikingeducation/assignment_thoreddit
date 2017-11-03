@@ -6,7 +6,8 @@ var CommentSchema = new Schema(
 	{
 		body: String,
 		parent: {
-			type: Schema.Types.ObjectId
+			type: Schema.Types.ObjectId,
+			ref: "Comment"
 		},
 		meme: {
 			type: Schema.Types.ObjectId,

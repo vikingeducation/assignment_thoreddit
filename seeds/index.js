@@ -10,9 +10,12 @@ const mongooseeder = require("mongooseeder");
 const { User, Meme, Comment } = models;
 
 const seeds = () => {
+	var comments = [];
+	var users = [];
+	var memes = [];
+
 	//users
 	console.log("Creating Users");
-	var users = [];
 	for (let i = 0; i < 10; i++) {
 		var user = new User({
 			username: `foobar${i}`,
@@ -24,7 +27,6 @@ const seeds = () => {
 
 	// MEMES
 	console.log("Creating MEMES yall");
-	var memes = [];
 	for (let i = 0; i < 10; i++) {
 		var title = faker.lorem.words(2);
 		var description = faker.lorem.sentence();
@@ -35,6 +37,7 @@ const seeds = () => {
 			description: description,
 			url: url,
 			user: users[i],
+			comments: comments[i],
 			score: i * 111
 		});
 
@@ -43,7 +46,6 @@ const seeds = () => {
 
 	// Comments
 	console.log("Creating comments");
-	var comments = [];
 	for (let i = 0; i < 100; i++) {
 		var body = faker.random.words(30);
 
