@@ -9,11 +9,11 @@ var MemeSchema = new Schema(
 		user: {
 			type: Schema.Types.ObjectId,
 			ref: "User"
-		}
+		},
+		score: Number
 	},
 	{
-		timestamps: true,
-		discriminatorKey: "kind"
+		timestamps: true
 	}
 );
 

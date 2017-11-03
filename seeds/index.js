@@ -18,6 +18,7 @@ const seeds = () => {
 			username: `foobar${i}`,
 			email: `foobar${i}@gmail.com`
 		});
+
 		users.push(user);
 	}
 
@@ -25,7 +26,7 @@ const seeds = () => {
 	console.log("Creating MEMES yall");
 	var memes = [];
 	for (let i = 0; i < 10; i++) {
-		var title = faker.lorem.word();
+		var title = faker.lorem.words(2);
 		var description = faker.lorem.sentence();
 		var url = faker.internet.url();
 
@@ -33,7 +34,8 @@ const seeds = () => {
 			title: title,
 			description: description,
 			url: url,
-			user: users[i]
+			user: users[i],
+			score: i * 100
 		});
 
 		memes.push(meme);
@@ -48,7 +50,8 @@ const seeds = () => {
 		var comment = new Comment({
 			body: body,
 			meme: memes[i],
-			user: users[i]
+			user: users[i],
+			score: i * 10
 		});
 
 		comments.push(comment);
