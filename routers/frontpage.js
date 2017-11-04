@@ -23,10 +23,10 @@ router.get("/frontpage", (req, res) => {
 		.catch(e => res.status(500).send(e.stack));
 });
 
-// show dank memee
+// show dank meme and comments
 router.get("/meme/:id", (req, res) => {
 	var meme, user, comments;
-
+	var subcommentsArr = [];
 	// first find the Meme of the page we are on
 	Meme.findOne({ _id: req.params.id })
 		.populate("user")
@@ -44,11 +44,32 @@ router.get("/meme/:id", (req, res) => {
 		})
 		.then(commentsFromQuery => {
 			comments = commentsFromQuery;
-			res.render("frontpage/show", { meme, comments });
+
+			comments.forEach(comment => {
+				Comment.find({ parent: comment._id })
+					.populate("user")
+					.sort({ score: -1 })
+					.exec(function(err) {
+						if (err) return handleError(err);
+					})
+					.then(foundComments => {
+						subcommentsArr.push(foundComments);
+					})
+					.catch(e => res.status(500).send(e.stack));
+			});
+
 			// console.log("meme", JSON.stringify(meme, 0, 2));
 			// console.log("comments", JSON.stringify(comments, 0, 2));
 		})
-		.catch(e => res.status(500).send(e.stack));
+		.then(() => {
+			setTimeout(() => {
+				//filer out empty values
+
+				var subcomments = subcommentsArr.filter(String);
+				console.log("subcomments", JSON.stringify(subcommentsArr, 0, 2));
+				res.render("frontpage/show", { meme, comments, subcomments });
+			}, 1000);
+		});
 });
 
 //show new comment form
@@ -57,12 +78,12 @@ router.get("/comment/:id/new", (req, res) => {
 	Meme.findById(req.params.id)
 		.then(meme => {
 			if (meme) {
-				console.log(meme);
+				// console.log(meme);
 				res.render("frontpage/new-comment", { meme });
 			} else {
 				Comment.findById(req.params.id)
 					.then(comment => {
-						console.log(comment);
+						// console.log(comment);
 						res.render("frontpage/new-comment", { comment });
 					})
 					.catch(e => res.status(500).send(e.stack));
@@ -100,8 +121,22 @@ router.post("/post/:memeid/comment/:commentid", (req, res) => {
 	var commentId = req.params.commentid;
 	var body = req.body.comment.comment;
 	var user = req.session.currentUser._id;
-	console.log("stuff", memeId, commentId, body, user);
-	res.redirect(`/meme/${memeId}`);
+	// console.log("stuff", memeId, commentId, body, user);
+
+	var comment = new Comment({
+		body: body,
+		parent: commentId,
+		meme: null,
+		user: user,
+		score: 1
+	});
+
+	comment
+		.save()
+		.then(() => {
+			res.redirect(`/meme/${memeId}`);
+		})
+		.catch(e => res.status(500).send(e.stack));
 });
 
 // DELETE A COMMENT

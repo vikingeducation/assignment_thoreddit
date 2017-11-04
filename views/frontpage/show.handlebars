@@ -17,6 +17,9 @@
 
 <div class="">
   {{#each comments as |comment|}}
+  <div id="{{ comment.id }}" class="regularcomment">
+
+
   <div class="">
     <a href="#">Upvote</a><br>
     <a href="#">Downvote</a><br>
@@ -31,6 +34,45 @@
   </div><br>
 
   <hr>
+  </div>
 
   {{/each}}
+
+  {{#if subcomments}}
+
+    {{#each subcomments as |subcomment|}}
+    <div class="{{subcomment.parent}} subcomment">
+
+    <div class="">
+      <a href="#">Upvote</a><br>
+      <a href="#">Downvote</a><br>
+      Score: {{subcomment.score}}
+    </div><br>
+
+    <div class="">
+      <p>{{subcomment.body}}</p>
+      <h5>By User: {{ subcomment.user.username }}</h5>
+      <h4><a href="/comment/{{subcomment.id}}/new">Reply</a></h4>
+      <a href="/meme/{{ subcomment.meme }}/comment/{{ subcomment.id }}?_method=delete" class="btn btn-danger">Delete</a>
+    </div><br>
+
+    <hr>
+    </div>
+    {{/each}}
+
+  {{/if}}
 </div>
+
+<script type="text/javascript">
+$( document ).ready(function() {
+  console.log( "ready!" );
+  {{#each subcomments as |subcomment|}}
+
+    $(".{{subcomment.parent}}").append($("#{{subcomment.parent}}"));
+
+    // $(".{{subcomment.parent}}").css({ marginLeft : "200px" });
+
+  {{/each}}
+
+});
+</script>
