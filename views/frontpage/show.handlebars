@@ -10,7 +10,7 @@
   <h1>{{meme.title}}</h1>
   <h4>{{meme.description}}</h4>
   <h5>By User: {{ meme.user.username }}</h5>
-  <h4><a href="{{meme.id}}/new">Reply</a></h4>
+  <h4><a href="/comment/{{meme.id}}/new">Reply</a></h4>
 </div>
 
 <hr>
@@ -26,7 +26,8 @@
   <div class="">
     <p>{{comment.body}}</p>
     <h5>By User: {{ comment.user.username }}</h5>
-    <h4><a href="{{comment.id}}/new">Reply</a></h4>
+    <h4><a href="/comment/{{comment.id}}/new">Reply</a></h4>
+    <a href="/meme/{{ comment.meme }}/comment/{{ comment.id }}?_method=delete" class="btn btn-danger">Delete</a>
   </div><br>
 
   <hr>

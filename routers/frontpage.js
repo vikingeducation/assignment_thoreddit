@@ -45,8 +45,71 @@ router.get("/meme/:id", (req, res) => {
 		.then(commentsFromQuery => {
 			comments = commentsFromQuery;
 			res.render("frontpage/show", { meme, comments });
-			console.log("meme", JSON.stringify(meme, 0, 2));
-			console.log("comments", JSON.stringify(comments, 0, 2));
+			// console.log("meme", JSON.stringify(meme, 0, 2));
+			// console.log("comments", JSON.stringify(comments, 0, 2));
+		})
+		.catch(e => res.status(500).send(e.stack));
+});
+
+//show new comment form
+router.get("/comment/:id/new", (req, res) => {
+	//Find out if replying to a meme or a comment
+	Meme.findById(req.params.id)
+		.then(meme => {
+			if (meme) {
+				console.log(meme);
+				res.render("frontpage/new-comment", { meme });
+			} else {
+				Comment.findById(req.params.id)
+					.then(comment => {
+						console.log(comment);
+						res.render("frontpage/new-comment", { comment });
+					})
+					.catch(e => res.status(500).send(e.stack));
+			}
+		})
+		.catch(e => res.status(500).send(e.stack));
+});
+
+//post comment where replying to a meme (top level)
+router.post("/post/:memeid", (req, res) => {
+	var memeId = req.params.memeid;
+	var body = req.body.meme.comment;
+	var user = req.session.currentUser._id;
+	// console.log("stuff", memeId, body, user);
+
+	var comment = new Comment({
+		body: body,
+		parent: null,
+		meme: memeId,
+		user: user,
+		score: 1
+	});
+
+	comment
+		.save()
+		.then(() => {
+			res.redirect(`/meme/${memeId}`);
+		})
+		.catch(e => res.status(500).send(e.stack));
+});
+
+// post comment where replying to a comment (nested)
+router.post("/post/:memeid/comment/:commentid", (req, res) => {
+	var memeId = req.params.memeid;
+	var commentId = req.params.commentid;
+	var body = req.body.comment.comment;
+	var user = req.session.currentUser._id;
+	console.log("stuff", memeId, commentId, body, user);
+	res.redirect(`/meme/${memeId}`);
+});
+
+// DELETE A COMMENT
+router.delete("/meme/:memeid/comment/:commentid", (req, res) => {
+	Comment.findByIdAndRemove(req.params.commentid)
+		.then(() => {
+			req.method = "GET";
+			res.redirect(`/meme/${req.params.memeid}`);
 		})
 		.catch(e => res.status(500).send(e.stack));
 });
