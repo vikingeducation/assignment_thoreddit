@@ -90,7 +90,13 @@ var expressHandlebars = require('express-handlebars');
 
 var hbs = expressHandlebars.create({
   partialsDir: 'views/',
-  defaultLayout: 'application'
+  defaultLayout: 'application',
+  helpers: {
+    trimPostBody: function(bodyText) {
+      var trimmedBody = bodyText.substring(0, 50) + `...`;
+      return trimmedBody;
+    }
+  }
 });
 
 app.engine('handlebars', hbs.engine);

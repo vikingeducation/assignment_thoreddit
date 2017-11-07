@@ -4,4 +4,18 @@
   <p>
     {{ post.body }}
   </p>
+  <p>
+    Score: {{ post.score }}
+  </p>
 </header>
+
+{{#each comments as |comment| }}
+<div class="col-xs-11 pull-right">
+  <p>
+    {{comment.author.fname }} {{comment.author.lname}} said:
+  </p>
+  <p>
+    {{comment.body}}
+  </p>
+</div>
+{{/each }}

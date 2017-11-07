@@ -4,7 +4,7 @@ var env = process.env.NODE_ENV || 'development';
 var config = require('./../config/mongo')[env];
 const mongooseeder = require('mongooseeder');
 
-const { User, Post } = models;
+const { User, Votable, Post, Comment } = models;
 
 const MULTIPLIER = 5;
 
@@ -27,8 +27,8 @@ const seeds = () => {
   users.push(user);
   for (let i = 0; i < MULTIPLIER * 2; i++) {
     var user = new User({
-      fname: 'Foo',
-      lname: 'Bar',
+      fname: `Foo${i}`,
+      lname: `Bar${i}`,
       username: `foobar${i}`,
       email: `foobar${i}@gmail.com`
     });
@@ -44,9 +44,23 @@ const seeds = () => {
     var post = new Post({
       title: 'A Post',
       body: 'This is an example post on Thoreddit',
-      author: users[Math.floor(Math.random() * users.length)]
+      author: users[Math.floor(Math.random() * users.length)],
+      score: Math.floor(Math.random() * 100)
     });
     posts.push(post);
+  }
+  // ----------------------------------------
+  // Comments
+  // ----------------------------------------
+  console.log('Creating Comments');
+  var comments = [];
+  for (let i = 0; i < MULTIPLIER * 5; i++) {
+    var comment = new Comment({
+      body: 'This is an example comment.',
+      author: users[Math.floor(Math.random() * users.length)],
+      parent: posts[Math.floor(Math.random() * posts.length)]
+    });
+    comments.push(comment);
   }
   // // ----------------------------------------
   // // Ratings
@@ -78,7 +92,7 @@ const seeds = () => {
   // ----------------------------------------
   console.log('Saving...');
   var promises = [];
-  [users, posts].forEach(collection => {
+  [users, posts, comments].forEach(collection => {
     collection.forEach(model => {
       promises.push(model.save());
     });

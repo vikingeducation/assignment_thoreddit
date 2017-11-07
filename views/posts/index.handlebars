@@ -6,35 +6,20 @@
 </header>
 
 
-{{#if posts.length }}
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Posted At</th>
-        <th>Title</th>
-        <th>Body</th>
-        <th>Username</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each posts as |post| }}
-        <tr>
-          <td>
-            <a href="/posts/{{ post.id }}">{{ post.createdAt }}</a>
-          </td>
-          <td>
-            <a href="/posts/{{ post.id }}">{{ post.title }}</a>
-          </td>
-          <td>
-            <a href="/posts/{{ post.id }}">{{ post.body }}</a>
-          </td>
-          <td>
-            <a href="/posts/{{ post.id }}">{{ post.author.username }}</a>
-          </td>
-        </tr>
-      {{/each }}
-    </tbody>
-  </table>
+{{#if posts.length}}
+<ul class="list-unstyled">
+  {{#each posts as |post|}}
+  <li>
+    <div>
+      <h3><a href='/posts/{{post.id}}'>{{post.title}}</a></h3>
+      <p>
+        {{{trimPostBody post.body}}}
+      </p>
+      <h5>By <a href="/users/{{ post.author.id }}">{{ post.author.username }}</a> at {{post.createdAt}}</h5>
+    </div>
+  </li>
+  {{/each}}
+</ul>
 {{else }}
   <p class="text-danger">No posts</p>
 {{/if }}
