@@ -58,7 +58,8 @@ const seeds = () => {
     var comment = new Comment({
       body: 'This is an example comment.',
       author: users[Math.floor(Math.random() * users.length)],
-      parent: posts[Math.floor(Math.random() * posts.length)]
+      parent: posts[Math.floor(Math.random() * posts.length)],
+      score: Math.floor(Math.random() * 100)
     });
     comments.push(comment);
   }

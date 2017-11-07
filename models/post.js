@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var Votable = require('./votable');
 
 var PostSchema = new Schema(
   {
@@ -16,6 +17,7 @@ var PostSchema = new Schema(
   }
 );
 
-var Post = mongoose.model('Post', PostSchema);
+// var Post = mongoose.model('Post', PostSchema);
+var Post = Votable.discriminator('Post', PostSchema);
 
 module.exports = Post;
