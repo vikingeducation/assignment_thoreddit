@@ -9,16 +9,26 @@
   </p>
 </header>
 
+<div class="container">
+
 {{#each comments as |comment| }}
-<div class="col-xs-11 pull-right">
+<div class="row">
+
+<div class="col-xs-10 pull-right">
   <p>
     {{comment.author.fname }} {{comment.author.lname}} said:
   </p>
   <p>
     {{comment.body}}
   </p>
-  <p>
-    Score: {{comment.score}}
-  </p>
+</div>
+<div class="col-xs-2 pull-left">
+  <a href="#" class="btn btn-primary">Upvote</a>
+  <a href="#" class="btn btn-primary">Downvote</a>
+  <p>Score: {{comment.score}}</p>
+</div>
 </div>
 {{/each }}
+
+
+</div>

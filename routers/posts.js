@@ -25,11 +25,11 @@ router.get('/:id', (req, res) => {
   Post.findById(req.params.id)
     .populate('author')
     .then(post => {
-      console.log('Post: ' + post);
       Comment.find({
         parent: new ObjectId(post._id)
       })
         .populate('author')
+        .sort({ score: -1 })
         .then(comments => {
           console.log('Comments: ' + comments);
           res.render('posts/show', { post, comments });
