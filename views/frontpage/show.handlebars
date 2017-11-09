@@ -10,14 +10,18 @@
   <h1>{{meme.title}}</h1>
   <h4>{{meme.description}}</h4>
   <h5>By User: {{ meme.user.username }}</h5>
-  <h4><a href="/comment/{{meme.id}}/new">Reply</a></h4>
+  <h4><a href="/comment/{{meme.id}}">Reply</a></h4>
 </div>
 
 <hr>
 
+
+
 <div class="">
   {{#each comments as |comment|}}
-  <div id="{{ comment.id }}" class="regularcomment">
+
+
+  <div id="{{ comment.id }}" class="{{comment.parent}}">
 
 
   <div class="">
@@ -28,16 +32,41 @@
 
   <div class="">
     <p>{{comment.body}}</p>
+    {{#if comment.user.username }}
     <h5>By User: {{ comment.user.username }}</h5>
-    <h4><a href="/comment/{{comment.id}}/new">Reply</a></h4>
+    {{/if}}
+    <h4><a href="/comment/{{comment.meme}}/new/{{comment.id}}">Reply</a></h4>
     <a href="/meme/{{ comment.meme }}/comment/{{ comment.id }}?_method=delete" class="btn btn-danger">Delete</a>
   </div><br>
 
   <hr>
   </div>
 
+
   {{/each}}
 
+</div>
+
+<script type="text/javascript">
+$( document ).ready(function() {
+  console.log( "ready!" );
+
+  {{#each comments as |comment|}}
+
+  $("#{{comment.id}}").append($(".{{comment.id}}"));
+
+  // $(".{{comment.parent}}").css({ marginLeft : "200px" });
+  {{/each}}
+
+
+
+
+});
+</script>
+
+
+
+<!--
   {{#if subcomments}}
 
     {{#each subcomments as |subcomment|}}
@@ -60,19 +89,4 @@
     </div>
     {{/each}}
 
-  {{/if}}
-</div>
-
-<script type="text/javascript">
-$( document ).ready(function() {
-  console.log( "ready!" );
-  {{#each subcomments as |subcomment|}}
-
-    $(".{{subcomment.parent}}").append($("#{{subcomment.parent}}"));
-
-    // $(".{{subcomment.parent}}").css({ marginLeft : "200px" });
-
-  {{/each}}
-
-});
-</script>
+  {{/if}} -->
