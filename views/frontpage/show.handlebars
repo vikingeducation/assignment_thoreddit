@@ -57,40 +57,12 @@ $( document ).ready(function() {
   {{#each comments as |comment|}}
 
   $("#{{comment.id}}").append($(".{{comment.id}}"));
-{{#if comment.parent}}
-  $(".{{comment.parent}}").css({ marginLeft : "50px" });
-{{/if}}
+
+  {{#if comment.parent}}
+    $(".{{comment.parent}}").css({ marginLeft : "50px" });
+  {{/if}}
+
   {{/each}}
-
-
-
 
 });
 </script>
-
-
-
-<!--
-  {{#if subcomments}}
-
-    {{#each subcomments as |subcomment|}}
-    <div class="{{subcomment.parent}} subcomment">
-
-    <div class="">
-      <a href="#">Upvote</a><br>
-      <a href="#">Downvote</a><br>
-      Score: {{subcomment.score}}
-    </div><br>
-
-    <div class="">
-      <p>{{subcomment.body}}</p>
-      <h5>By User: {{ subcomment.user.username }}</h5>
-      <h4><a href="/comment/{{subcomment.id}}/new">Reply</a></h4>
-      <a href="/meme/{{ subcomment.meme }}/comment/{{ subcomment.id }}?_method=delete" class="btn btn-danger">Delete</a>
-    </div><br>
-
-    <hr>
-    </div>
-    {{/each}}
-
-  {{/if}} -->
