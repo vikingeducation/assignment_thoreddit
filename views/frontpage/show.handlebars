@@ -17,8 +17,11 @@
 
 
 
-<div class="">
+
   {{#each comments as |comment|}}
+
+
+<div>
 
 
   <div id="{{ comment.id }}" class="{{comment.parent}}">
@@ -42,10 +45,10 @@
   <hr>
   </div>
 
-
+</div>
   {{/each}}
 
-</div>
+
 
 <script type="text/javascript">
 $( document ).ready(function() {
@@ -54,8 +57,9 @@ $( document ).ready(function() {
   {{#each comments as |comment|}}
 
   $("#{{comment.id}}").append($(".{{comment.id}}"));
-
-  // $(".{{comment.parent}}").css({ marginLeft : "200px" });
+{{#if comment.parent}}
+  $(".{{comment.parent}}").css({ marginLeft : "50px" });
+{{/if}}
   {{/each}}
 
 
