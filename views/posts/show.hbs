@@ -1,0 +1,69 @@
+<div id="main-post" class="clearfix">
+  <div class="pull-left voting-links" id="post-voting-links">
+    <a href="#" id="upvote-post-{{post.id}}" class="vote-link">Upvote</a>
+    <br>
+    <a href="#" id="downvote-post-{{post.id}}" class="vote-link">Downvote</a>
+    <p>
+      Score:
+      <span id="post-score-{{post.id}}">{{voteScore post}}</span>
+    </p>
+  </div>
+  <h1>{{post.title}}</h1>
+  <h4>by {{post.user.fname}} {{post.user.lname}}</h4>
+  <div class='col-sm-8 col-sm-offset-1 post-text'>
+    <p>{{post.body}}</p>
+    <form action="/comments/new" method="GET">
+      <input type="hidden" name="commentType" value="post">
+      <input type="hidden" name="originalPost" value="{{post.id}}">
+      <button type="submit" class="pull-left comment-link btn btn-primary">Comment</button>
+    </form>
+    <hr class="under-body">
+  </div>
+</div>
+{{#each post.comments}}
+  <div class="row">
+    <div id="first-comments" class="col-sm-offset-1">
+      <div class="pull-left voting-links">
+        <a href="#" id="upvote-comment-{{this.id}}" class="vote-link">Upvote</a>
+        <br>
+        <a href="#" id="downvote-comment-{{this.id}}" class="vote-link">Downvote</a>
+        <p>
+          Score:
+          <span id="comment-score-{{this.id}}">{{voteScore this}}</span>
+        </p>
+      </div>
+      <p class="comment-title">{{this.user.fname}} {{this.user.lname}} said:</p>
+      <div class="col-sm-6 post-text">
+        <p>{{this.body}}</p>
+
+        <form action="/comments/new" method="GET" id="form-{{this.id}}">
+          <input type="hidden" name="commentType" value="comment">
+          <input type="hidden" name="originalPost" value="{{../post.id}}">
+          <input type="hidden" name="comment" value="{{this.id}}">
+        </form>
+        <a href="#" class="pull-left comment-link" onclick="document.getElementById('form-{{this.id}}').submit();">Comment</a>
+        <hr class="under-body">
+      </div>
+    </div>
+  </div>
+  {{#each this.comments as |subComment|}}
+    <div class="row">
+      <div id="second-comments" class="col-sm-offset-2">
+        <div class="pull-left voting-links">
+          <a href="#" id="upvote-comment-{{subComment.id}}" class="vote-link">Upvote</a>
+          <br>
+          <a href="#" id="downvote-comment-{{subComment.id}}" class="vote-link">Downvote</a>
+          <p>
+            Score:
+            <span id="comment-score-{{subComment.id}}">{{voteScore subComment}}</span>
+          </p>
+        </div>
+        <p class="comment-title">{{subComment.user.fname}} {{subComment.user.lname}} said:</p>
+        <div class="col-sm-8 post-text">
+          <p>{{subComment.body}}</p>
+          <hr class="under-body">
+        </div>
+      </div>
+    </div>
+  {{/each}}
+{{/each}}

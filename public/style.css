@@ -1,0 +1,25 @@
+.voting-links {
+  margin-right: 14px;
+  border-right: 1px solid #eee;
+  padding-right: 10px;
+}
+
+#post-voting-links {
+  margin-top: 25px;
+}
+
+.under-body {
+  clear: left;
+}
+
+.comment-link {
+  margin-bottom: 20px !important;
+}
+
+.comment-title {
+  font-weight: bold;
+}
+
+#comment-input {
+  margin: 20px 0;
+}

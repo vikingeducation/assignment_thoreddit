@@ -1,0 +1,16 @@
+<section class="col-sm-6 col-sm-offset-3">
+  <h1>New Comment</h1>
+  <h4>Comment on {{commentType}}:</h4>
+  <p>
+    <b>{{title}}</b>
+  </p>
+  <p>{{body}}</p>
+
+  <form action="/comments" method="POST">
+    <input type="hidden" name="commentType" value="{{commentType}}">
+    <input type="hidden" name="originalPost" value="{{originalPost}}">
+    <input type="hidden" name="originalComment" value="{{originalComment}}">
+    <textarea rows="5" id="comment-input" class="form-control" name="body" placeholder="Your comment here" required></textarea>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</section>
