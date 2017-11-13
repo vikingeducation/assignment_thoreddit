@@ -7,11 +7,12 @@ var config = require('./../config/mongo')[env];
 const mongooseeder = require('mongooseeder');
 
 const {
-  User
+  User,
+  Post
 } = models;
 
 
-const MULTIPLIER = 1;
+const MULTIPLIER = 5;
 
 
 const seeds = () => {
@@ -30,6 +31,19 @@ const seeds = () => {
     users.push(user);
   }
 
+  // ----------------------------------------
+  // Posts
+  // ----------------------------------------
+  console.log('Creating Posts');
+  var posts = [];
+  for (let i = 0; i < MULTIPLIER * 2; i++) {
+    var post = new Post({
+      title: 'A Post',
+      body: 'This is an example post on Thoreddit',
+      author: users[i]
+    });
+    posts.push(post);
+  }
 
   // ----------------------------------------
   // Finish
@@ -37,7 +51,8 @@ const seeds = () => {
   console.log('Saving...');
   var promises = [];
   [
-    users
+    users,
+    posts
   ].forEach(collection => {
     collection.forEach(model => {
       promises.push(model.save());
