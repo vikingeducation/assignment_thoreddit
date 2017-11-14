@@ -32,7 +32,22 @@
 </div>
 
 {{#each comment.children as |child| }}
-{{child.author.fname}} {{child.author.lname}}
+<div class="row">
+
+<div class="col-xs-9 pull-right">
+  <p>
+    {{child.author.fname }} {{child.author.lname}} said:
+  </p>
+  <p>
+    {{child.body}}
+  </p>
+</div>
+<div class="col-xs-2 pull-right">
+  <a href="#" class="btn btn-primary">Upvote</a>
+  <a href="#" class="btn btn-primary">Downvote</a>
+  <p>Score: {{child.score}}</p>
+</div>
+</div>
 {{/each}}
 
 {{/each }}
