@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var Votable = require('./votable');
 
-var CommentSchema = new Schema(
+var ChildCommentSchema = new Schema(
   {
     body: String,
     author: {
@@ -13,12 +13,10 @@ var CommentSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Votable'
     },
-    children: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'ChildComment'
-      }
-    ]
+    parent_post: {
+      type: Schema.Types.ObjectId,
+      ref: 'Post'
+    }
   },
   {
     timestamps: true,
@@ -27,6 +25,6 @@ var CommentSchema = new Schema(
 );
 
 // var Comment = mongoose.model('Comment', CommentSchema);
-var Comment = Votable.discriminator('Comment', CommentSchema);
+var ChildComment = Votable.discriminator('ChildComment', ChildCommentSchema);
 
-module.exports = Comment;
+module.exports = ChildComment;

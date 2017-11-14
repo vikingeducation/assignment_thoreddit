@@ -7,6 +7,7 @@
   <p>
     Score: {{ post.score }}
   </p>
+  <a href="#">Comment</a>
 </header>
 
 <div class="container">
@@ -21,6 +22,7 @@
   <p>
     {{comment.body}}
   </p>
+  <a href="#">Comment</a>
 </div>
 <div class="col-xs-2 pull-left">
   <a href="#" class="btn btn-primary">Upvote</a>
@@ -28,6 +30,11 @@
   <p>Score: {{comment.score}}</p>
 </div>
 </div>
+
+{{#each comment.children as |child| }}
+{{child.author.fname}} {{child.author.lname}}
+{{/each}}
+
 {{/each }}
 
 

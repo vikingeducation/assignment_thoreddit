@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 var models = require('./../models');
 var Post = mongoose.model('Post');
 var Comment = mongoose.model('Comment');
+var ChildComment = mongoose.model('ChildComment');
 var ObjectId = require('mongoose').Types.ObjectId;
 
 // ----------------------------------------
@@ -21,7 +22,7 @@ router.get('/', (req, res) => {
 // ----------------------------------------
 // Show
 // ----------------------------------------
-router.get('/:id', (req, res) => {
+router.get('/:id', (req, res, next) => {
   Post.findById(req.params.id)
     .populate('author')
     .then(post => {
@@ -30,7 +31,13 @@ router.get('/:id', (req, res) => {
       })
         .populate('author')
         .sort({ score: -1 })
-        .then(comments => {
+        .then(async comments => {
+          for (let comment of comments) {
+            const childComments = await ChildComment.find({
+              parent: comment._id
+            }).populate('author');
+            comment.children = childComments;
+          }
           console.log('Comments: ' + comments);
           res.render('posts/show', { post, comments });
         });

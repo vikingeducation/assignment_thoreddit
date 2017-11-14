@@ -14,5 +14,6 @@ models.User = require('./user');
 models.Votable = require('./votable');
 models.Post = require('./post');
 models.Comment = require('./comment');
+models.ChildComment = require('./childcomment');
 
 module.exports = models;

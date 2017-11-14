@@ -4,7 +4,7 @@ var env = process.env.NODE_ENV || 'development';
 var config = require('./../config/mongo')[env];
 const mongooseeder = require('mongooseeder');
 
-const { User, Votable, Post, Comment } = models;
+const { User, Votable, Post, Comment, ChildComment } = models;
 
 const MULTIPLIER = 5;
 
@@ -54,6 +54,7 @@ const seeds = () => {
   // ----------------------------------------
   console.log('Creating Comments');
   var comments = [];
+  var childComments = [];
   for (let i = 0; i < MULTIPLIER * 5; i++) {
     var comment = new Comment({
       body: 'This is an example comment.',
@@ -61,8 +62,18 @@ const seeds = () => {
       parent: posts[Math.floor(Math.random() * posts.length)],
       score: Math.floor(Math.random() * 100)
     });
+    var childComment = new ChildComment({
+      body: 'This is a child comment.',
+      author: users[Math.floor(Math.random() * users.length)],
+      parent: comment,
+      parent_post: comment.parent,
+      score: Math.floor(Math.random() * 100)
+    });
+    comment.children.push(comment);
+    childComments.push(childComment);
     comments.push(comment);
   }
+
   // // ----------------------------------------
   // // Ratings
   // // ----------------------------------------
@@ -93,7 +104,7 @@ const seeds = () => {
   // ----------------------------------------
   console.log('Saving...');
   var promises = [];
-  [users, posts, comments].forEach(collection => {
+  [users, posts, comments, childComments].forEach(collection => {
     collection.forEach(model => {
       promises.push(model.save());
     });
