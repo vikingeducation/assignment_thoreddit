@@ -8,12 +8,24 @@ const mongooseeder = require('mongooseeder');
 
 const {
   User,
-  Post
+  Commentable,
+  Post,
+  Comment
 } = models;
 
 
 const MULTIPLIER = 5;
 
+function randomText() {
+  return faker.lorem.sentence();
+}
+function randomTitle() {
+  return voca.titleCase(faker.random.word());
+}
+
+function randomScore() {
+  return Math.floor(Math.random() * MULTIPLIER);
+}
 
 const seeds = () => {
   // ----------------------------------------
@@ -31,6 +43,12 @@ const seeds = () => {
     users.push(user);
   }
 
+
+  function randomUserIndex() {
+    return Math.floor(Math.random() * users.length);
+  }
+
+
   // ----------------------------------------
   // Posts
   // ----------------------------------------
@@ -38,12 +56,44 @@ const seeds = () => {
   var posts = [];
   for (let i = 0; i < MULTIPLIER * 2; i++) {
     var post = new Post({
-      title: 'A Post',
-      body: 'This is an example post on Thoreddit',
-      author: users[i]
+      title: randomTitle(),
+      body: randomText(),
+      score: randomScore(),
+      author: users[randomUserIndex()]
     });
+
     posts.push(post);
   }
+
+
+  // ----------------------------------------
+  // Comments
+  // ----------------------------------------
+  console.log('Creating Comments');
+  var comments = [];
+
+  for (let i = 0; i < MULTIPLIER * 10; i++) {
+
+    var comment = new Comment({
+      body: randomText(),
+      score: randomScore(),
+      author: users[randomUserIndex()]
+    });
+
+    for (let i = 0; i < 2; i++) {
+      var nestedComment = new Comment({
+        body: randomText(),
+        author: users[randomUserIndex()],
+        score: randomScore()
+      });
+      
+      comment.comments.push(nestedComment);
+    }
+
+    comments.push(comment);
+    post.comments.push(comment);
+  }
+  
 
   // ----------------------------------------
   // Finish
@@ -52,7 +102,8 @@ const seeds = () => {
   var promises = [];
   [
     users,
-    posts
+    posts,
+    comments
   ].forEach(collection => {
     collection.forEach(model => {
       promises.push(model.save());

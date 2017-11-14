@@ -2,15 +2,15 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var Commentable = require("./commentable");
 
-let PostSchema = new Schema(
+let CommentSchema = new Schema(
   {
-    title: String
+    // title: String
   },
   {
     discriminatorKey: "kind"
   }
 );
 
-const Post = Commentable.discriminator("Post", PostSchema);
+const Comment = Commentable.discriminator("Comment", CommentSchema);
 
-module.exports = Post;
+module.exports = Comment;

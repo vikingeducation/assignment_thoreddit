@@ -1,10 +1,10 @@
 {
   "development": {
-    "database": "assignment_thoreddit",
+    "database": "thoreddit",
     "host": "localhost"
   },
   "test": {
-    "database": "assignment_thoreddit",
+    "database": "thoreddit",
     "host": "localhost"
   },
   "production": {
