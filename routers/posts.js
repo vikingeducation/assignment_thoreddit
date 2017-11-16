@@ -31,16 +31,17 @@ router.get('/new', (req, res) => {
 // New comment
 // ----------------------------------------
 router.get('/:postid/newcomment/:parentid', (req, res) => {
-  let postid = req.params.postid;
-  let parentid = req.params.parentid;
+  var postid = req.params.postid;
+  var parentid = req.params.parentid;
+
   if (postid === parentid) {
     Post.findById(postid).then(commentable => {
-      let parentType = 'post';
+      var parentType = 'post';
       res.render('comments/new', { commentable, postid, parentid, parentType });
     });
   } else {
     Comment.findById(parentid).then(commentable => {
-      let parentType = 'comment';
+      var parentType = 'comment';
       res.render('comments/new', { commentable, postid, parentid, parentType });
     });
   }
@@ -71,15 +72,17 @@ router.get('/:id', (req, res) => {
     .catch(e => res.status(500).send(e.stack));
 });
 
+
 // ----------------------------------------
 // Create new post
 // ----------------------------------------
 router.post('/', (req, res) => {
 
-  var post = new Post({
+  User.findOne({ email: req.session.currentUser.email }).then(user => {
+    var post = new Post({
     title: req.body.post.title,
     body: req.body.post.body,
-    author: req.session.currentUser,
+    author: user,
     score: 0
   });
 
@@ -88,37 +91,40 @@ router.post('/', (req, res) => {
       res.redirect(`/posts/${ post.id }`);
     })
     .catch((e) => res.status(500).send(e.stack));
+  })
 });
 
 
 // ----------------------------------------
-// Post new comment
+// Create new comment
 // ----------------------------------------
 router.post('/newcomment', (req, res) => {
-  let postid = req.body.postid;
-  let parentid = req.body.parentid;
+  var postid = req.body.postid;
+  var parentid = req.body.parentid;
 
-  var comment = new Comment({
-    body: req.body.body,
-    author: req.session.currentUser,
-    score: 0
-  });
-  comment.save().then(() => {
-    if (postid === parentid) {
-      Post.findById(postid).then(post => {
-        post.comments.push(comment);
-        post.save().then(() => {
-          res.redirect(`${postid}`);
+  User.findOne({ email: req.session.currentUser.email }).then(user => {
+    var comment = new Comment({
+      body: req.body.body,
+      author: user,
+      score: 0
+    });
+    comment.save().then(() => {
+      if (postid === parentid) {
+        Post.findById(postid).then(post => {
+          post.comments.push(comment);
+          post.save().then(() => {
+            res.redirect(`/posts/${postid}`);
+          });
         });
-      });
-    } else {
-      Comment.findById(parentid).then(parentComment => {
-        parentComment.comments.push(comment);
-        parentComment.save().then(() => {
-          res.redirect(`${postid}`);
+      } else {
+        Comment.findById(parentid).then(parentComment => {
+          parentComment.comments.push(comment);
+          parentComment.save().then(() => {
+            res.redirect(`/posts/${postid}`);
+          });
         });
-      });
-    }
+      }
+    });
   });
 });
 
