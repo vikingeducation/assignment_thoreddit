@@ -1,0 +1,30 @@
+<header class="page-header">
+  <h1>{{ post.title }}</h1>
+  <p>by {{ post.author.username }}</p>
+  <p>{{ post.body }}</p>
+  <p><a href="/posts/{{post._id}}/newcomment/{{post._id}}">Comment</a></p>
+</header>
+
+
+<ul class="list-group">
+	{{#each post.comments as |comment|}}
+	<li class="list-group-item">
+		<p>{{comment.author.username}} said:</p>
+		<p>{{comment.body}}</p>
+		<p><a href="/posts/{{../post._id}}/newcomment/{{comment._id}}">Comment</a></p>
+    <ul class="list-group">
+      {{#if comment.comments.length}}
+      {{#each comment.comments as |nested|}}
+      <li class="list-group-item">
+    		<p>{{nested.author.username}} said:</p>
+    		<p>{{nested.body}}</p>
+      </li>
+      {{/each}}
+
+      {{else}}
+      <p>No nested comment</p>
+      {{/if}}
+    </ul>
+	</li>
+	{{/each}}
+</ul>
