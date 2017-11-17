@@ -12,10 +12,6 @@ var ChildCommentSchema = new Schema(
     parent: {
       type: Schema.Types.ObjectId,
       ref: 'Votable'
-    },
-    parent_post: {
-      type: Schema.Types.ObjectId,
-      ref: 'Post'
     }
   },
   {

@@ -7,7 +7,7 @@
   <p>
     Score: {{ post.score }}
   </p>
-  <a href="#">Comment</a>
+  <a href="{{post.id}}/comment">Comment</a>
 </header>
 
 <div class="container">
@@ -22,7 +22,7 @@
   <p>
     {{comment.body}}
   </p>
-  <a href="#">Comment</a>
+  <a href="{{comment.parent.id}}/comment/{{comment.id}}">Comment</a>
 </div>
 <div class="col-xs-2 pull-left">
   <a href="#" class="btn btn-primary">Upvote</a>

@@ -47,6 +47,7 @@ const seeds = () => {
       author: users[Math.floor(Math.random() * users.length)],
       score: Math.floor(Math.random() * 100)
     });
+    post.parent_post = post;
     posts.push(post);
   }
   // ----------------------------------------
@@ -62,6 +63,7 @@ const seeds = () => {
       parent: posts[Math.floor(Math.random() * posts.length)],
       score: Math.floor(Math.random() * 100)
     });
+    comment.parent_post = comment.parent;
     var childComment = new ChildComment({
       body: 'This is a child comment.',
       author: users[Math.floor(Math.random() * users.length)],

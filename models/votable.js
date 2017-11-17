@@ -3,7 +3,11 @@ var Schema = mongoose.Schema;
 
 var VotableSchema = new Schema(
   {
-    score: Number
+    score: Number,
+    parent_post: {
+      type: Schema.Types.ObjectId,
+      ref: 'Post'
+    }
   },
   {
     timestamps: true,

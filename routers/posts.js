@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
 // ----------------------------------------
 // Show
 // ----------------------------------------
-router.get('/:id', (req, res, next) => {
+router.get('/:id', (req, res) => {
   Post.findById(req.params.id)
     .populate('author')
     .then(post => {
@@ -30,12 +30,15 @@ router.get('/:id', (req, res, next) => {
         parent: new ObjectId(post._id)
       })
         .populate('author')
+        .populate('parent')
         .sort({ score: -1 })
         .then(async comments => {
           for (let comment of comments) {
             const childComments = await ChildComment.find({
               parent: comment._id
-            }).populate('author');
+            })
+              .populate('author')
+              .populate('comment');
             comment.children = childComments;
           }
           console.log('Comments: ' + comments);
@@ -43,6 +46,35 @@ router.get('/:id', (req, res, next) => {
         });
     })
     .catch(e => res.status(500).send(e.stack));
+});
+
+// ----------------------------------------
+// Show
+// ----------------------------------------
+router.get('/:id/comment', (req, res) => {
+  var parentType = 'Post';
+  Post.findById(req.params.id).populate('parent_post').then(parent => {
+    console.log('Parent post: ' + parent.id);
+    // parent.parent_post.id = parent.id;
+    res.render('comments/new', { parentType, parent });
+  });
+});
+
+router.get('/:id/comment/:commentID', (req, res) => {
+  var parentType = 'Comment';
+  Comment.findById(req.params.commentID)
+    .populate('parent_post')
+    .then(parent => {
+      console.log('Parent id: ' + parent.parent_post.id);
+      res.render('comments/new', { parentType, parent });
+    });
+});
+
+router.post('/:id', (req, res) => {
+  //save comment to db
+
+  //redirect to post page
+  res.render('posts/show');
 });
 
 module.exports = router;
