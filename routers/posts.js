@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 var models = require('./../models');
 var Post = mongoose.model('Post');
 var Comment = mongoose.model('Comment');
+var User = mongoose.model('User');
+var Votable = mongoose.model('Votable');
 var ChildComment = mongoose.model('ChildComment');
 var ObjectId = require('mongoose').Types.ObjectId;
 
@@ -38,7 +40,8 @@ router.get('/:id', (req, res) => {
               parent: comment._id
             })
               .populate('author')
-              .populate('comment');
+              .populate('parent')
+              .sort({ score: -1 });
             comment.children = childComments;
           }
           console.log('Comments: ' + comments);
@@ -70,11 +73,57 @@ router.get('/:id/comment/:commentID', (req, res) => {
     });
 });
 
-router.post('/:id', (req, res) => {
+router.post('/:id', async (req, res) => {
   //save comment to db
+  const parentComment = await Votable.findById(req.params.id)
+    .populate('author')
+    .populate('parent_post');
 
+  console.log('Parent Comment' + parentComment);
+
+  var commentText = req.body.comment;
+  console.log('Comment Text: ' + req.body.comment);
+
+  const user = await User.find({
+    username: req.session.currentUser.username
+  });
+  console.log('Current User: ' + user);
+  // console.log('User: ' + req.session.currentUser.username);
+
+  //parent is votable ObjectId
+  //parent_post is votable parent_post
+  //author is from session
+
+  //make comment or childcomment depending on level
+  var comment;
+  if (parentComment.id === parentComment.parent_post.id) {
+    comment = new Comment({
+      body: req.body.comment,
+      author: new ObjectId(user.id),
+      parent: new ObjectId(parentComment.id),
+      score: 50,
+      parent_post: parentComment.parent_post
+    });
+  } else {
+    comment = new ChildComment({
+      body: req.body.comment,
+      author: new ObjectId(user.id),
+      parent: new ObjectId(parentComment.id),
+      score: 50,
+      parent_post: parentComment.parent_post
+    });
+  }
+
+  // comment.parent_post = comment.parentComment.parent_post;
   //redirect to post page
-  res.render('posts/show');
+  comment
+    .save()
+    .then(comment => {
+      res.redirect(`${comment.parent_post.id}`);
+    })
+    .catch(e => res.status(500).send(e.stack));
+  // res.render('posts/show');
+  // res.redirect(`posts/${comment.parent_post.id}`);
 });
 
 module.exports = router;
