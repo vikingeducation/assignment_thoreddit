@@ -18,14 +18,11 @@ var VotableSchema = new Schema(
 );
 
 VotableSchema.methods.upvote = function(username) {
-  console.log('Upvoted: ' + this.hasUpvoted);
   if (this.hasUpvoted.includes(username)) {
-    console.log('already upvoted');
     this.score = this.score - 1;
     remove(this.hasUpvoted, username);
     this.save();
   } else if (this.hasDownvoted.includes(username)) {
-    console.log('already downvoted');
     this.score = this.score + 2;
     remove(this.hasDownvoted, username);
     this.hasUpvoted.push(username);
@@ -39,12 +36,10 @@ VotableSchema.methods.upvote = function(username) {
 
 VotableSchema.methods.downvote = function(username) {
   if (this.hasDownvoted.includes(username)) {
-    console.log('already downvoted');
     this.score = this.score + 1;
     remove(this.hasDownvoted, username);
     this.save();
   } else if (this.hasUpvoted.includes(username)) {
-    console.log('already upvoted');
     this.score = this.score - 2;
     remove(this.hasUpvoted, username);
     this.hasDownvoted.push(username);
