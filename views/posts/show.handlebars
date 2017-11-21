@@ -25,8 +25,8 @@
   <a href="{{comment.parent.id}}/comment/{{comment.id}}">Comment</a>
 </div>
 <div class="col-xs-2 pull-left">
-  <a href="#" class="btn btn-primary">Upvote</a>
-  <a href="#" class="btn btn-primary">Downvote</a>
+  <a href="upvote/{{comment.id}}" class="btn btn-primary">Upvote</a>
+  <a href="downvote/{{comment.id}}" class="btn btn-primary">Downvote</a>
   <p>Score: {{comment.score}}</p>
 </div>
 </div>
@@ -43,8 +43,8 @@
   </p>
 </div>
 <div class="col-xs-2 pull-right">
-  <a href="#" class="btn btn-primary">Upvote</a>
-  <a href="#" class="btn btn-primary">Downvote</a>
+  <a href="upvote/{{child.id}}" class="btn btn-primary">Upvote</a>
+  <a href="downvote/{{child.id}}" class="btn btn-primary">Downvote</a>
   <p>Score: {{child.score}}</p>
 </div>
 </div>
