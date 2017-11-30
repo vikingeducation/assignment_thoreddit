@@ -1,0 +1,56 @@
+<header class="page-header">
+  <h1>{{ post.title }}</h1>
+  <h3>by {{ post.author.fname}} {{ post.author.lname }}</h3>
+  <p>
+    {{ post.body }}
+  </p>
+  <p>
+    Score: {{ post.score }}
+  </p>
+  <a href="{{post.id}}/comment">Comment</a>
+</header>
+
+<div class="container">
+
+{{#each comments as |comment| }}
+<div class="row">
+
+<div class="col-xs-10 pull-right">
+  <p>
+    {{comment.author.fname }} {{comment.author.lname}} said:
+  </p>
+  <p>
+    {{comment.body}}
+  </p>
+  <a href="{{comment.parent.id}}/comment/{{comment.id}}">Comment</a>
+</div>
+<div class="col-xs-2 pull-left">
+  <a href="upvote/{{comment.id}}" class="btn btn-primary">Upvote</a>
+  <a href="downvote/{{comment.id}}" class="btn btn-primary">Downvote</a>
+  <p>Score: {{comment.score}}</p>
+</div>
+</div>
+
+{{#each comment.children as |child| }}
+<div class="row">
+
+<div class="col-xs-9 pull-right">
+  <p>
+    {{child.author.fname }} {{child.author.lname}} said:
+  </p>
+  <p>
+    {{child.body}}
+  </p>
+</div>
+<div class="col-xs-2 pull-right">
+  <a href="upvote/{{child.id}}" class="btn btn-primary">Upvote</a>
+  <a href="downvote/{{child.id}}" class="btn btn-primary">Downvote</a>
+  <p>Score: {{child.score}}</p>
+</div>
+</div>
+{{/each}}
+
+{{/each }}
+
+
+</div>

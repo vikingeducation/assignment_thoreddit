@@ -1,0 +1,16 @@
+<h2>New Comment</h2>
+
+<h4>Commenting on a {{parentType}}</h4>
+
+<p>
+  Original Message: {{parent.body}}
+</p>
+
+<!-- <form action="/posts/{{parent.parent_post.id}}" method="post"> -->
+<form action="/posts/{{parent.id}}" method="post">
+  <div class="form-group">
+    <label for="comment">Body: </label>
+    <input type="text" class="form-control" name="comment">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

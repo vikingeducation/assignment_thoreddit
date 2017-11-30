@@ -1,0 +1,25 @@
+
+
+<header class="page-header">
+  <h1>Posts</h1>
+  <a href="/posts/new" class="btn btn-primary">+ New Post</a>
+</header>
+
+
+{{#if posts.length}}
+<ul class="list-unstyled">
+  {{#each posts as |post|}}
+  <li>
+    <div>
+      <h3><a href='/posts/{{post.id}}'>{{post.title}}</a></h3>
+      <p>
+        {{{trimPostBody post.body}}}
+      </p>
+      <h5>By <a href="/users/{{ post.author.id }}">{{ post.author.username }}</a> at {{post.createdAt}}</h5>
+    </div>
+  </li>
+  {{/each}}
+</ul>
+{{else }}
+  <p class="text-danger">No posts</p>
+{{/if }}
