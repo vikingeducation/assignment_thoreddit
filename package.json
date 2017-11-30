@@ -1,0 +1,39 @@
+{
+  "name": "assignment_thoreddit",
+  "version": "1.0.0",
+  "description": "A social news web application for Viking thunder Gods",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "console": "node repl.js",
+    "c": "node repl.js",
+    "seed": "node seeds",
+    "seeds": "node seeds"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asaloff/assignment_thoreddit.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asaloff/assignment_thoreddit/issues"
+  },
+  "homepage": "https://github.com/asaloff/assignment_thoreddit#readme",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.3",
+    "express": "^4.16.2",
+    "express-flash-messages": "^0.1.1",
+    "express-handlebars": "^3.0.0",
+    "load-helpers": "^1.0.1",
+    "mongoose": "^4.12.5",
+    "mongooseeder": "^2.0.5",
+    "morgan": "^1.9.0",
+    "morgan-toolkit": "^1.0.2",
+    "socket.io": "^2.0.4",
+    "socket.io-client": "^2.0.4"
+  }
+}

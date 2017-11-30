@@ -1,0 +1,28 @@
+<h1>Users Index</h1>
+<a href="{{newUserPath}}" class="btn btn-primary">+ New User</a>
+<table class="table table-stripped table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each users}}
+      <tr>
+        <td>
+          <a href="{{userPath this.id}}">
+            {{this.fname}} {{this.lname}}
+          </a>
+        </td>
+        <td>{{this.username}}</td>
+        <td>{{this.email}}</td>
+        <td><a href="{{editUserPath this.id}}">edit</a></td>
+        <td><a href="{{destroyUserPath this.id}}">delete</a></td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

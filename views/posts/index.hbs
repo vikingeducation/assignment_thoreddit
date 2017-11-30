@@ -1,0 +1,20 @@
+<h1>Posts</h1>
+<a href="{{newPostPath}}" class="btn btn-primary">+ New Post</a>
+<table class="table table-stripped table-bordered">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Username</th>
+      <th>Posted On</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each posts}}
+      <tr>
+        <td><a href="{{postPath this.id}}">{{this.title}}</a></td>
+        <td><a href="{{userPath this.user.id}}">{{this.user.username}}</a></td>
+        <td>{{formatDate this.createdAt}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
