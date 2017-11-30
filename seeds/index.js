@@ -3,6 +3,7 @@ const models = require('./../models');
 var env = process.env.NODE_ENV || 'development';
 var config = require('./../config/mongo')[env];
 const mongooseeder = require('mongooseeder');
+var ObjectId = require('mongoose').Schema.Types.ObjectId;
 
 const { User, Votable, Post, Comment, ChildComment } = models;
 
@@ -44,9 +45,11 @@ const seeds = () => {
     var post = new Post({
       title: 'A Post',
       body: 'This is an example post on Thoreddit',
-      author: users[Math.floor(Math.random() * users.length)],
+      author: users[0],
+      // author: users[Math.floor(Math.random() * users.length)],
       score: Math.floor(Math.random() * 100)
     });
+    console.log(typeof post.author);
     post.parent_post = post;
     posts.push(post);
   }

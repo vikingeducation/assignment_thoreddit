@@ -8,7 +8,7 @@ var PostSchema = new Schema(
     body: String,
     author: {
       type: Schema.Types.ObjectId,
-      ref: 'User'
+      red: 'User'
     }
   },
   {

@@ -5,13 +5,13 @@ var Votable = require('./votable');
 var ChildCommentSchema = new Schema(
   {
     body: String,
-    author: {
-      type: Schema.Types.ObjectId,
-      ref: 'User'
-    },
     parent: {
       type: Schema.Types.ObjectId,
       ref: 'Votable'
+    },
+    author: {
+      type: Schema.Types.ObjectId,
+      red: 'User'
     }
   },
   {
