@@ -13,7 +13,6 @@ router.get('/', (req, res) => {
     .catch(e => res.status(500).send(e.stack));
 });
 
-
 // Show
 router.get('/:id', (req, res) => {
   Post.findById(req.params.id)
