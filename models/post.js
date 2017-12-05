@@ -4,8 +4,11 @@ const Schema = mongoose.Schema;
 const PostSchema = new Schema(
   {
     title: String,
-    body: String
-    // author:
+    body: String,
+    author: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
   },
   {
     timestamps: true

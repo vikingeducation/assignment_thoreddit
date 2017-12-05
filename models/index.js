@@ -5,7 +5,7 @@ mongoose.Promise = bluebird;
 
 let models = {};
 
-// Load models and attach to models here
 models.User = require('./user');
+models.Post = require('./post');
 
 module.exports = models;

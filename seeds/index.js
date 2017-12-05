@@ -23,6 +23,15 @@ const seeds = () => {
     users.push(user);
   }
   // Posts
+  // console.log('Creating Posts');
+  // const posts = [];
+  // for (let i = 0; i < MULTIPLIER * 5; i++) {
+  //   const post = new Post({
+  //     title:
+  //     body:
+  //
+  //   })
+  // }
 
   // Finish
   console.log('Saving...');
