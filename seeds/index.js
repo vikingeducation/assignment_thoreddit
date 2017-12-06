@@ -33,7 +33,8 @@ const seeds = () => {
   const promises = [];
   const collections = [
     users,
-    posts
+    posts,
+    UserPost,
   ];
 
   collections.forEach(collection => {

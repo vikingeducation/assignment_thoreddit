@@ -15,6 +15,7 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.15.5",
+    "express-handlebars": "^3.0.0",
     "hbs": "~4.0.1",
     "mongo-seeder": "0.0.2",
     "mongoose": "^4.13.6",
