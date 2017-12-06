@@ -19,8 +19,23 @@ router.get('/new', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
+
+  let commentFinder = (commentable) => {
+    if (commentable.childIds.length !== 0) {
+      console.log(commentable);
+      commentable.populate("Comment");
+      commentable.childIds.map(comment => {
+        return commentFinder(comment)
+      })
+    }
+    return commentable;
+  }
+
   Post.findById(req.params.id)
+    .populate("Comment")
     .then(post => {
+      // post = commentFinder(post);
+      console.log(post);
       res.render('posts/show', {post});
     })
     .catch(e => res.status(500).send(e.stack));
@@ -28,8 +43,9 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
 	console.log(req.body);
+    
     let user = User.find({
-        $where: this.username === req.session.username
+        $where: `this.username === ${req.session.username}`
     });
     user
         .then(user => {
