@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const mongooseeder = require('mongooseeder');
-const models = require('../models'); 
+const models = require('../models');
 
 const mongodbUrl = 'mongodb://localhost/THOREDDIT_development';
 
@@ -34,7 +34,7 @@ const seeds = () => {
   const collections = [
     users,
     posts,
-    
+
   ];
 
   collections.forEach(collection => {
@@ -53,5 +53,5 @@ mongooseeder.seed({
   clean: true,
   seeds: seeds,
   mongoose: mongoose
-  
+
 });

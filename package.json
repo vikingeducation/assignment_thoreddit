@@ -19,6 +19,7 @@
     "hbs": "~4.0.1",
     "mongo-seeder": "0.0.2",
     "mongoose": "^4.13.6",
+    "mongooseed": "0.0.0",
     "mongooseeder": "^2.0.5",
     "morgan": "~1.9.0",
     "serve-favicon": "~2.4.5"
