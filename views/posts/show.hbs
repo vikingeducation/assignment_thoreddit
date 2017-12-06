@@ -24,14 +24,31 @@
       <td>body</td>
       <td>{{ post.body }}</td>
     </tr>
-    {{#each post.children as |child|}}
-      <tr>
-        <td>comments</td>
-        <td>{{ child }}</td>
-      </tr>
-    {{/each}}
   </tbody>
 </table>
+
+  
+    {{#each post.children as |child|}}
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2">{{child.author.username}}</div>
+        <div class="col-md-10">{{ child.body }}</div>
+      </div>
+
+      <form action="/posts/{{post.id}}/comments" method="post">
+        <div class="form-group">
+        <label for="comment_body">Comment Here!</label>
+        <input type="text" id="comment_body" name="comment[body]" class="form-control">
+        </div>
+
+        <div class="form-group">
+        <input type="submit" class="btn btn-primary">
+        </div>
+      </form>
+      </div>
+    {{/each}}
+  
+
 
 <form action="/posts/{{post.id}}/comments" method="post">
   <div class="form-group">
