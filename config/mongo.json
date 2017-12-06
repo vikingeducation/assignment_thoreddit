@@ -1,0 +1,13 @@
+{
+  "development": {
+    "database": "THOREDDIT_development",
+    "host": "localhost"
+  },
+  "test": {
+    "database": "THOREDDIT_test",
+    "host": "localhost"
+  },
+  "production": {
+    "use_env_variable": "MONGODB_URI"
+  }
+}
