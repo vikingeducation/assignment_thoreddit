@@ -20,6 +20,15 @@ app.set('view engine', 'hbs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+const methodOverride = require('method-override');
+const getPostSupport = require('express-method-override-get-post-support');
+
+// Pass the callback and options from
+// the support package
+app.use(methodOverride(
+  getPostSupport.callback,
+  getPostSupport.options // { methods: ['POST', 'GET'] } 
+));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res, next) => {

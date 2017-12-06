@@ -13,6 +13,10 @@ router.get('/', function(req, res) {
     .catch(e => res.status(500).send(e.stack));
 });
 
+router.get('/new', (req, res) => {
+  res.render('users/new');
+});
+
 router.get('/:id', (req, res) => {
   User.findById(req.params.id)
     .then(user => {
@@ -21,13 +25,10 @@ router.get('/:id', (req, res) => {
     .catch(e => res.status(500).send(e.stack));
 });
 
-router.get('/new', (req, res) => {
-  res.render('users/new');
-});
-
 router.post('/', (req, res) => {
+	console.log(req.body);
   var user = new User({
-    username: req.body.user.username,
+    username: req.body['user[username]'],
   });
 
   user
@@ -56,8 +57,9 @@ router.get('/:id/edit', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
+	console.log(req.body, userParams);
   var userParams = {
-    username: req.body.user.username,
+    username: req.body['user[username]'],
   };
 
   User.findByIdAndUpdate(req.params.id, userParams)
