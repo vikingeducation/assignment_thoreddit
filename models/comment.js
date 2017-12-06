@@ -4,8 +4,16 @@ let Schema = mongoose.Schema;
 let CommentSchema = new Schema(
   {
     body: String,
-    parentId: Schema.Types.ObjectId,
-    userId: Schema.Types.ObjectId,
+    childIds: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Comment"
+      }
+   ],
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    },
   },
   {
     timestamps: true,

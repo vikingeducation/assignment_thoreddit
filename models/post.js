@@ -4,11 +4,22 @@ let Schema = mongoose.Schema;
 let PostSchema = new Schema(
   {
     body: String,
-    userId: Schema.Types.ObjectId,
+    title: String,
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    childIds: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Comment'
+      },
+    ],
+    score: Number
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 let Post = mongoose.model('Post', PostSchema);
