@@ -6,7 +6,6 @@ var Post = mongoose.model("Post");
 var User = mongoose.model("User");
 var Comment = mongoose.model("Comment");
 
-
 router.get("/", (req, res, next) => {
   Post.find()
     .populate("author")
@@ -31,7 +30,7 @@ router.get("/:id/edit", (req, res) => {
 router.put("/:id", (req, res) => {
   console.log(req.body);
   var postParams = {
-    title: req.body["post[title]"],
+    title: req.body.post.title,
     body: req.body["post[body]"]
   };
 
@@ -44,33 +43,22 @@ router.put("/:id", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  Post.findById(req.params.id).populate({ path: 'children', populate: { path: 'author' } })
+  Post.findById(req.params.id)
+    .populate({
+      path: "children author",
+      populate: {
+        path: "children author",
+        populate: { path: "children author" }
+      }
+    })
     .then(post => {
+      console.log(JSON.stringify(post, null, 2));
       User.findById(req.session.userId).then(user => {
         post.authorName = user.username;
         res.render("posts/show", { post });
       });
     })
     .catch(e => res.status(500).send(e.stack));
-});
-
-router.post('/:postId/comments', (req, res) => {
-  var comment = new Comment({
-    author: req.session.userId,
-    body: req.body["comment[body]"],
-    children: [],
-    parent: req.params.postId
-  })
-
-  comment.save().then(comment => {
-    Post.findById(req.params.postId).then(post => {
-      post.children.push(comment.id);
-      post.save().then(post => {
-        req.method = "GET";
-        res.redirect(`/posts/${req.params.postId}`);
-      })
-    })
-  })
 });
 
 router.post("/", (req, res) => {

@@ -9,10 +9,12 @@ var session = require("express-session");
 var index = require("./routes/index");
 var users = require("./routes/users");
 var posts = require("./routes/post");
+var comments = require("./routes/comment");
 
 var login = require("./routes/login");
 var app = express();
 
+//middleware to connect to MongoDB via mongoose in your `app.js`
 var mongoose = require("mongoose");
 app.use((req, res, next) => {
   if (mongoose.connection.readyState) {
@@ -32,7 +34,7 @@ app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
-    extended: false
+    extended: true
   })
 );
 app.use(cookieParser());
@@ -62,6 +64,11 @@ app.use(
   })
 );
 
+const morgan = require("morgan");
+const morganToolkit = require("morgan-toolkit")(morgan);
+
+app.use(morganToolkit());
+
 app.use("/login", login);
 
 app.use(function(req, res, next) {
@@ -76,7 +83,7 @@ app.use(function(req, res, next) {
 app.use("/", index);
 app.use("/users", users);
 app.use("/posts", posts);
-
+app.use("/comments", comments);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

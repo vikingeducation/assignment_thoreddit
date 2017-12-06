@@ -19,7 +19,8 @@
     "method-override": "^2.3.10",
     "mongoose": "^4.13.6",
     "mongooseeder": "^2.0.5",
-    "morgan": "~1.9.0",
+    "morgan": "^1.9.0",
+    "morgan-toolkit": "^1.0.2",
     "serve-favicon": "~2.4.5"
   },
   "devDependencies": {}
