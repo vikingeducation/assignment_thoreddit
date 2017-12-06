@@ -25,7 +25,7 @@ const seeds = () => {
   const posts = [];
 
   for (let i = 0; i < 10; i++) {
-    const post = new Post({title: `I'm ${i}!`, body: `i like to talk${i} times a day`});
+    const post = new Post({title: `I'm ${i}!`, body: `i like to talk${i} times a day`, postId:i});
     posts.push(post);
   }
 

@@ -5,7 +5,9 @@ var PostSchema = new Schema({
   title: String,
   body: String,
   username: String,
-  postedAt: Date
+  postedAt: Date,
+  postId: Number,
+  commentRef: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
 },
 {timestamps:true}
 );

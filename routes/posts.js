@@ -38,46 +38,13 @@ function _lg(name) {
   };
 }
 
-
-  // ----------------------------------------
-  // Find
-  // ----------------------------------------
-  // .then(() => {
-  //   return User.find()
-  //     .then(_lg('User.find'));
-  // })
-
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-
-  var check = require('../mongo.js')()
-  console.log(check);
-  res.send("hi")
-
-  /*require('../mongo.js')()
-  // ----------------------------------------
-  // Seed
-  // ----------------------------------------
-  .then(() => {
-    return new Promise((resolve, reject) => {
-      cp.exec('npm run seeds', (err, stdout, stderr) => {
-        console.log(stdout);
-        err ? reject(err) : resolve(stdout);
-      });
-    });
-  })
-
-
-  // ----------------------------------------
-  // Find
-  // ----------------------------------------
-  .then(() => {
-    return models.Post.find()
-      .then(_lg('Post.find'));
-  }).then(posts=>{
-    res.render("post", {posts});
-  })*/
-  //
+  models.Post.find()
+  .then(_lg('Post.find'))
+  .then(posts=>{
+    res.render("posts", {posts})
+  });
 });
 
 

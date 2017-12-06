@@ -11,35 +11,24 @@
         <th>Posted At</th>
         <th>Title</th>
         <th>Body</th>
-        <th>postname</th>
-        <th></th>
-        <th></th>
       </tr>
     </thead>
     <tbody>
-      {{posts}}
-      <!-- {{#each posts as |post| }}
-      <tr>
-        <td>
-          <a href="/posts/{{ post. }}">{{ post.fname }}</a>
-        </td>
-        <td>
-          <a href="/posts/{{ post.id }}">{{ post.lname }}</a>
-        </td>
-        <td>
-          <a href="/posts/{{ post.id }}">{{ post.postname }}</a>
-        </td>
-        <td>
-          <a href="/posts/{{ post.id }}">{{ post.email }}</a>
-        </td>
-        <td>
-          <a href="/posts/{{ post.id }}/edit">Edit</a>
-        </td>
-        <td>
-          <a href="/posts/{{ post.id }}?_method=delete" class="text-danger">Delete</a>
-        </td>
-      </tr>
-      {{/each }} -->
+      {{#each posts as |post| }}
+        {{#each post as |obj|}}
+        <tr>
+          <td>
+            {{ obj.createdAt }}
+          </td>
+          <td>
+            <a href = "{{ obj.title }}">{{ obj.title }}</a>
+          </td>
+          <td>
+            {{ obj.body }}
+          </td>
+       </tr>
+        {{/each}}
+      {{/each }}
     </tbody>
   </table>
 {{else }}
