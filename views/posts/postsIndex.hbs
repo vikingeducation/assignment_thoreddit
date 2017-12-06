@@ -18,7 +18,7 @@
       {{#each posts as |post| }}
         <tr>
           <td>
-            <a href="/posts/{{ post.id }}">{{ post.author }}</a>
+            <a href="/posts/{{ post.id }}">{{ post.author.username }}</a>
           </td>
           <td>
             <a href="/posts/{{ post.id }}">{{ post.title }}</a>

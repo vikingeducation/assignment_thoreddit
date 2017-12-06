@@ -1,0 +1,22 @@
+<header class="page-header">
+  <h1>Edit Post: {{ post.author }}</h1>
+</header>
+
+
+<form action="/posts/{{post.id}}" method="post">
+
+  <div class="form-group">
+    <label for="post_title">Post Title</label>
+    <input type="text" id="post_title" name="post[title]" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="post_body">Post Body</label>
+    <input type="text" id="post_body" name="post[body]" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <input type="submit" class="btn btn-primary">
+  </div>
+  <input type="hidden" name="_method" value="put">
+</form>
