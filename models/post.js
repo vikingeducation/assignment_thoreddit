@@ -1,13 +1,13 @@
-import Commentable from './Commentable';
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var PostSchema = new Schema(
-  {
-    name: String
-  },
-  {
-    discriminatorKey: 'kind'
-  }
-);
+const Commentable = require('./commentable.js');
+
+var PostSchema = new Schema({
+  title: String
+}, {
+  discriminatorKey: 'kind'
+});
 
 var Post = Commentable.discriminator('Post', PostSchema);
 module.exports = Post;

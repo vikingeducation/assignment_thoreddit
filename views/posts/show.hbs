@@ -1,0 +1,34 @@
+<header class="page-header">
+  <a href="/posts/{{ post.id }}/edit" class="btn btn-primary">Edit</a>
+  <a href="/posts/{{ post.id }}?_method=delete" class="btn btn-danger">Delete</a>
+</header>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>author</td>
+      <td>{{ post.author }}</td>
+    </tr>
+    <tr>
+      <td>title</td>
+      <td>{{ post.title }}</td>
+    </tr>
+    <tr>
+      <td>body</td>
+      <td>{{ post.body }}</td>
+    </tr>
+    {{#each post.children as |child|}}
+      <tr>
+        <td>comments</td>
+        <td>{{ child }}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
