@@ -34,7 +34,7 @@ const seeds = () => {
   const collections = [
     users,
     posts,
-    UserPost,
+    
   ];
 
   collections.forEach(collection => {
