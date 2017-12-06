@@ -9,7 +9,7 @@ var models = {};
 
 // Load models and attach to models here
 models.User = require('./user');
-console.log("in index models.user is " + models.User)
+
 //... more models
 
 module.exports = models;
