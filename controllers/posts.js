@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const models = require('./../models');
 
 const router = express.Router();
-// const User = mongoose.model('User');
+const User = mongoose.model('User');
 const Post = mongoose.model('Post');
 
 // Index
@@ -22,22 +22,32 @@ router.get('/new', (req, res) => {
 });
 
 // Show
+router.get('/:id', (req, res) => {
+  Post.findById(req.params.id)
+    .populate('author')
+    .then(post => {
+      res.render('posts/show', { post });
+    })
+    .catch(e => res.status(500).send(e.stack));
+});
 
 // Create
 router.post('/', (req, res) => {
-  const post = new Post({
-    title: req.body.post.title,
-    body: req.body.post.body,
-    author: req.body.post.author
-  });
+  User.findOne({ username: req.session.currentUser.username }).then(user => {
+    const post = new Post({
+      title: req.body.post.title,
+      body: req.body.post.body,
+      author: user,
+      score: 0
+    });
 
-  post
-    .save()
-    .then(post => {
-      res.redirect('/posts');
-      // res.redirect(`/posts/${post.id}`);
-    })
-    .catch(e => res.status(500).send(e.stack));
+    post
+      .save()
+      .then(post => {
+        res.redirect(`/posts/${post.id}`);
+      })
+      .catch(e => res.status(500).send(e.stack));
+  });
 });
 
 module.exports = router;

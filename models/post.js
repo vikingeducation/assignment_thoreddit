@@ -8,7 +8,8 @@ const PostSchema = new Schema(
     author: {
       type: Schema.Types.ObjectId,
       ref: 'User'
-    }
+    },
+    score: Number
   },
   {
     timestamps: true
