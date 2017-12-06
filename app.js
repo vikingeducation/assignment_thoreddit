@@ -4,10 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-
+var login = require('./routes/login');
 var app = express();
 
 var mongoose = require('mongoose');
@@ -31,8 +32,45 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+// --------------------------------------
+// Method Override
+// --------------------------------------
+const methodOverride = require('method-override');
+const getPostSupport = require('express-method-override-get-post-support');
+
+
+app.use(methodOverride(
+  getPostSupport.callback,
+  getPostSupport.options // { methods: ['POST', 'GET'] } 
+));
+
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
+
+app.use('/login', login);
+
+app.use(function(req, res, next) {
+
+  if (!req.session.userId && req.path != "/login") {
+    req.path = '/login';
+    res.redirect('/login');
+  } else {
+    next();
+  }
+});
+
+
 app.use('/', index);
 app.use('/users', users);
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -51,5 +89,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+
 
 module.exports = app;
