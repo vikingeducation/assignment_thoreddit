@@ -5,7 +5,9 @@
   "scripts": {
     "start": "node ./bin/www",
     "console": "node repl.js",
-    "c": "node repl.js"
+    "c": "node repl.js",
+    "seed": "node seeds",
+    "seeds": "node seeds"
   },
   "dependencies": {
     "bluebird": "^3.5.1",
@@ -14,7 +16,9 @@
     "debug": "~2.6.9",
     "express": "~4.15.5",
     "hbs": "~4.0.1",
+    "mongo-seeder": "0.0.2",
     "mongoose": "^4.13.6",
+    "mongooseeder": "^2.0.5",
     "morgan": "~1.9.0",
     "serve-favicon": "~2.4.5"
   },
