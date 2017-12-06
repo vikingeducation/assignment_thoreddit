@@ -1,9 +1,14 @@
 var express = require('express');
 var router = express.Router();
-
-const mongoose = require('mongoose');
+var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 var models = require('../models');
 var cp = require('child_process');
+
+const mongooseeder = require('mongooseeder');
+
+
+const mongodbUrl = 'mongodb://localhost/THOREDDIT_development';
 
 const {
   User,
@@ -45,8 +50,11 @@ function _lg(name) {
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 
-  //
-  require('../mongo')()
+  var check = require('../mongo.js')()
+  console.log(check);
+  res.send("hi")
+
+  /*require('../mongo.js')()
   // ----------------------------------------
   // Seed
   // ----------------------------------------
@@ -65,11 +73,14 @@ router.get('/', function(req, res, next) {
   // ----------------------------------------
   .then(() => {
     return models.Post.find()
-      .then(_lg('User.find'));
+      .then(_lg('Post.find'));
   }).then(posts=>{
     res.render("post", {posts});
-  })
+  })*/
   //
 });
+
+
+
 
 module.exports = router;
