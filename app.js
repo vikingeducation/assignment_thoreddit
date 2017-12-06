@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+const post = require('./routes/posts');
 
 var app = express();
 let mongoose = require('mongoose');
@@ -41,6 +42,7 @@ app.use((req, res, next) => {
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/posts', post);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

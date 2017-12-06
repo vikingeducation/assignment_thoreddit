@@ -1,0 +1,33 @@
+<header class="page-header">
+	<h1>Posts</h1>
+	<a href='/posts/new' class='btn btn-primary'>New Posts</a>
+</header>
+
+{{#if posts.length}}
+<table class='table'>
+	<thead>
+		<tr>
+			<th>Username</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#each posts as |post|}}
+		<tr>
+			<td>
+				<a href='/posts/{{post.id}}'>{{post.body}}</a>
+			</td>
+			<td>
+				<a href='/posts/{{post.id}}/edit'>Edit</a>
+			</td>
+			<td>
+				<a href='/posts/{{post.id}}?_method=delete' class='text-danger'>Delete</a>
+			</td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>
+{{else}}
+<p class='text-danger'>No posts</p>
+{{/if}}
