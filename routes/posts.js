@@ -23,7 +23,7 @@ router.get('/:id', (req, res) => {
   let commentFinder = (commentable) => {
     if (commentable.childIds.length !== 0) {
       console.log(commentable);
-      commentable.populate("Comment");
+      commentable.populate("childIds");
       commentable.childIds.map(comment => {
         return commentFinder(comment)
       })
@@ -32,7 +32,7 @@ router.get('/:id', (req, res) => {
   }
 
   Post.findById(req.params.id)
-    .populate("Comment")
+    .populate("childIds")
     .then(post => {
       // post = commentFinder(post);
       console.log(post);
