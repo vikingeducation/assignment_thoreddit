@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 let mongoose = require('mongoose');
 let models = require('./../models');
+let User = mongoose.model('User');
 let Post = mongoose.model('Post');
 
 /* GET posts listing. */
@@ -27,16 +28,26 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
 	console.log(req.body);
+    let user = User.find({
+        $where: this.username === req.session.username
+    });
+    user
+        .then(user => {
   var post = new Post({
-    postname: req.body['post[postname]'],
+    title: req.body['post[title]'],
+      body: req.body['post[body]'],
+      userId: user.id,
+      childIds: []
   });
 
   post
     .save()
-    .then(post => {
+      .then(post => {
       res.redirect(`/posts/${post.id}`);
     })
-    .catch(e => res.status(500).send(e.stack));
+      .catch(e => res.status(500).send(e.stack));
+    })
+    .catch(e=> res.status(500).send(e.stack));
 });
 
 router.delete('/:id', (req, res) => {

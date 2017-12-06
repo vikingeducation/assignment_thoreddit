@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+let session = require('express-session');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -31,6 +32,11 @@ app.use(methodOverride(
   getPostSupport.options // { methods: ['POST', 'GET'] } 
 ));
 app.use(cookieParser());
+app.use(session({
+    secret:'314159',
+    resave: false,
+    saveUninitialize: true
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res, next) => {
   if (mongoose.connection.readyState) {

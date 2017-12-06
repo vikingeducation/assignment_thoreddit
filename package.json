@@ -13,6 +13,7 @@
     "debug": "~2.6.9",
     "express": "~4.15.5",
     "express-method-override-get-post-support": "^1.0.0",
+    "express-session": "^1.15.6",
     "hbs": "~4.0.1",
     "method-override": "^2.3.10",
     "mongoose": "^4.13.6",
