@@ -1,0 +1,24 @@
+<header class="page-header">
+  <a href="/users/{{ user.id }}/edit" class="btn btn-primary">Edit</a>
+  <a href="/users/{{ user.id }}?_method=delete" class="btn btn-danger">Delete</a>
+</header>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Username</td>
+      <td>{{ user.username }}</td>
+    </tr>
+    <tr>
+      <td>Email</td>
+      <td>{{ user.email }}</td>
+    </tr>
+  </tbody>
+</table>
