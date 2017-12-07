@@ -1,0 +1,7 @@
+<header class="page-header">
+  <h1>Post: {{post.title}}</h1>
+  <a href="/users/{{ post.id }}/edit" class="btn btn-primary">Edit</a>
+  <a href="/users/{{ post.id }}?_method=delete" class="btn btn-danger">Delete</a>
+</header>
+
+<p>{{post.body}}</p>
