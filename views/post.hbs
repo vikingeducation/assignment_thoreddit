@@ -1,0 +1,25 @@
+<div class='container'>
+
+  <div class='row'>
+    <div class='col-sm-12'>
+      <h1>{{post.title}}</h1>
+      <h2>By {{post.user.username}}</h2>
+    </div>
+  </div>
+
+  <p>
+    {{post.text}}
+  </p>
+
+  <div class='row'>
+    <div class='col-sm-2 offset-{{comment.depth}}'>
+      <a href='/'>Upvote</a> / <a href='/'>Downvote</a>
+    </div>
+  </div>
+
+
+
+
+<a href='/'>Comment</a>
+
+</div>
