@@ -1,17 +1,20 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const models = require('./../models');
+const { formatPosts } = require('./../helpers/post-helper');
 
 const router = express.Router();
 const User = mongoose.model('User');
 const Post = mongoose.model('Post');
+const Comment = mongoose.model('Comment');
 
 // Index
 router.get('/', (req, res) => {
   Post.find()
     .populate('author')
     .then(posts => {
-      res.render('posts/index', { posts });
+      const formattedPosts = formatPosts(posts);
+      res.render('posts/index', { posts: formattedPosts });
     })
     .catch(e => res.status(500).send(e.stack));
 });
@@ -23,12 +26,26 @@ router.get('/new', (req, res) => {
 
 // Show
 router.get('/:id', (req, res) => {
-  Post.findById(req.params.id)
+  const p1 = Post.findById(req.params.id).populate('author');
+  const p2 = Comment.find({
+    post: req.params.id
+  })
     .populate('author')
-    .then(post => {
-      res.render('posts/show', { post });
+    .populate('children');
+
+  Promise.all([p1, p2])
+    .then(values => {
+      const post = values[0];
+      const comments = values[1];
+      res.render('posts/show', { post, comments });
     })
     .catch(e => res.status(500).send(e.stack));
+  // Post.findById(req.params.id)
+  //   .populate('author')
+  //   .then(post => {
+  //     res.render('posts/show', { post });
+  //   })
+  //   .catch(e => res.status(500).send(e.stack));
 });
 
 // Create

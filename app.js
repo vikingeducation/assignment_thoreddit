@@ -47,13 +47,14 @@ app.use((req, res, next) => {
 
 // Routes
 const sessionsRoutes = require('./controllers/sessions')(app);
-app.use('/', sessionsRoutes);
-
 const usersRoutes = require('./controllers/users');
-app.use('/users', usersRoutes);
-
 const postsRoutes = require('./controllers/posts');
+const commentsRoutes = require('./controllers/comments');
+
+app.use('/', sessionsRoutes);
+app.use('/users', usersRoutes);
 app.use('/posts', postsRoutes);
+app.use('/comments', commentsRoutes);
 
 // Template Engine
 const expressHandlebars = require('express-handlebars');

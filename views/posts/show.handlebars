@@ -5,17 +5,50 @@
   <a href="/users/{{ user.id }}?_method=delete" class="btn btn-danger">Delete</a>
 </header> -->
 
-<div class="media">
-  <div class="media-left">
-    <a href="#">Upvote</a><br>
-    <a href="#">Downvote</a><br>
-    Score: {{ post.score }}
-  </div>
-  <div class="media-body">
-    <h1 class="media-heading">{{ post.title }}<br>
-    <small>by {{ post.author.username }}</small></h1>
-    <p>{{ post.body }}</p>
-    <a href="#">Comment</a>
-    <hr>
-  </div>
-</div>
+<ul class="media-list">
+  <li class="media">
+    <div class="media-left">
+      <a href="posts/{{ post.id }}/up">Upvote</a><br>
+      <a href="posts/{{ post.id }}/down">Downvote</a><br>
+      Score: {{ post.score }}
+    </div>
+    <div class="media-body">
+      <h1 class="media-heading">{{ post.title }}<br>
+      <small>by {{ post.author.username }}</small></h1>
+      <p>{{ post.body }}</p>
+      <a href="/comments/{{post.id}}/new">Comment</a>
+      <hr>
+      {{#if comments.length}}
+      {{#each comments as |comment|}}
+      <div class="media">
+        <div class="media-left">
+          <a href="comments/{{ comment.id }}/up">Upvote</a><br>
+          <a href="comments/{{ comment.id }}/down">Downvote</a><br>
+          Score: {{ comment.score }}
+        </div>
+        <div class="media-body">
+          <p><strong>{{ comment.author.username }} said:</strong></p>
+          <p>{{ comment.body }}</p>
+          <p><a href="/comments/{{comment.id}}/new">Comment</a></p>
+          {{#if comment.children.length}}
+          {{#each comment.children as |subcomment|}}
+          <div class="media">
+            <div class="media-left">
+              <a href="comments/{{ subcomment.id }}/up">Upvote</a><br>
+              <a href="comments/{{ subcomment.id }}/down">Downvote</a><br>
+              Score: {{ subcomment.score }}
+            </div>
+            <div class="media-body">
+              <p><strong>{{ subcomment.author.username }} said:</strong></p>
+              <p>{{ subcomment.body }}</p>
+              <p><a href="/comments/{{subcomment.id}}/new">Comment</a></p>
+            </div>
+          </div>
+          {{/each}}
+          {{/if}}
+        </div>
+      {{/each}}
+      {{/if}}
+    </div>
+  </li>
+</ul>

@@ -1,21 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Commentable = require('./commentable');
 
 const PostSchema = new Schema(
   {
-    title: String,
-    body: String,
-    author: {
-      type: Schema.Types.ObjectId,
-      ref: 'User'
-    },
-    score: Number
+    title: String
   },
   {
-    timestamps: true
+    discriminatorKey: 'kind'
   }
 );
 
-const Post = mongoose.model('Post', PostSchema);
+const Post = Commentable.discriminator('Post', PostSchema);
 
 module.exports = Post;
