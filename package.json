@@ -1,0 +1,40 @@
+{
+  "name": "assignment-thoreddit",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "console": "node repl.js",
+    "c": "node repl.js",
+    "seed": "node seeds",
+    "seeds": "node seeds"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.15.5",
+    "express-handlebars": "^3.0.0",
+    "hbs": "~4.0.1",
+    "mongo-seeder": "0.0.2",
+    "mongoose": "^4.13.6",
+    "mongooseed": "0.0.0",
+    "mongooseeder": "^2.0.5",
+    "morgan": "~1.9.0",
+    "serve-favicon": "~2.4.5"
+  },
+  "description": "A social news web application for Viking thunder Gods",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eliashantula/assignment_thoreddit.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eliashantula/assignment_thoreddit/issues"
+  },
+  "homepage": "https://github.com/eliashantula/assignment_thoreddit#readme"
+}
