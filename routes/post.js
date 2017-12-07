@@ -28,10 +28,9 @@ router.get("/:id/edit", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  console.log(req.body);
   var postParams = {
     title: req.body.post.title,
-    body: req.body["post[body]"]
+    body: req.body.body
   };
 
   Post.findByIdAndUpdate(req.params.id, postParams)
@@ -52,8 +51,7 @@ router.get("/:id", (req, res) => {
       }
     })
     .then(post => {
-      console.log(JSON.stringify(post, null, 2));
-      User.findById(req.session.userId).then(user => {
+      User.findById(req.cookies.userId).then(user => {
         post.authorName = user.username;
         res.render("posts/show", { post });
       });
@@ -62,12 +60,15 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+
   var post = new Post({
-    author: req.session.userId,
-    title: req.body["post[title]"],
-    body: req.body["post[body]"],
+    author: req.cookies.userId,
+
+    title: req.body.post.title,
+    body: req.body.post.body,
     children: []
   });
+
 
   post
     .save()

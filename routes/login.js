@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   User.findOne({ email: req.body.email, username: req.body.username }).then(user => {
-    req.session.userId = user.id;
+    res.cookie("userId", user.id);
     req.method = "get";
     res.redirect(`/posts`);
   })

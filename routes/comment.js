@@ -9,7 +9,7 @@ var Commentable = mongoose.model("Commentable");
 
 router.post("/:parentId", (req, res) => {
   var comment = new Comment({
-    author: req.session.userId,
+    author: req.cookies.userId,
     body: req.body.comment.body,
     children: [],
     parent: req.params.parentId

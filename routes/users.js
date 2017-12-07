@@ -48,8 +48,6 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  console.log(req.body);
-  console.log(typeof req.body);
   var user = new User({
     username: req.body["user[username]"],
     email: req.body["user[email]"]
