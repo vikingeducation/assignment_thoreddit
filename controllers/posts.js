@@ -29,9 +29,25 @@ router.get('/:id', (req, res) => {
   const p1 = Post.findById(req.params.id).populate('author');
   const p2 = Comment.find({
     post: req.params.id
-  })
-    .populate('author')
-    .populate('children');
+  }).populate([
+    {
+      path: 'children',
+      populate: [
+        {
+          path: 'children',
+          populate: {
+            path: 'author'
+          }
+        },
+        {
+          path: 'author'
+        }
+      ]
+    },
+    {
+      path: 'author'
+    }
+  ]);
 
   Promise.all([p1, p2])
     .then(values => {

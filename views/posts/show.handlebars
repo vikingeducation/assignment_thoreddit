@@ -20,6 +20,7 @@
       <hr>
       {{#if comments.length}}
       {{#each comments as |comment|}}
+      {{#unless comment.parent}}
       <div class="media">
         <div class="media-left">
           <a href="comments/{{ comment.id }}/up">Upvote</a><br>
@@ -30,23 +31,35 @@
           <p><strong>{{ comment.author.username }} said:</strong></p>
           <p>{{ comment.body }}</p>
           <p><a href="/comments/{{comment.id}}/new">Comment</a></p>
-          {{#if comment.children.length}}
-          {{#each comment.children as |subcomment|}}
+          {{#each comment.children as |childcomment|}}
           <div class="media">
             <div class="media-left">
-              <a href="comments/{{ subcomment.id }}/up">Upvote</a><br>
-              <a href="comments/{{ subcomment.id }}/down">Downvote</a><br>
-              Score: {{ subcomment.score }}
+              <a href="comments/{{ childcomment.id }}/up">Upvote</a><br>
+              <a href="comments/{{ childcomment.id }}/down">Downvote</a><br>
+              Score: {{ childcomment.score }}
             </div>
             <div class="media-body">
-              <p><strong>{{ subcomment.author.username }} said:</strong></p>
-              <p>{{ subcomment.body }}</p>
-              <p><a href="/comments/{{subcomment.id}}/new">Comment</a></p>
+              <p><strong>{{ childcomment.author.username }} said:</strong></p>
+              <p>{{ childcomment.body }}</p>
+              <p><a href="/comments/{{childcomment.id}}/new">Comment</a></p>
+              {{#each childcomment.children as |grandchildcomment|}}
+              <div class="media">
+                <div class="media-left">
+                  <a href="comments/{{ grandchildcomment.id }}/up">Upvote</a><br>
+                  <a href="comments/{{ grandchildcomment.id }}/down">Downvote</a><br>
+                  Score: {{ grandchildcomment.score }}
+                </div>
+                <div class="media-body">
+                  <p><strong>{{ grandchildcomment.author.username }} said:</strong></p>
+                  <p>{{ grandchildcomment.body }}</p>
+                </div>
+              </div>
+              {{/each}}
             </div>
           </div>
           {{/each}}
-          {{/if}}
         </div>
+      {{/unless}}
       {{/each}}
       {{/if}}
     </div>
