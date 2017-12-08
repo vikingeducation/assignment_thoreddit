@@ -7,6 +7,7 @@ const router = express.Router();
 const User = mongoose.model('User');
 const Post = mongoose.model('Post');
 const Comment = mongoose.model('Comment');
+const Vote = mongoose.model('Vote');
 
 // Index
 router.get('/', (req, res) => {
@@ -56,12 +57,6 @@ router.get('/:id', (req, res) => {
       res.render('posts/show', { post, comments });
     })
     .catch(e => res.status(500).send(e.stack));
-  // Post.findById(req.params.id)
-  //   .populate('author')
-  //   .then(post => {
-  //     res.render('posts/show', { post });
-  //   })
-  //   .catch(e => res.status(500).send(e.stack));
 });
 
 // Create

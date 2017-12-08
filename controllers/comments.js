@@ -6,31 +6,27 @@ const router = express.Router();
 const User = mongoose.model('User');
 const Post = mongoose.model('Post');
 const Comment = mongoose.model('Comment');
+const Vote = mongoose.model('Vote');
 
 // New
 router.get('/:id/new', (req, res) => {
   let parentType;
-  Comment.findById(req.params.id)
-    // .populate('author')
-    // .populate('parent')
-    .then(comment => {
-      if (comment) {
-        parentType = 'comment';
+  Comment.findById(req.params.id).then(comment => {
+    if (comment) {
+      parentType = 'comment';
+      res.render('comments/new', { comment, parentType });
+    } else {
+      Post.findById(req.params.id).then(post => {
+        let comment = {
+          body: post.body,
+          author: post.author,
+          post: post.id
+        };
+        parentType = 'post';
         res.render('comments/new', { comment, parentType });
-      } else {
-        Post.findById(req.params.id)
-          // .populate('author')
-          .then(post => {
-            let comment = {
-              body: post.body,
-              author: post.author,
-              post: post.id
-            };
-            parentType = 'post';
-            res.render('comments/new', { comment, parentType });
-          });
-      }
-    });
+      });
+    }
+  });
 });
 
 // Create

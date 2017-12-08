@@ -1,15 +1,8 @@
-<!-- <header class="page-header">
-  <h1>{{ post.title }}</h1>
-  <h2>by {{ post.author.username }}</h2>
-  <a href="/users/{{ user.id }}/edit" class="btn btn-primary">Edit</a>
-  <a href="/users/{{ user.id }}?_method=delete" class="btn btn-danger">Delete</a>
-</header> -->
-
 <ul class="media-list">
   <li class="media">
     <div class="media-left">
-      <a href="posts/{{ post.id }}/up">Upvote</a><br>
-      <a href="posts/{{ post.id }}/down">Downvote</a><br>
+      <a href="/posts/{{ post.id }}/up">Upvote</a><br>
+      <a href="/posts/{{ post.id }}/down">Downvote</a><br>
       Score: {{ post.score }}
     </div>
     <div class="media-body">
@@ -23,8 +16,8 @@
       {{#unless comment.parent}}
       <div class="media">
         <div class="media-left">
-          <a href="comments/{{ comment.id }}/up">Upvote</a><br>
-          <a href="comments/{{ comment.id }}/down">Downvote</a><br>
+          <a href="/comments/{{ comment.id }}/up">Upvote</a><br>
+          <a href="/comments/{{ comment.id }}/down">Downvote</a><br>
           Score: {{ comment.score }}
         </div>
         <div class="media-body">
@@ -34,8 +27,8 @@
           {{#each comment.children as |childcomment|}}
           <div class="media">
             <div class="media-left">
-              <a href="comments/{{ childcomment.id }}/up">Upvote</a><br>
-              <a href="comments/{{ childcomment.id }}/down">Downvote</a><br>
+              <a href="/comments/{{ childcomment.id }}/up">Upvote</a><br>
+              <a href="/comments/{{ childcomment.id }}/down">Downvote</a><br>
               Score: {{ childcomment.score }}
             </div>
             <div class="media-body">
@@ -45,8 +38,8 @@
               {{#each childcomment.children as |grandchildcomment|}}
               <div class="media">
                 <div class="media-left">
-                  <a href="comments/{{ grandchildcomment.id }}/up">Upvote</a><br>
-                  <a href="comments/{{ grandchildcomment.id }}/down">Downvote</a><br>
+                  <a href="/comments/{{ grandchildcomment.id }}/up">Upvote</a><br>
+                  <a href="/comments/{{ grandchildcomment.id }}/down">Downvote</a><br>
                   Score: {{ grandchildcomment.score }}
                 </div>
                 <div class="media-body">
