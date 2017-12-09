@@ -67,4 +67,154 @@ router.post('/', (req, res) => {
   });
 });
 
+// Upvote
+router.get(
+  '/:id/up',
+  (req, res, next) => {
+    Vote.findOne({
+      user: req.session.currentUser.id,
+      comment: req.params.id
+    })
+      .then(vote => {
+        if (vote) {
+          if (vote.count === 1) {
+            Vote.findByIdAndUpdate(vote.id, {
+              user: req.session.currentUser.id,
+              comment: req.params.id,
+              count: 0
+            })
+              .then(() => {
+                return Comment.findByIdAndUpdate(req.params.id, {
+                  $inc: { score: -1 }
+                });
+              })
+              .then(() => {
+                next();
+              });
+          } else if (vote.count === 0) {
+            Vote.findByIdAndUpdate(vote.id, {
+              user: req.session.currentUser.id,
+              comment: req.params.id,
+              count: 1
+            })
+              .then(() => {
+                return Comment.findByIdAndUpdate(req.params.id, {
+                  $inc: { score: 1 }
+                });
+              })
+              .then(() => {
+                next();
+              });
+          } else if (vote.count === -1) {
+            Vote.findByIdAndUpdate(vote.id, {
+              user: req.session.currentUser.id,
+              comment: req.params.id,
+              count: 1
+            })
+              .then(() => {
+                return Comment.findByIdAndUpdate(req.params.id, {
+                  $inc: { score: 2 }
+                });
+              })
+              .then(() => {
+                next();
+              });
+          }
+        } else {
+          const vote = new Vote({
+            user: req.session.currentUser.id,
+            comment: req.params.id,
+            count: 1
+          });
+
+          vote.save().then(() => {});
+          return Comment.findByIdAndUpdate(req.params.id, {
+            $inc: { score: 1 }
+          });
+        }
+      })
+      .then(() => {
+        next();
+      });
+  },
+  (req, res) => {
+    res.redirect('back');
+  }
+);
+
+// Downvote
+router.get(
+  '/:id/down',
+  (req, res, next) => {
+    Vote.findOne({
+      user: req.session.currentUser.id,
+      comment: req.params.id
+    })
+      .then(vote => {
+        if (vote) {
+          if (vote.count === -1) {
+            Vote.findByIdAndUpdate(vote.id, {
+              user: req.session.currentUser.id,
+              comment: req.params.id,
+              count: 0
+            })
+              .then(() => {
+                return Comment.findByIdAndUpdate(req.params.id, {
+                  $inc: { score: 1 }
+                });
+              })
+              .then(() => {
+                next();
+              });
+          } else if (vote.count === 0) {
+            Vote.findByIdAndUpdate(vote.id, {
+              user: req.session.currentUser.id,
+              comment: req.params.id,
+              count: -1
+            })
+              .then(() => {
+                return Comment.findByIdAndUpdate(req.params.id, {
+                  $inc: { score: -1 }
+                });
+              })
+              .then(() => {
+                next();
+              });
+          } else if (vote.count === 1) {
+            Vote.findByIdAndUpdate(vote.id, {
+              user: req.session.currentUser.id,
+              comment: req.params.id,
+              count: -1
+            })
+              .then(() => {
+                return Comment.findByIdAndUpdate(req.params.id, {
+                  $inc: { score: -2 }
+                });
+              })
+              .then(() => {
+                next();
+              });
+          }
+        } else {
+          const vote = new Vote({
+            user: req.session.currentUser.id,
+            comment: req.params.id,
+            count: -1
+          });
+
+          vote.save().then(() => {});
+          return Comment.findByIdAndUpdate(req.params.id, {
+            $inc: { score: -1 }
+          });
+        }
+      })
+      .then(() => {
+        next();
+      });
+  },
+  (req, res) => {
+    res.redirect('back');
+  }
+);
+
 module.exports = router;

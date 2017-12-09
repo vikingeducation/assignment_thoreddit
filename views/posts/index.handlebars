@@ -11,6 +11,8 @@
         <th>Title</th>
         <th>Body</th>
         <th>Username</th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -28,12 +30,14 @@
           <td>
             <a href="/users/{{ post.author.id }}">{{ post.author.username }}</a>
           </td>
-          <!-- <td>
+          {{#if post.editable}}
+          <td>
             <a href="/posts/{{ post.id }}/edit">Edit</a>
           </td>
           <td>
             <a href="/posts/{{ post.id }}?_method=delete" class="text-danger">Delete</a>
-          </td> -->
+          </td>
+          {{/if}}
         </tr>
       {{/each }}
     </tbody>

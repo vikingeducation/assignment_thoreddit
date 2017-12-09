@@ -11,11 +11,14 @@ const Vote = mongoose.model('Vote');
 
 // Index
 router.get('/', (req, res) => {
+  const user = req.session.currentUser.id;
   Post.find()
     .populate('author')
     .then(posts => {
-      const formattedPosts = formatPosts(posts);
-      res.render('posts/index', { posts: formattedPosts });
+      const formattedPosts = formatPosts(posts, user);
+      res.render('posts/index', {
+        posts: formattedPosts
+      });
     })
     .catch(e => res.status(500).send(e.stack));
 });
@@ -23,6 +26,19 @@ router.get('/', (req, res) => {
 // New
 router.get('/new', (req, res) => {
   res.render('posts/new');
+});
+
+// Edit
+router.get('/:id/edit', (req, res) => {
+  Post.findById(req.params.id)
+    .then(post => {
+      if (post) {
+        res.render('posts/edit', { post });
+      } else {
+        res.send(404);
+      }
+    })
+    .catch(e => res.status(500).send(e.stack));
 });
 
 // Show
@@ -77,5 +93,180 @@ router.post('/', (req, res) => {
       .catch(e => res.status(500).send(e.stack));
   });
 });
+
+// Update
+router.put('/:id', (req, res) => {
+  const postParams = req.body.post;
+
+  Post.findByIdAndUpdate(req.params.id, {
+    title: postParams.title,
+    body: postParams.body
+  })
+    .then(post => {
+      req.method = 'GET';
+      res.redirect(`/posts/${post.id}`);
+    })
+    .catch(e => res.status(500).send(e.stack));
+});
+
+// Delete
+router.delete('/:id', (req, res) => {
+  Post.findByIdAndRemove(req.params.id)
+    .then(() => {
+      req.method = 'GET';
+      res.redirect('/posts');
+    })
+    .catch(e => res.status(500).send(e.stack));
+});
+
+// Upvote
+router.get(
+  '/:id/up',
+  (req, res, next) => {
+    Vote.findOne({
+      user: req.session.currentUser.id,
+      post: req.params.id
+    })
+      .then(vote => {
+        if (vote) {
+          if (vote.count === 1) {
+            Vote.findByIdAndUpdate(vote.id, {
+              user: req.session.currentUser.id,
+              post: req.params.id,
+              count: 0
+            })
+              .then(() => {
+                return Post.findByIdAndUpdate(req.params.id, {
+                  $inc: { score: -1 }
+                });
+              })
+              .then(() => {
+                next();
+              });
+          } else if (vote.count === 0) {
+            Vote.findByIdAndUpdate(vote.id, {
+              user: req.session.currentUser.id,
+              post: req.params.id,
+              count: 1
+            })
+              .then(() => {
+                return Post.findByIdAndUpdate(req.params.id, {
+                  $inc: { score: 1 }
+                });
+              })
+              .then(() => {
+                next();
+              });
+          } else if (vote.count === -1) {
+            Vote.findByIdAndUpdate(vote.id, {
+              user: req.session.currentUser.id,
+              post: req.params.id,
+              count: 1
+            })
+              .then(() => {
+                return Post.findByIdAndUpdate(req.params.id, {
+                  $inc: { score: 2 }
+                });
+              })
+              .then(() => {
+                next();
+              });
+          }
+        } else {
+          const vote = new Vote({
+            user: req.session.currentUser.id,
+            post: req.params.id,
+            count: 1
+          });
+
+          vote.save().then(() => {});
+          return Post.findByIdAndUpdate(req.params.id, {
+            $inc: { score: 1 }
+          });
+        }
+      })
+      .then(() => {
+        next();
+      });
+  },
+  (req, res) => {
+    res.redirect('back');
+  }
+);
+
+// Downvote
+router.get(
+  '/:id/down',
+  (req, res, next) => {
+    Vote.findOne({
+      user: req.session.currentUser.id,
+      post: req.params.id
+    })
+      .then(vote => {
+        if (vote) {
+          if (vote.count === -1) {
+            Vote.findByIdAndUpdate(vote.id, {
+              user: req.session.currentUser.id,
+              post: req.params.id,
+              count: 0
+            })
+              .then(() => {
+                return Post.findByIdAndUpdate(req.params.id, {
+                  $inc: { score: 1 }
+                });
+              })
+              .then(() => {
+                next();
+              });
+          } else if (vote.count === 0) {
+            Vote.findByIdAndUpdate(vote.id, {
+              user: req.session.currentUser.id,
+              post: req.params.id,
+              count: -1
+            })
+              .then(() => {
+                return Post.findByIdAndUpdate(req.params.id, {
+                  $inc: { score: -1 }
+                });
+              })
+              .then(() => {
+                next();
+              });
+          } else if (vote.count === 1) {
+            Vote.findByIdAndUpdate(vote.id, {
+              user: req.session.currentUser.id,
+              post: req.params.id,
+              count: -1
+            })
+              .then(() => {
+                return Post.findByIdAndUpdate(req.params.id, {
+                  $inc: { score: -2 }
+                });
+              })
+              .then(() => {
+                next();
+              });
+          }
+        } else {
+          const vote = new Vote({
+            user: req.session.currentUser.id,
+            post: req.params.id,
+            count: -1
+          });
+
+          vote.save().then(() => {});
+          return Post.findByIdAndUpdate(req.params.id, {
+            $inc: { score: -1 }
+          });
+        }
+      })
+      .then(() => {
+        next();
+      });
+  },
+  (req, res) => {
+    res.redirect('back');
+  }
+);
 
 module.exports = router;
