@@ -1,0 +1,19 @@
+<header class="page-header">
+  <h1>New Comment</h1>
+  <h3>Commenting on a {{ parentType }}</h3>
+  <p><strong>Original Message:</strong> {{ comment.body }}</p>
+</header>
+
+<form action="/comments" method="post">
+  <div class="form-group">
+    <label for="comment_body">Body</label>
+    <input type="text" id="comment_body" name="comment[body]" class="form-control">
+  </div>
+
+  <input type="hidden" name="comment[post]" value="{{ comment.post }}">
+  <input type="hidden" name="comment[parent]" value="{{ comment.id }}">
+
+  <div class="form-group">
+    <input type="submit" class="btn btn-primary">
+  </div>
+</form>

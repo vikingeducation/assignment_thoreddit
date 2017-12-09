@@ -1,0 +1,13 @@
+{
+  "development": {
+    "database": "assignment_thoreddit_development",
+    "host": "localhost"
+  },
+  "test": {
+    "database": "assignment_thoreddit_test",
+    "host": "localhost"
+  },
+  "production": {
+    "use_env_variable": "MONGODB_URI"
+  }
+}

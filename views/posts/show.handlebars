@@ -1,0 +1,60 @@
+<ul class="media-list">
+  <li class="media">
+    <div class="media-left">
+      <a href="/posts/{{ post.id }}/up">Upvote</a><br>
+      <a href="/posts/{{ post.id }}/down">Downvote</a><br>
+      Score: {{ post.score }}
+    </div>
+    <div class="media-body">
+      <h1 class="media-heading">{{ post.title }}<br>
+      <small>by {{ post.author.username }}</small></h1>
+      <p>{{ post.body }}</p>
+      <a href="/comments/{{post.id}}/new">Comment</a>
+      <hr>
+      {{#if comments.length}}
+      {{#each comments as |comment|}}
+      {{#unless comment.parent}}
+      <div class="media">
+        <div class="media-left">
+          <a href="/comments/{{ comment.id }}/up">Upvote</a><br>
+          <a href="/comments/{{ comment.id }}/down">Downvote</a><br>
+          Score: {{ comment.score }}
+        </div>
+        <div class="media-body">
+          <p><strong>{{ comment.author.username }} said:</strong></p>
+          <p>{{ comment.body }}</p>
+          <p><a href="/comments/{{comment.id}}/new">Comment</a></p>
+          {{#each comment.children as |childcomment|}}
+          <div class="media">
+            <div class="media-left">
+              <a href="/comments/{{ childcomment.id }}/up">Upvote</a><br>
+              <a href="/comments/{{ childcomment.id }}/down">Downvote</a><br>
+              Score: {{ childcomment.score }}
+            </div>
+            <div class="media-body">
+              <p><strong>{{ childcomment.author.username }} said:</strong></p>
+              <p>{{ childcomment.body }}</p>
+              <p><a href="/comments/{{childcomment.id}}/new">Comment</a></p>
+              {{#each childcomment.children as |grandchildcomment|}}
+              <div class="media">
+                <div class="media-left">
+                  <a href="/comments/{{ grandchildcomment.id }}/up">Upvote</a><br>
+                  <a href="/comments/{{ grandchildcomment.id }}/down">Downvote</a><br>
+                  Score: {{ grandchildcomment.score }}
+                </div>
+                <div class="media-body">
+                  <p><strong>{{ grandchildcomment.author.username }} said:</strong></p>
+                  <p>{{ grandchildcomment.body }}</p>
+                </div>
+              </div>
+              {{/each}}
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      {{/unless}}
+      {{/each}}
+      {{/if}}
+    </div>
+  </li>
+</ul>
