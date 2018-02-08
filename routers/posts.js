@@ -38,7 +38,10 @@ router.get("/:id/comments/new", (req, res) => {
 
 router.post("/:id/comments/new", (req, res) => {
   let postId = req.params.id
-  let thisUser = Users.find({ username: req.body.comment.username }).id;
+  let thisUser 
+  Users.find({ username: req.body.comment.username }).then((user)=> {
+    thisUser = user
+  });
 
   let newComment = new Comment({
     text: req.body.comment.text,
