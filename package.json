@@ -1,0 +1,22 @@
+{
+  "name": "please_discuss",
+  "version": "1.0.0",
+  "description": "A reddit-like application.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaredjgebel/assignment_thoreddit.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaredjgebel/assignment_thoreddit/issues"
+  },
+  "homepage": "https://github.com/jaredjgebel/assignment_thoreddit#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
