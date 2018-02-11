@@ -1,0 +1,13 @@
+{
+   "development": {
+     "database": "please_discuss_development",
+     "host": "localhost"
+   },
+   "test": {
+     "database": "please_discuss_test",
+     "host": "localhost"
+   },
+   "production": {
+     "use_env_variable": "MONGODB_URI"
+   }
+ }

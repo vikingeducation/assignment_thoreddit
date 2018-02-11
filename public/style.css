@@ -1,0 +1,9 @@
+.navbar {
+   height: 50px;
+   display: inline-block;
+   vertical-align: middle;
+}
+
+.navbar-right{
+   text-align: right
+}
