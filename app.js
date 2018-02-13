@@ -24,32 +24,32 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // ----------------------------------------
 // Sessions/Cookies
 // ----------------------------------------
-// var cookieSession = require('cookie-session');
+var cookieSession = require('cookie-session');
 
-// app.use(cookieSession({
-//   name: 'session',
-//   keys: ['asdf1234567890qwer']
-// }));
+app.use(cookieSession({
+  name: 'session',
+  keys: ['h8ipk2jeksks']
+}));
 
-// app.use((req, res, next) => {
-//   res.locals.session = req.session;
-//   res.locals.currentUser = req.session.currentUser;
-//   next();
-// });
+app.use((req, res, next) => {
+  res.locals.session = req.session;
+  res.locals.currentUser = req.session.currentUser;
+  next();
+});
 
 
 // ----------------------------------------
 // HTTP Method Overriding
 // ----------------------------------------
 // Require the two packages
-// const methodOverride = require('method-override');
-// const getPostSupport = require('express-method-override-get-post-support');
+const methodOverride = require('method-override');
+const getPostSupport = require('express-method-override-get-post-support');
 
-// // Pass the callback and options from the support package
-// app.use(methodOverride(
-//   getPostSupport.callback,
-//   getPostSupport.options // { methods: ['POST', 'GET']}
-// ));
+// Pass the callback and options from the support package
+app.use(methodOverride(
+  getPostSupport.callback,
+  getPostSupport.options // { methods: ['POST', 'GET']}
+));
 
 // ----------------------------------------
 // Referrer
@@ -74,8 +74,20 @@ app.use((req, res, next) => {
 // ----------------------------------------
 // Routes
 // ----------------------------------------
-var usersRoutes = require('./routers/users');
-app.use('/', usersRoutes);
+const posts = require('./routers/posts');
+app.use('/', posts);
+
+const users = require('./routers/users');
+app.use('/users', users);
+
+// is there a way to split routes between
+// files without overwriting a previous route?
+// aka could i use '/' for sessions and 
+// just put different routes in the other file
+const sessions = require('./routers/sessions');
+app.use('/sessions', sessions);
+
+
 
 // ----------------------------------------
 // Template Engine

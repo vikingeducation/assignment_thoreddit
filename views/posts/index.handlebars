@@ -1,0 +1,15 @@
+<h1>Posts</h1>
+
+{{#if posts.length}}
+   <div class="post-box">
+      {{#each posts as |post|}}
+         <h2>{{post.rating}}</h2>
+         <h3>{{post.title}}</h3>
+         <p>{{post.text}}</p>
+      {{/each}}
+   </div>
+{{/if}}
+
+{{#else}}
+   <p>No Posts</p>
+{{/else}}
