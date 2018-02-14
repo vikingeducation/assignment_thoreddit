@@ -23,6 +23,7 @@
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
     "express-method-override-get-post-support": "^1.0.1",
+    "express-session": "^1.15.6",
     "method-override": "^2.3.10",
     "mongoose": "^5.0.4",
     "mongooseeder": "^2.0.6",

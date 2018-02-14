@@ -7,24 +7,48 @@ const User = models.User;
 // LOG IN
 // GET log in form
 router.get('/login', (req, res) => {
-   let session = req.session;
-   console.log(session);
-   res.render('sessions/login');
+   if (req.session.databaseId) {
+      res.redirect('/');
+   } else {
+      res.render('sessions/login');
+   }
+   
 });
 
 // POST log in form information
 router.post('/login', (req, res) => {
-   let session = req.session;
-   console.log(session);
-   // confirm that user information is correct
-   // redirect to main index
-   res.redirect('/');
+   if (req.session.databaseId) {
+      console.log(req.session.databaseId);
+      res.redirect('/');
+   } else {
+      console.log(req.session.databaseId);
+      let username = req.body.user.username;
+      let email = req.body.user.email;
+
+      // confirm that user information is correct
+      User.findOne({ "username": username, "email": email }, (err, user) => {
+         if (err) {
+            // Add some sort of error message
+            res.redirect('/sessions/login');
+            res.status(200).send(err);
+         }
+         // getting error that ._id is null - not sure why if (err) above isn't catching it
+         // is it okay to save database variable in session?
+         req.session.databaseId = user._id || [];
+
+         // redirect to main index
+         res.redirect('/');
+      });
+   }
+
+   
 });
 
 // Log out given user
 router.get('/logout', (req, res) => {
    // remove session information
-   res.redirect('/login');
+   req.session.databaseId = null;
+   res.redirect('/sessions/login');
 });
 
 

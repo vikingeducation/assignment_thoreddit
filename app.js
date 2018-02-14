@@ -24,18 +24,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // ----------------------------------------
 // Sessions/Cookies
 // ----------------------------------------
-var cookieSession = require('cookie-session');
+const session = require("express-session");
 
-app.use(cookieSession({
-  name: 'session',
-  keys: ['h8ipk2jeksks']
-}));
-
-app.use((req, res, next) => {
-  res.locals.session = req.session;
-  res.locals.currentUser = req.session.currentUser;
-  next();
-});
+app.use(
+  session({
+    secret: "123456",
+    resave: false,
+    saveUninitialized: true
+  })
+);
 
 
 // ----------------------------------------
