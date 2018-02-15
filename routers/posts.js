@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
       res.redirect('/sessions/login');
    } else {
       Post.find()
-      .limit(10)
+      .limit(20)
       .then((posts) => {
          res.render('posts/index', { posts });
       });
@@ -39,28 +39,26 @@ router.post('/new', (req, res) => {
       author: _id
    };
    
-   Post.create(newPost).then(function(err, post) {
-      if (err) {
-         res.redirect('/');
-         throw new Error;
-      } else {
-         // save new post to User model
-         User.findById(_id, function(err, user) {
-            if (err) {
-               console.log(err);
-               res.status(500).send(err);
-            }
-            else {
-               // user.posts.push(newPost);
-               user.save(function(err) {
-                  if (err) {
-                     res.status(500).send(err);
-                  }
-               });
-            }
-         });
-      }
-   });
+   Post.create(newPost)
+   .then((post) => {
+      // Save new post to User model
+      User.findById(post.author)
+      .then((user) => {
+         let currentPosts = user.posts || [];
+         currentPosts.push(post._id);
+         console.log('Current posts: ' + currentPosts);
+         // Not sure {posts: currentPosts} is exactly right
+         User.findByIdAndUpdate(user._id, { posts: currentPosts })
+         .then((user) => {
+            console.log(user);
+            res.redirect('/');
+         })
+         .catch((e) => res.status(500).send(e.stack));
+      })
+      .catch((e) => res.status(500).send(e.stack));
+   }) 
+   .catch((e) => res.status(500).send(e.stack));
+  
 });
 
 module.exports = router;

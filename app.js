@@ -84,7 +84,8 @@ app.use('/users', users);
 const sessions = require('./routers/sessions');
 app.use('/sessions', sessions);
 
-
+const comments = require('./routers/comments');
+app.use('/comments', comments);
 
 // ----------------------------------------
 // Template Engine

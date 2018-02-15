@@ -18,30 +18,23 @@ router.get('/login', (req, res) => {
 // POST log in form information
 router.post('/login', (req, res) => {
    if (req.session.databaseId) {
-      console.log(req.session.databaseId);
       res.redirect('/');
    } else {
-      console.log(req.session.databaseId);
       let username = req.body.user.username;
       let email = req.body.user.email;
 
       // confirm that user information is correct
-      User.findOne({ "username": username, "email": email }, (err, user) => {
-         if (err) {
-            // Add some sort of error message
-            res.redirect('/sessions/login');
-            res.status(200).send(err);
-         }
-         // getting error that ._id is null - not sure why if (err) above isn't catching it
-         // is it okay to save database variable in session?
-         req.session.databaseId = user._id || [];
-
-         // redirect to main index
+      User.findOne({ "username": username, "email": email })
+      .then((user) => {
+         req.session.databaseId = JSON.stringify(user._id).slice(1, -1);
          res.redirect('/');
+      })
+      .catch((e) => {
+         // change to error for user
+         console.log("Incorrect username or email, please try again.");
+         res.status(500).send(e.stack);
       });
    }
-
-   
 });
 
 // Log out given user
