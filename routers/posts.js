@@ -13,9 +13,11 @@ router.get('/', (req, res) => {
       Post.find()
       .limit(20)
       .populate('author')
+      .populate('comments')
       .sort({ createdAt: -1 })
       .then((posts) => {
          posts.forEach((post) => {
+            console.log(post);
             if (post.author[0]) {
                post.displayUsername = post.author[0].username;
             }

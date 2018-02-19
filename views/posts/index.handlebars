@@ -26,9 +26,15 @@
                <hr>
                <p>{{post.text}}</p>
                <div class="comment-link">
-                  <a href="/comments/new/{{post._id}}">Comment on this post</a>
+                  <a href="/comments/new/{{post._id}}/post">Comment on this post</a>
                </div>
             </div>
+         </div>
+
+         <div class="comment-box">
+            {{#if post.comments}}
+               
+            {{/if}}
          </div>
       {{/each}}
    </div>

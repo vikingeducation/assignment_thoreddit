@@ -1,9 +1,10 @@
 <h1>New Comment</h1>
 
-<form action="/new" method="POST">
+<form action="/comments/new/{{id}}" method="POST">
    <div class="form-group">
-      <p></p>
-      <input type="text" class="form-control" name="post[text]" id="text" placeholder="Text">
+      <h5>Original Message</h5>
+      <p>{{parent.text}}</p>
+      <input type="text" class="form-control" name="comment[text]" id="text" placeholder="Your Comment">
    </div>
 
    <div class="form-group">

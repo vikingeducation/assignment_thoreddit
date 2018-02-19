@@ -3,7 +3,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// add a parent property? 
 const CommentSchema = new Schema({
    text: String,
    rating: Number,
