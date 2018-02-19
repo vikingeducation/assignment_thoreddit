@@ -1,16 +1,33 @@
-<h1>Posts</h1>
-<div class="form-group">
-   <input type="submit" class="btn btn-primary" text="New Post">
+<div class="row">
+   <h1 class="col-sm-8 posts-header">Posts</h1>
+   <button class="btn btn-primary col-sm-4" type="button">New Post</button>
 </div>
+
 {{#if posts.length}}
-   <div class="post-box">
+   <div class="all-posts">
       {{#each posts as |post|}}
-         <a>Upvote</a>
-         <a>Downvote</a>
-         <h2>{{post.rating}}</h2>
-         <h3>{{post.title}}</h3>
-         <p>{{post.text}}</p>
-         <a href="/comments/new/{{post._id}}">Comment on this post</a>
+         <div class="row post-box">
+            <div class="vote col-3">
+               <div class="row">
+                  <div class="col">
+                     <h3>{{post.rating}}</h2>
+                  </div>
+                  <div class="vote-links col">
+                     <a href="#">Upvote</a>
+                     <br>
+                     <a href="#">Downvote</a>
+                  </div>
+               </div>
+            </div>
+         
+            <div class="post-content col-9">
+               <h3>{{post.title}}</h3>
+               <p>{{post.text}}</p>
+               <div class="comment-link">
+                  <a href="/comments/new/{{post._id}}">Comment on this post</a>
+               </div>
+            </div>
+         </div>
       {{/each}}
    </div>
 {{/if}}

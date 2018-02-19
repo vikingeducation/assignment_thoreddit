@@ -8,8 +8,29 @@ const Comment = mongoose.model('Comment');
 
 // Form for creating a comment
 router.get('/new/:id', (req, res) => {
-   
+   let id = req.params.id;
    res.render('comments/new', {});
+});
+
+// Save new comment
+router.post('/new/:id', (req, res) => {
+   let parentId = req.params.id;
+
+
+   
+
+   let commentParams = {
+      text: req.body.post.text,
+      rating: 0,
+      // author: ??
+      comments: []
+   };
+
+   Comment.create(commentParams)
+   .then((comment) => {
+
+   })
+
 });
 
 module.exports = router;

@@ -11,5 +11,6 @@ var models = {};
 models.User = require('./user');
 models.Comment = require('./comment');
 models.Post = require('./post');
+// models.Ratable = require('./ratable');
 
 module.exports = models;

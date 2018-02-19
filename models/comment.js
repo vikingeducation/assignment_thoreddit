@@ -1,6 +1,9 @@
+// const Ratable = require('./ratable');
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// add a parent property? 
 const CommentSchema = new Schema({
    text: String,
    rating: Number,
@@ -13,7 +16,8 @@ const CommentSchema = new Schema({
       ref: 'Comment'
    }]
 }, {
-   timestamps: true
+   timestamps: true,
+   // discriminatorKey: 'kind'
 });
 
 const Comment = mongoose.model('Comment', CommentSchema);

@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
    } else {
       Post.find()
       .limit(20)
+      .sort({ createdAt: 1 })
       .then((posts) => {
          res.render('posts/index', { posts });
       });

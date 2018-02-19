@@ -1,0 +1,56 @@
+.navbar {
+   vertical-align: middle;
+   border-bottom: solid 2px black;
+   margin-bottom: 5px
+}
+
+.navbar-right{
+   text-align: right
+}
+
+.posts-header {
+   text-align: center
+}
+
+.vote-links {
+   font-size: 10px;
+}
+
+.post-box {
+   margin: 5px 0px 5px 0px;
+   background-color: lightgray;
+   border: solid 1px black;
+
+}
+
+.post-box h3 {
+   margin: 5px 0px 5px 0px
+}
+
+.vote {
+   display: flex;
+   justify-content: center;
+   align-items: center
+}
+
+.comment-link a {
+   text-align: right;
+   font-size: 11px
+}
+
+li {
+   list-style: none
+}
+
+.post-content p {
+   margin-bottom: 0
+}
+
+@media (min-width: 576px) {
+   .posts-header {
+      text-align: left
+   }
+}
+
+
+
