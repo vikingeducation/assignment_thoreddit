@@ -12,19 +12,28 @@
    text-align: center
 }
 
+.new-post {
+   width: 100%
+}
+
 .vote-links {
    font-size: 10px;
 }
 
 .post-box {
-   margin: 5px 0px 5px 0px;
+   margin: 5px 0px 0px 0px;
    background-color: lightgray;
    border: solid 1px black;
 
 }
 
 .post-box h3 {
-   margin: 5px 0px 5px 0px
+   margin: 5px 0px 0px 0px
+}
+
+.post-author {
+   font-style: italic;
+   font-size: 12px;
 }
 
 .vote {
@@ -43,7 +52,11 @@ li {
 }
 
 .post-content p {
-   margin-bottom: 0
+   margin-bottom: 0px 
+}
+
+.post-content hr {
+   margin: 5px 0px 5px 0px;
 }
 
 @media (min-width: 576px) {

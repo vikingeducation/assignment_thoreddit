@@ -12,8 +12,14 @@ router.get('/', (req, res) => {
    } else {
       Post.find()
       .limit(20)
-      .sort({ createdAt: 1 })
+      .populate('author')
+      .sort({ createdAt: -1 })
       .then((posts) => {
+         posts.forEach((post) => {
+            if (post.author[0]) {
+               post.displayUsername = post.author[0].username;
+            }
+         });
          res.render('posts/index', { posts });
       });
    }
@@ -43,23 +49,17 @@ router.post('/new', (req, res) => {
    Post.create(newPost)
    .then((post) => {
       // Save new post to User model
-      User.findById(post.author)
-      .then((user) => {
-         let currentPosts = user.posts || [];
-         currentPosts.push(post._id);
-         console.log('Current posts: ' + currentPosts);
-         // Not sure {posts: currentPosts} is exactly right
-         User.findByIdAndUpdate(user._id, { posts: currentPosts })
-         .then((user) => {
-            console.log(user);
-            res.redirect('/');
-         })
-         .catch((e) => res.status(500).send(e.stack));
-      })
-      .catch((e) => res.status(500).send(e.stack));
-   }) 
+      return User.findById(post.author);
+   })
+   .then((user) => {
+      let currentPosts = user.posts || [];
+      currentPosts.push(post._id);
+      return User.findByIdAndUpdate(user._id, { posts: currentPosts });
+   })
+   .then((user) => {
+      res.redirect('/');
+   })
    .catch((e) => res.status(500).send(e.stack));
-  
 });
 
 module.exports = router;

@@ -1,6 +1,6 @@
 <div class="row">
    <h1 class="col-sm-8 posts-header">Posts</h1>
-   <button class="btn btn-primary col-sm-4" type="button">New Post</button>
+   <a href="/new" class="col-sm-4"><button class="btn btn-primary new-post" type="button">New Post</button></a>
 </div>
 
 {{#if posts.length}}
@@ -22,6 +22,8 @@
          
             <div class="post-content col-9">
                <h3>{{post.title}}</h3>
+               <p class="post-author">post by {{post.displayUsername}}</p>
+               <hr>
                <p>{{post.text}}</p>
                <div class="comment-link">
                   <a href="/comments/new/{{post._id}}">Comment on this post</a>

@@ -15,6 +15,7 @@ router.get('/new/:id', (req, res) => {
 // Save new comment
 router.post('/new/:id', (req, res) => {
    let parentId = req.params.id;
+   let authorId = req.session.databaseId;
 
 
    
@@ -22,7 +23,7 @@ router.post('/new/:id', (req, res) => {
    let commentParams = {
       text: req.body.post.text,
       rating: 0,
-      // author: ??
+      author: authorId,
       comments: []
    };
 
