@@ -16,10 +16,16 @@ router.get('/', (req, res) => {
       .populate('comments')
       .sort({ createdAt: -1 })
       .then((posts) => {
+         // extract author and comments
+         // from mongo population
          posts.forEach((post) => {
-            console.log(post);
             if (post.author[0]) {
                post.displayUsername = post.author[0].username;
+            }
+
+            if (post.comments[0]) {
+               post.allComments = post.comments;
+               console.log("post.allComments: " + post.allComments);
             }
          });
          res.render('posts/index', { posts });
