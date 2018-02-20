@@ -1,12 +1,9 @@
-// const Ratable = require('./ratable');
-
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const PostSchema = new Schema({
    title: String,
    text: String,
-   rating: Number,
    author: [{
       type: Schema.Types.ObjectId,
       ref: 'User'
@@ -16,8 +13,7 @@ const PostSchema = new Schema({
       ref: 'Comment'
    }]
 }, {
-   timestamps: true,
-   discriminatorKey: 'kind'
+   timestamps: true
 });
 
 // PostSchema.statics.handleVotes = function()

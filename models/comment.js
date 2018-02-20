@@ -1,11 +1,8 @@
-// const Ratable = require('./ratable');
-
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const CommentSchema = new Schema({
    text: String,
-   rating: Number,
    author: [{
       type: Schema.Types.ObjectId,
       ref: 'User'
@@ -15,8 +12,7 @@ const CommentSchema = new Schema({
       ref: 'Comment'
    }]
 }, {
-   timestamps: true,
-   // discriminatorKey: 'kind'
+   timestamps: true
 });
 
 const Comment = mongoose.model('Comment', CommentSchema);

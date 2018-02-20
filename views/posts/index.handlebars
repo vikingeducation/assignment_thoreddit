@@ -32,11 +32,12 @@
             </div>
          </div>
 
+
+
          <div class="comment-box row">
             <div class="container"> 
                {{#each this.displayComments}}
                   <div class="row comment-row">  
-                         
                      <div class="comment-rating-box offset-1 col-3 d-flex">
                         <div class="row">
                            <div class="comment-rating col d-flex">
@@ -50,7 +51,7 @@
                      </div>
                      <div class="comment-content col-7 d-flex row">
                         <div class="comment-author col-12">
-                           <p>comment by {{this.author}}</p>
+                           <p>comment by {{this.displayUsername}}</p>
                         </div>
                         <hr class="col-12">
                         <div class="comment-text col-12">
@@ -63,11 +64,12 @@
                   
             {{!-- for each comment, display comments --}}
             </div>
+            {{!-- end this.displayComments each --}}
             {{/each}}
             </div>
          </div>
+      </div>
       {{/each}}
-   </div>
 {{/if}}
 
 {{#else}}

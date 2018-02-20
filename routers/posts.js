@@ -13,23 +13,36 @@ router.get('/', (req, res) => {
       Post.find()
       .limit(20)
       .populate('author')
-      .populate('comments')
+      .populate({
+          path: 'comments',
+          populate: { path: 'author' }
+      })
       .sort({ createdAt: -1 })
       .then((posts) => {
-         // extract author and comments
-         // from mongo population
+         // get author's name for each POST
          posts.forEach((post) => {
             if (post.author[0]) {
                post.displayUsername = post.author[0].username;
             }
 
-            if (post.comments[0]) {
-               post.allComments = post.comments;
-               console.log("post.allComments: " + post.allComments);
-            }
+            // console.log(`Post.comments: ${post.comments}`);
+            // retrieve comments for each post
+            post.displayComments = [];
+            
+            post.comments.forEach((comment) => {
+               
+                  
+               // retrieve comment info and author username
+               if (comment) {
+                  comment.displayUsername = comment.author[0].username;
+                  post.displayComments.push(comment);
+               };
+            });
          });
+
          res.render('posts/index', { posts });
-      });
+      })
+      .catch((e) => res.status(500).send(e.stack));
    }
 });
 
