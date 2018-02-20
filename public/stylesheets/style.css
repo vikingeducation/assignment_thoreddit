@@ -18,10 +18,11 @@
 
 .vote-links {
    font-size: 10px;
+   align-items: middle
 }
 
 .post-box {
-   margin: 5px 0px 0px 0px;
+   margin: 5px 0px 5px 0px;
    background-color: lightgray;
    border: solid 1px black;
 
@@ -37,9 +38,13 @@
 }
 
 .vote {
-   display: flex;
-   justify-content: center;
-   align-items: center
+   align-items: center;
+   justify-content: center
+}
+
+.comment-rating-box {
+   align-items: center;
+   justify-content: center
 }
 
 .comment-link a {
@@ -51,12 +56,56 @@ li {
    list-style: none
 }
 
+.post-content {
+   padding: 5px;
+}
+
 .post-content p {
    margin-bottom: 0px 
 }
 
 .post-content hr {
    margin: 5px 0px 5px 0px;
+   width: 95%;
+}
+
+.comment-vote {
+   font-size: 10px
+}
+
+.comment-content {
+   margin: 5px 0px 5px 0px;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.comment-text {
+   margin: auto;
+}
+
+.comment-text p {
+   margin-bottom: 0px;
+}
+
+.comment-author {
+   font-size: 11px;
+   font-style: italic;
+   margin-bottom: 0px;
+}
+
+.comment-author p {
+   margin-bottom: 0px;
+}
+
+.comment-content hr {
+   margin: 5px 0px 5px 0px;
+}
+
+.comment-row {
+   margin: 5px 0px 5px 0px;
+   background-color: lightsteelblue;
+   border: white 1px solid;
+   border-radius: 30px;
 }
 
 @media (min-width: 576px) {

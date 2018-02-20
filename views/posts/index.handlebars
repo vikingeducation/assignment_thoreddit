@@ -6,19 +6,20 @@
 {{#if posts.length}}
    <div class="all-posts">
       {{#each posts as |post|}}
-         <div class="row post-box">
-            <div class="vote col-3">
-               <div class="row">
-                  <div class="col">
-                     <h3>{{post.rating}}</h2>
-                  </div>
-                  <div class="vote-links col">
-                     <a href="#">Upvote</a>
-                     <br>
-                     <a href="#">Downvote</a>
+         <div class="post-box">
+            <div class="row">
+               <div class="vote col-3 d-flex">
+                  <div class="row">
+                     <div class="col">
+                        <h3>{{post.rating}}</h2>
+                     </div>
+                     <div class="vote-links col">
+                        <a href="#">Upvote</a>
+                        <br>
+                        <a href="#">Downvote</a>
+                     </div>
                   </div>
                </div>
-            </div>
          
             <div class="post-content col-9">
                <h3>{{post.title}}</h3>
@@ -31,10 +32,39 @@
             </div>
          </div>
 
-         <div class="comment-box">
-            {{#if post.comments}}
-               
-            {{/if}}
+         <div class="comment-box row">
+            <div class="container"> 
+               {{#each this.displayComments}}
+                  <div class="row comment-row">  
+                         
+                     <div class="comment-rating-box offset-1 col-3 d-flex">
+                        <div class="row">
+                           <div class="comment-rating col d-flex">
+                              <h4>{{this.rating}}</h4>
+                           </div>
+                           <div class="comment-vote col">
+                              <a href="#">Upvote</a>
+                              <a href="#">Downvote</a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="comment-content col-7 d-flex row">
+                        <div class="comment-author col-12">
+                           <p>comment by {{this.author}}</p>
+                        </div>
+                        <hr class="col-12">
+                        <div class="comment-text col-12">
+                           <p>{{this.text}}</p>
+                        </div>
+                        <div class="comment-link">
+                           <a href="">Comment on this comment</a>
+                        </div>
+                     </div>
+                  
+            {{!-- for each comment, display comments --}}
+            </div>
+            {{/each}}
+            </div>
          </div>
       {{/each}}
    </div>
