@@ -11,78 +11,128 @@
                <div class="vote col-3 d-flex">
                   <div class="row">
                      <div class="col">
-                        <h3>{{post.rating}}</h2>
+                        <h3>{{post.rating}}0</h2>
                      </div>
                      <div class="vote-links col">
                         <a href="#">Upvote</a>
                         <br>
                         <a href="#">Downvote</a>
                      </div>
+                  {{!-- closes row --}}
                   </div>
+               {{!-- closes vote  --}}
                </div>
          
-            <div class="post-content col-9">
-               <h3>{{post.title}}</h3>
-               <p class="post-author">post by {{post.displayUsername}}</p>
-               <hr>
-               <p>{{post.text}}</p>
-               <div class="comment-link">
-                  <a href="/comments/new/{{post._id}}/post">Comment on this post</a>
-               </div>
-            </div>
-         </div>
-
-
-
-         <div class="comment-box row">
-            <div class="container"> 
-               {{!-- display PARENT COMMENTS --}}
-               {{#each this.displayComments}}
-                  <div class="row comment-row">  
-                     <div class="comment-rating-box offset-1 col-3 d-flex">
-                        <div class="row">
-                           <div class="comment-rating col d-flex">
-                              <h4>{{this.rating}}</h4>
-                           </div>
-                           <div class="comment-vote col">
-                              <a href="#">Upvote</a>
-                              <a href="#">Downvote</a>
-                           </div>
+					<div class="post-content col-9">
+						<h3>{{post.title}}</h3>
+						<p class="post-author">post by {{post.displayUsername}}</p>
+						<hr>
+						<p>{{post.text}}</p>
+						<div class="comment-link">
+							<a href="/comments/new/{{post._id}}/post">Comment on this post</a>
+						</div>
+					</div>
+				{{!-- ends row --}}
+				</div>
+         
+			
+			{{!-- display PARENT COMMENTS --}}
+			{{#each this.displayComments}}
+				<div class="comment-box">
+					<div class="container"> 
+							<div class="row">  
+								<div class="comment-row col-12">
+									<div class="row">
+										<div class="comment-rating-box offset-1 col-3 d-flex">
+											<div class="comment-rating col d-flex">
+												<h4>{{this.rating}}0</h4>
+											</div>
+											<div class="comment-vote col">
+												<a href="#">Upvote</a>
+												<a href="#">Downvote</a>
+											</div>
+                              </div>
+                     
+                     
+                              {{!-- parent comment content --}}
+                              <div class="comment-content col-8 d-flex row">
+											<div class="comment-author col-12">
+												<p>comment by {{this.displayUsername}}</p>
+											</div>
+											<hr class="col-11">
+											<div class="comment-text col-12">
+												<p>{{this.text}}</p>
+											</div>
+											<div class="comment-link col-12">
+												<a href="/comments/new/{{this._id}}/comment">Comment on this comment</a>
+											</div>
+                              </div>
+									{{!-- closes row --}}
+									</div>
+                        {{!-- closes comment-row --}}
                         </div>
-                     </div>
-
-                     {{!-- parent comment content --}}
-                     <div class="comment-content col-7 d-flex row">
-                        <div class="comment-author col-12">
-                           <p>comment by {{this.displayUsername}}</p>
-                        </div>
-                        <hr class="col-12">
-                        <div class="comment-text col-12">
-                           <p>{{this.text}}</p>
-                        </div>
-                        <div class="comment-link">
-                           <a href="/comments/new/{{this._id}}/comment">Comment on this comment</a>
-                        </div>
-                     </div>
-                  
-            {{!-- for each comment, display comments --}}
-            {{#each this.comments}}
-               {{this.rating}}
-               {{this.text}}
-               {{this.displayUsername}}
-            {{/each}}
-
-            {{!-- end div class "row comment-row" --}}
-            </div>
-            {{!-- end parent comments - this.displayComments each --}}
-            {{/each}}
-            {{!-- end div class "container" --}}
-            </div>
-         {{!-- end div class "comment-box row" --}}
-         </div>
-      {{!-- end class "post-box" --}}
+							{{!-- closes row --}}
+							</div>
+						{{!-- closes container --}}
+						</div>
+      {{!-- closes comment-box --}}
       </div>
-      {{/each}}
+
+		
+      {{!-- child comment content --}}
+      {{#each this.comments}}
+            <div class="row">
+                  <div class="nested-comment col-12">
+							<div class="row">
+                        <div class="nested-comment-rating-box offset-2 col-3 d-flex">
+										<div class="container">
+											<div class="row">
+												<div class="nested-comment-rating col">
+														<h4>{{this.rating}}0</h4>
+												</div>
+												<div class="nested-comment-vote col">
+														<a href="#">Upvote</a>
+														<a href="#">Downvote</a>
+												</div>
+											</div>
+										</div>
+                        </div>
+                        <div class="col-7 nested-comment-area">
+                              <div class="container">
+											<div class="nested-comment-content">
+													<div class="row">
+															<div class="nested-comment-author col-12">
+																	<p>comment by {{this.displayUsername}}</p>
+															</div>
+													</div>
+													<div class="row">
+															<hr class="col-10">
+													</div>
+													<div class="row">
+															<div class="nested-comment-text col-12">
+																	{{this.text}}
+															</div>
+													</div>
+											</div>
+                           </div>
+                        {{!-- closes nested-comment-area --}}
+                        </div>
+							{{!-- closes row --}}
+							</div>
+                  {{!-- closes nested-comment --}}
+                  </div>
+            {{!-- closes row --}}
+            </div>
+      {{!-- closes child comment --}}
+      {{/each}}                 
+{{!-- end parent comments - this.displayComments each --}}
+{{/each}}
+      {{!-- end div class "post-box" --}}
+      </div>
+{{!-- ends posts --}}
+{{/each}}
+      {{!-- end div class "all-posts" --}}
+      </div>
 {{/if}}
 
 {{#else}}

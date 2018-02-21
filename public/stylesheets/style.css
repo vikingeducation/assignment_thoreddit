@@ -1,7 +1,16 @@
+body {
+   background-color: rgba(128, 172, 236, 0.72);
+   background-image: url("https://www.transparenttextures.com/patterns/45-degree-fabric-dark.png");
+}
+
 .navbar {
    vertical-align: middle;
    border-bottom: solid 2px black;
-   margin-bottom: 5px
+   margin-bottom: 5px;
+}
+
+.navbar a {
+   color: #00049a;
 }
 
 .navbar-right{
@@ -23,7 +32,7 @@
 
 .post-box {
    margin: 5px 0px 5px 0px;
-   background-color: lightgray;
+   background-color: #e6e6e68c;
    border: solid 1px black;
    border-radius: 30px;
 
@@ -99,15 +108,54 @@ li {
 }
 
 .comment-content hr {
-   margin: 5px 0px 5px 0px;
+   margin: 0px 0px 0px 0px;
 }
 
 .comment-row {
    margin: 5px 0px 5px 0px;
-   background-color: lightsteelblue;
+   /* background-color: lightsteelblue;
    border: white 1px solid;
-   border-radius: 30px;
+   border-radius: 30px; */
 }
+
+.comment-box .container {
+   width: auto;
+}
+
+.nested-comment-rating-box {
+   align-items: center;
+   justify-content: center;
+   margin-right: 0px;
+}
+
+.nested-comment-vote {
+   font-size: 10px
+}
+
+.nested-comment-content {
+   margin: 5px 0px 5px 0px;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.nested-comment-author {
+   font-size: 11px;
+   font-style: italic
+}
+
+.nested-comment-author p {
+   margin-bottom: 0px;
+}
+
+.nested-comment-content hr {
+   margin: 0px 0px 0px 0px;
+}
+
+.nested-comment-area {
+   margin: 5px 0px 5px 0px;
+}
+
+
 
 @media (min-width: 576px) {
    .posts-header {
