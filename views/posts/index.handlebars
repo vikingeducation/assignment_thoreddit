@@ -36,6 +36,7 @@
 
          <div class="comment-box row">
             <div class="container"> 
+               {{!-- display PARENT COMMENTS --}}
                {{#each this.displayComments}}
                   <div class="row comment-row">  
                      <div class="comment-rating-box offset-1 col-3 d-flex">
@@ -49,6 +50,8 @@
                            </div>
                         </div>
                      </div>
+
+                     {{!-- parent comment content --}}
                      <div class="comment-content col-7 d-flex row">
                         <div class="comment-author col-12">
                            <p>comment by {{this.displayUsername}}</p>
@@ -58,16 +61,26 @@
                            <p>{{this.text}}</p>
                         </div>
                         <div class="comment-link">
-                           <a href="">Comment on this comment</a>
+                           <a href="/comments/new/{{this._id}}/comment">Comment on this comment</a>
                         </div>
                      </div>
                   
             {{!-- for each comment, display comments --}}
-            </div>
-            {{!-- end this.displayComments each --}}
+            {{#each this.comments}}
+               {{this.rating}}
+               {{this.text}}
+               {{this.displayUsername}}
             {{/each}}
+
+            {{!-- end div class "row comment-row" --}}
             </div>
+            {{!-- end parent comments - this.displayComments each --}}
+            {{/each}}
+            {{!-- end div class "container" --}}
+            </div>
+         {{!-- end div class "comment-box row" --}}
          </div>
+      {{!-- end class "post-box" --}}
       </div>
       {{/each}}
 {{/if}}

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 const PostSchema = new Schema({
    title: String,
@@ -17,6 +18,7 @@ const PostSchema = new Schema({
 });
 
 // PostSchema.statics.handleVotes = function()
+PostSchema.plugin(deepPopulate);
 
 const Post = mongoose.model('Post', PostSchema);
 

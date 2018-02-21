@@ -52,22 +52,47 @@ router.post('/new/:id/:type', (req, res) => {
          return Post.findById(parentId);
       });
    
-      return Promise.all([newComment, parentPost]).then(([comment, post]) => {
+      return Promise.all([newComment, parentPost])
+      .then(([comment, post]) => {
          let currentPostComments = post.comments || [];
          currentPostComments.push(comment._id);
    
          return Post.findByIdAndUpdate(post._id, { comments: currentPostComments });
       })
       .then((post) => {
-         // retrieve comment author and update from post comments
-         // not great from a modular perspective
          console.log('Updated post' + post);
-         return User.findByIdAndUpdate(commentParams.author,
-         { comments: post.comments });
-         
+         res.redirect('/');
       })
-      .then((user) => {
-         console.log('Updated user: ' + user);
+      // .then((post) => {
+      //    
+      //    return User.findById(commentParams.author);
+      // })
+      // .then((user) => {
+      //    let currentUserComments = user.comments || [];
+      //    currentUserComments.push(comment._id)
+
+      //    console.log('Updated user: ' + user);
+      //    res.redirect('/');
+      // })
+      .catch((e) => res.status(500).send(e.stack));
+   // closes saveCommentToPost
+   };
+
+   const saveCommentToComment = (commentParams) => {
+      let newComment = Comment.create(commentParams);
+      let parentComment = newComment.then((comment) => {
+         return Comment.findById(parentId);
+      });
+
+      return Promise.all([newComment, parentComment])
+      .then(([ comment, parentComment ]) => {
+         let currentCommentComments = parentComment.comments || [];
+         currentCommentComments.push(comment._id);
+
+         return Comment.findByIdAndUpdate(parentComment._id, { comments: currentCommentComments })
+      })
+      .then((comment) => {
+         console.log('Updated parent comment' + comment);
          res.redirect('/');
       })
       .catch((e) => res.status(500).send(e.stack));
@@ -77,7 +102,7 @@ router.post('/new/:id/:type', (req, res) => {
       saveCommentToPost(commentParams);
    } 
    if (parentType === "comment") {
-      // saveCommentToComment()
+      saveCommentToComment(commentParams);
    }
 
 });

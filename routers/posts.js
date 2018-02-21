@@ -12,11 +12,7 @@ router.get('/', (req, res) => {
    } else {
       Post.find()
       .limit(20)
-      .populate('author')
-      .populate({
-          path: 'comments',
-          populate: { path: 'author' }
-      })
+      .deepPopulate('author comments comments.author comments.comments comments.comments.author' )
       .sort({ createdAt: -1 })
       .then((posts) => {
          // get author's name for each POST
@@ -26,16 +22,37 @@ router.get('/', (req, res) => {
             }
 
             // console.log(`Post.comments: ${post.comments}`);
-            // retrieve comments for each post
+            
+            
             post.displayComments = [];
             
+            // for each comment on a post
+            // retrieve comment info 
+            // (including nested comments)
             post.comments.forEach((comment) => {
-               
-                  
                // retrieve comment info and author username
                if (comment) {
+                  // unpack comment username in displayUsername for handlebars
                   comment.displayUsername = comment.author[0].username;
+                  // pushing full comment object here
                   post.displayComments.push(comment);
+                  // console.log(`displayComments: ${ post.displayComments }`);
+
+                  // initialize array of nested comments
+                  post.displayComments.displayCommentsComments = [];
+
+                  // if any comments have comments 
+                  // parse information
+                  if (comment.comments) {
+                     comment.comments.forEach((comment) => {
+                        comment.displayUsername = comment.author[0].username;
+
+                        post.displayComments.displayCommentsComments.push(comment);
+                        // console.log(`displayCommentsComments: ${ post.displayComments.displayCommentsComments }`);
+                     });
+                  }
+
+
                };
             });
          });
@@ -84,3 +101,10 @@ router.post('/new', (req, res) => {
 });
 
 module.exports = router;
+
+// .populate({
+//    path: 'comments',
+//    populate: { path: 'author',
+//                path: 'comments',
+//                populate: { path: 'comments' } }
+// })
