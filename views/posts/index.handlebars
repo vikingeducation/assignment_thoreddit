@@ -14,9 +14,9 @@
                         <h3>{{post.rating}}0</h2>
                      </div>
                      <div class="vote-links col">
-                        <a href="#">Upvote</a>
+                        <a href="votes/posts/{{post._id}}/up">Upvote</a>
                         <br>
-                        <a href="#">Downvote</a>
+                        <a href="votes/posts/{{post._id}}/down">Downvote</a>
                      </div>
                   {{!-- closes row --}}
                   </div>
@@ -48,8 +48,8 @@
 												<h4>{{this.rating}}0</h4>
 											</div>
 											<div class="comment-vote col">
-												<a href="#">Upvote</a>
-												<a href="#">Downvote</a>
+												<a href="/votes/comments/{{this._id}}/up">Upvote</a>
+												<a href="/votes/comments/{{this._id}}/down">Downvote</a>
 											</div>
                               </div>
                      
@@ -91,8 +91,8 @@
 														<h4>{{this.rating}}0</h4>
 												</div>
 												<div class="nested-comment-vote col">
-														<a href="#">Upvote</a>
-														<a href="#">Downvote</a>
+														<a href="/votes/comments/{{this._id}}/up">Upvote</a>
+														<a href="/votes/comments/{{this._id}}/down">Downvote</a>
 												</div>
 											</div>
 										</div>

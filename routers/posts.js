@@ -32,6 +32,7 @@ router.get('/', (req, res) => {
             post.comments.forEach((comment) => {
                // retrieve comment info and author username
                if (comment) {
+                  
                   // unpack comment username in displayUsername for handlebars
                   comment.displayUsername = comment.author[0].username;
                   // pushing full comment object here

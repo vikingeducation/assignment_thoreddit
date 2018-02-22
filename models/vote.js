@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const findOrCreate = require('mongoose-find-or-create');
 
 const VoteSchema = new Schema({
-   // 1 - Upvote, 0 - Downvote, null/undefined - No Vote
-   status: Number,
+   // 1 - Upvote, -1 - Downvote, 0 - No Vote
+   status: { type: Number, default: 0 },
    user: [{
       type: Schema.Types.ObjectId,
       ref: 'User'
@@ -13,6 +14,8 @@ const VoteSchema = new Schema({
 }, {
    timestamps: true
 });
+
+VoteSchema.plugin(findOrCreate);
 
 const Vote = mongoose.model('Vote', VoteSchema);
 

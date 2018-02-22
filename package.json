@@ -27,6 +27,7 @@
     "method-override": "^2.3.10",
     "mongoose": "^5.0.4",
     "mongoose-deep-populate": "^3.1.1",
+    "mongoose-find-or-create": "^1.3.1",
     "mongooseeder": "^2.0.6",
     "morgan": "^1.9.0"
   }
