@@ -1,0 +1,34 @@
+{
+  "name": "please_discuss",
+  "version": "1.0.0",
+  "description": "A reddit-like application.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaredjgebel/assignment_thoreddit.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaredjgebel/assignment_thoreddit/issues"
+  },
+  "homepage": "https://github.com/jaredjgebel/assignment_thoreddit#readme",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
+    "cookie-session": "^2.0.0-beta.3",
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "express-method-override-get-post-support": "^1.0.1",
+    "express-session": "^1.15.6",
+    "method-override": "^2.3.10",
+    "mongoose": "^5.0.4",
+    "mongoose-deep-populate": "^3.1.1",
+    "mongoose-find-or-create": "^1.3.1",
+    "mongooseeder": "^2.0.6",
+    "morgan": "^1.9.0"
+  }
+}

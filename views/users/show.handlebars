@@ -1,0 +1,23 @@
+<h1>User: {{user.username}}</h1>
+<br>
+<a href="/users/{{ user.id }}/edit">Edit</a>
+<a href="/users/{{user.id}}?_method=delete" class="btn btn-danger">Delete</a>
+
+<table>
+   <tr>
+      <th>First Name</th>
+      <td>{{user.fname}}</td>
+   </tr>
+   <tr>
+      <th>Last Name</th>
+      <td>{{user.lname}}</td>
+   </tr>
+   <tr>
+      <th>Username</th>
+      <td>{{user.username}}</td>
+   </tr>
+   <tr>
+      <th>Email</th>
+      <td>{{user.email}}</td>
+   </tr>
+</table>

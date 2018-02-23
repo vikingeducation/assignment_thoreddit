@@ -1,0 +1,167 @@
+body {
+   background-color: rgba(128, 172, 236, 0.72);
+   background-image: url("https://www.transparenttextures.com/patterns/45-degree-fabric-dark.png");
+}
+
+.navbar {
+   vertical-align: middle;
+   border-bottom: solid 2px black;
+   margin-bottom: 5px;
+}
+
+.navbar a {
+   color: #00049a;
+}
+
+.navbar-right{
+   text-align: right
+}
+
+.posts-header {
+   text-align: center
+}
+
+.new-post {
+   width: 100%
+}
+
+.vote-links {
+   font-size: 10px;
+   align-items: middle
+}
+
+.post-box {
+   margin: 5px 0px 5px 0px;
+   background-color: #e6e6e68c;
+   border: solid 1px black;
+   border-radius: 30px;
+
+}
+
+.post-box h3 {
+   margin: 5px 0px 0px 0px
+}
+
+.post-author {
+   font-style: italic;
+   font-size: 12px;
+}
+
+.vote {
+   align-items: center;
+   justify-content: center
+}
+
+.comment-rating-box {
+   align-items: center;
+   justify-content: center
+}
+
+.comment-link a {
+   text-align: right;
+   font-size: 11px
+}
+
+li {
+   list-style: none
+}
+
+.post-content {
+   padding: 5px;
+}
+
+.post-content p {
+   margin-bottom: 0px 
+}
+
+.post-content hr {
+   margin: 5px 0px 5px 0px;
+   width: 95%;
+}
+
+.comment-vote {
+   font-size: 10px
+}
+
+.comment-content {
+   margin: 5px 0px 5px 0px;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.comment-text {
+   margin: auto;
+}
+
+.comment-text p {
+   margin-bottom: 0px;
+}
+
+.comment-author {
+   font-size: 11px;
+   font-style: italic;
+   margin-bottom: 0px;
+}
+
+.comment-author p {
+   margin-bottom: 0px;
+}
+
+.comment-content hr {
+   margin: 0px 0px 0px 0px;
+}
+
+.comment-row {
+   margin: 5px 0px 5px 0px;
+   /* background-color: lightsteelblue;
+   border: white 1px solid;
+   border-radius: 30px; */
+}
+
+.comment-box .container {
+   width: auto;
+}
+
+.nested-comment-rating-box {
+   align-items: center;
+   justify-content: center;
+   margin-right: 0px;
+}
+
+.nested-comment-vote {
+   font-size: 10px
+}
+
+.nested-comment-content {
+   margin: 5px 0px 5px 0px;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.nested-comment-author {
+   font-size: 11px;
+   font-style: italic
+}
+
+.nested-comment-author p {
+   margin-bottom: 0px;
+}
+
+.nested-comment-content hr {
+   margin: 0px 0px 0px 0px;
+}
+
+.nested-comment-area {
+   margin: 5px 0px 5px 0px;
+}
+
+
+
+@media (min-width: 576px) {
+   .posts-header {
+      text-align: left
+   }
+}
+
+
+

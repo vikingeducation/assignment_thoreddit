@@ -1,2 +1,3 @@
-# assignment_thoreddit
-A social news web application for Viking thunder Gods
+Jared Gebel
+Please Discuss
+A reddit-like application using Express, Mongoose, and Handlebars.
