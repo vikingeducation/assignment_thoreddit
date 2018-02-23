@@ -61,11 +61,11 @@ router.get('/:type/:id/:status', (req, res) => {
              { comment: voteParams.parentId } ] } )
    .then(vote => {
       getNewStatus(voteParams, vote.status);
-
+      
       // vote properties - status, user, post, comment
-      if (voteParams.type === 'post') {
+      if (voteParams.type === 'posts') {
          voteParams.post = voteParams.parentId;
-      } else if (voteParams.type === 'comment') {
+      } else if (voteParams.type === 'comments') {
          voteParams.comment = voteParams.parentId;
       }
 
@@ -73,8 +73,17 @@ router.get('/:type/:id/:status', (req, res) => {
       delete voteParams.type;
       
       console.log(voteParams);
+      
+      return Vote.find( { 
+         $and : [
+           { user: voteParams.user },
+           { $or : [ 
+                     { post: voteParams.post },
+                     { comment: voteParams.comment } ] }
+         ] } );
+
+      // res.redirect('/');
       // if (vote) {
-      //    // res.redirect('/');
       // }
 
       // else {
@@ -85,6 +94,20 @@ router.get('/:type/:id/:status', (req, res) => {
       //    })
       //    .catch((e) => res.status(500).send(e.stack));
       // }
+   })
+   .then(vote => {
+      console.log('Vote: ' + vote);
+      if (vote) {
+         Vote.findByIdAndUpdate(vote._id)
+         .then(vote => {
+            console.log('Vote updated: ' + vote);
+         });
+      } else {
+         Vote.create({ voteParams })
+         .then(vote => {
+            console.log('New vote: ' + vote);
+         });
+      }
    })
    .catch((e) => res.status(500).send(e.stack));
 
@@ -112,10 +135,7 @@ router.get('/:type/:id/:status', (req, res) => {
 
    // console.dir(voteParams);
 
-   // Vote.findOrCreate(voteParams, (err, vote) => {
-   //    console.dir(vote.status);
-   //    res.redirect('/');
-   // });
+
    
    
    

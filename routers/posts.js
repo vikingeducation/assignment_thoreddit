@@ -81,7 +81,6 @@ router.post('/new', (req, res) => {
    let newPost = {
       title: post.title,
       text: post.text,
-      rating: 0,
       author: _id
    };
    
