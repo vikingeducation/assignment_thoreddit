@@ -1,0 +1,23 @@
+index.hbs
+ee
+<hr>
+
+<h2>Users</h2>
+
+<a href="/users/new">Create A New User</a>
+
+{{#if users.length}}
+  <ol>
+    {{#each users as |user|}}
+      <li>
+        {{user.fname}} {{user.lname}}
+        {{user.username}} {{user.email}}
+        <a href="/users/{{user.id}}">View</a>
+        <a href="/users/{{user.id}}/edit">Edit</a>
+        <a href="/users/{{user.id}}?_method=delete">Delete</a>
+      </li>
+    {{/each}}
+  </ol>
+{{else}}
+  NO USERS FOUND
+{{/if}}
