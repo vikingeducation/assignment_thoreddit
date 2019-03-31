@@ -1,0 +1,27 @@
+posts index.hbs
+<hr>
+
+<a href="/posts/new">Create a new Post</a>
+<hr>
+
+{{#if posts.length}}
+    <ul>
+      {{#each posts as |post|}}
+
+        <li>
+          <a href="/posts/{{post.id}}">View Post</a>
+            {{post.createdAt}}
+            {{post.updatedAt}}
+            {{post.title}}
+            {{post.body}}
+            {{post.user.username}}
+
+
+        </li>
+<br>
+      {{/each}}
+
+    </ul>
+{{else}}
+  <h2>No Posts Created</h2>
+{{/if}}

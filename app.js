@@ -63,6 +63,9 @@ app.set('view engine', 'handlebars');
 const userRouter = require('./routers/users');
 app.use('/', userRouter);
 
+const postRouter = require('./routers/posts');
+app.use('/posts', postRouter);
+
 // server
 var port = process.env.PORT ||
   process.argv[2] ||
