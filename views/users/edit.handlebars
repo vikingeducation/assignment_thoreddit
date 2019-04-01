@@ -1,0 +1,16 @@
+Edit User
+
+<form class="" action="/users/{{user.id}}" method="post">
+  <input type="hidden" name="_method" value="PUT">
+
+  first name:
+  <input type="text" name="firstname" value="{{user.fname}}"><br>
+  last name:
+  <input type="text" name="lastname" value="{{user.lname}}"><br>
+  username:
+  <input type="text" name="username" value="{{user.username}}"><br>
+  email:
+  <input type="text" name="email" value="user.email"><br>
+
+  <input type="submit" name="" value="Update">
+</form>
